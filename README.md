@@ -1,3 +1,0 @@
-# CoolBooks
-# cb
-# cb
