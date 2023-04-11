@@ -1,0 +1,53 @@
+CREATE TABLE `Userinfo` (
+  `UserInfoID` PK,
+  `Firstname` nvarchar(50),
+  `Lastname` nvarchar(50),
+  `Phone` nvarchar(250),
+  `Address` nvarchar(250),
+  `Created` DateTime,
+  `Role` nvarchar(50)
+);
+
+CREATE TABLE `Users` (
+  `UserID` PK,int,
+  `UserinfoID` FK,int,
+  `Email` nvarchar(50),
+  `PasswordHash` nvarchat(250),
+  `SecurityStamp` Nullable,nvarchar(250)
+);
+
+CREATE TABLE `Reviews` (
+  `ReviewID` PK,
+  `BookID` FK,INT,
+  `UserID` FK,INT,
+  `Title` nvarchar(250),
+  `Text` nvarchar(250),
+  `Rating` nvarchar(250),
+  `Created` DateTime
+);
+
+CREATE TABLE `Books` (
+  `BookID` PK,Int,
+  `UserID` FK,Int,
+  `AuthorID` FK,Int,
+  `GenreID` FK,Int,
+  `Title` nvarchar(250),
+  `Description` nvarchar(250),
+  `ISBN` nvarchar(250),
+  `Imagepath` nvarchar(250),
+  `IsDeleted` BIT,
+  `Created` DateTime
+);
+
+CREATE TABLE `Genres` (
+  `GenreID` PK,
+  `Name` nvarchar(250),
+  `Description` nvarchar(250)
+);
+
+CREATE TABLE `Authors` (
+  `AuthorID` PK,
+  `Firstname` nvarchar(250),
+  `Efternamn` nvarchar(250),
+  `Created` DateTime
+);

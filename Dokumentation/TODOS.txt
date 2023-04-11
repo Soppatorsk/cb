@@ -1,0 +1,2 @@
+* Ändra till auto increment i fluent syntax samt i DB
+(gör ny migration)

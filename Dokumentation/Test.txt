@@ -1,0 +1,11 @@
+Regler för CoolBooks Slutuppgift
+
+Variabler regler, namnen skall vara följande
+
+*Beskrivande 
+*andraBokstavenIVariablen skall vara Camelcase
+*Allt i engelska, även kommentarer
+*Vi kör alla namn med endast bokstäver
+
+
+--------------

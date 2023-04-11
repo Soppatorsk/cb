@@ -1,0 +1,87 @@
+1. As a user I want to the homepage to display random books with information. So I can see what it available and be inspired.
+3P.
+
+
+2. As a user I want to be able to login to the site. So I can make more actions.
+5P.
+
+3. As a user I want there to be a menu, in order for me to navigate.
+2P.
+
+
+4. As an admin I want to be able to add a book to the page. So the users can engage with even more content.
+5P.
+
+
+5. As a user I want there to be a header which displays the newest book. So I can see whatever.
+3P.
+
+
+6. As an admin I want the information displayed on the first page to be an image overlay slide (top to bottom). In order to save on screen real estate.
+3P.
+
+
+7. As an admin I want there to be the an extra menu item with the name of: Admin page
+2P.
+
+
+8. As a user I want to be able to rate a book.
+P3.
+
+
+9. As a user I want to be able to write a review of a book.
+3P.
+
+
+10. As an admin when I click the "Admin Page" I want there to be a nav-bar with options to edit Books, Authors, Genre and Reviews.
+3P.
+
+
+
+11. As an admin I want to have an add-button that takes me to a new page,  in order to add books, authors and genres.
+2P.
+
+
+
+12. As a user I want to be able to log out of my account.
+3P.
+
+
+13. As a system dev I want there to be a working database that will handle information.
+3P.
+
+
+14. As an admin I want to be able to add/update a new book. So that I can expande the service.
+3P.
+
+
+15. As an admin I want to be able to delete/update a user review.
+3P.
+
+
+16. As an admin I want to add/update an author. So that I can expande the service.
+3P.
+
+
+17. As an admin I want to add/update a genre. So that I can expande the service.
+3P.
+
+
+18. As an admin, when I click one of the edit buttons in the admin page, I want to be taken to an overview page.
+2P.
+
+19. As a user I want the book I am reviewing to show it's information. So I can make sure it's the right book.
+3P.
+
+20. As a user I want my nickname to be displayed while I'm writing the review.
+3P.
+
+21. As a user I want to be able to see the nick names of the users who have written reviews.
+3P.
+
+22. As an admin I want to be able to add and delete users. There will be a form for this. Admin1 cannot be deleted or updated.
+3P.
+
+
+
+

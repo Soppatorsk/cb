@@ -1,0 +1,12 @@
+Onsdag 5:e april
+
+Först har vi gjort en grov tankekarta över planeringsarbetet.
+Därefter kikade vi på databasmodellen som ligger uppe på Classroom och strukit över/ändrat i den. 
+Efter det gjorde vi en egen skräddarsydd modell av databasen.
+Vi har även påbörjat skrivandet av User Stories.
+
+Onsdag 6:e april
+
+Vi har fortsatt med User Stories och kört Planning Poker. Vi har tidsestimerat alla kort och prioriterat dem.
+Vi har lagt upp databasen samt samt skapat grunden för (kod)projektet.
+
