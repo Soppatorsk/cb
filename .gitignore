@@ -357,3 +357,4 @@ CB/CB/Data/Migrations/ApplicationDbContextModelSnapshot.cs
 CB/CB/Data/Migrations/00000000000000_CreateIdentitySchema.Designer.cs
 CB/CB/Data/Migrations/00000000000000_CreateIdentitySchema.cs
 code/Coolbooks/appsettings.json
+code/Coolbooks/appsettings.Development.json
