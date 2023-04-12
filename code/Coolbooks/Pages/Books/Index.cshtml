@@ -19,7 +19,7 @@
                 <td>@book.Title</td>
                 <td>@book.Description</td>
                 <td>@book.Genre.Name</td>
-                <td>@book.Author.Firstname @book.Author.Lastname <a class="btn btn-primary float-lg-end" asp-page="BookPage">View</a></td>
+                <td>@book.Author.Firstname @book.Author.Lastname <a class="btn btn-primary float-lg-end" asp-route-id="@book.BookId" asp-page="BookPage">View</a></td>
             </tr>
         }
 
