@@ -9,6 +9,7 @@ namespace Coolbooks.Pages.Books
     {
         private readonly CoolbooksContext _db;
         public Book Book { get; set; }
+        public Review Review { get; set; }
         //public IEnumerable<Book> Book { get; set; }
 
         public BookPageModel(CoolbooksContext db)
@@ -17,21 +18,15 @@ namespace Coolbooks.Pages.Books
         }
         public void OnGet(int id)
         {
-            //Book = _db.Books.Include("Genre").Where(b => b.BookId == id);
-            //Book = _db.Books.Find(id);
-            //Book = _db.Books.Include(b => b.Genre).FirstOrDefault(b => b.GenreId == id);
-            //Book = _db.Books
-            //    .Include(b => b.Genre)
-            //    .FirstOrDefault(b => b.GenreId == id)
-            //;
-            if (id != null)
-            {
-                Book = _db.Books
+
+            Review = _db.Reviews.FirstOrDefault(b => b.BookId == id);
+
+            //ViewData["Ratings"] = ratings;
+
+            Book = _db.Books
             .Include("Genre")
             .Include("Author")
             .FirstOrDefault(b => b.BookId == id);
-            }
-
         }
     }
 }

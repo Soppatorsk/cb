@@ -5,13 +5,29 @@
 
 
 <div class="row">
-    <div class="col-md-4"><img src="@Model.Book.Imagepath" class="img-fluid" /></div>
+    <div class="col-md-4 flex-wrap align-content-center">
+        <img src="@Model.Book.Imagepath" class="img-fluid" />
+        </div>
     <div class="col-md-8">
         <h3>@Model.Book.Title</h3>
         <h6>@Model.Book.Description</h6>
         <h6>@Model.Book.Genre.Name</h6>
         <h6>@Model.Book.Author.Firstname @Model.Book.Author.Lastname</h6>
         <h6>@Model.Book.Created</h6>
+
+        <div class="d-flex p-2">
+            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+            <i class="bi bi-star-fill" style="font-size: 18px"></i>
+            <i class="bi bi-star-fill" style="font-size: 18px"></i>
+            <h4>@Model.Review.Rating</h4>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <h3>Reviews</h3>
     </div>
 </div>
 
