@@ -1,0 +1,31 @@
+﻿@page
+@model HomeModel
+
+
+
+<h1>Random Books for inspiration</h1>
+<br />
+<div class="home-main-container">
+
+	<div class="home-hero-container">
+
+		hej
+	</div>
+
+
+	<div class="home-bookcard-container">
+		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Take(3))
+		{
+			<div class="home-bookcard">@book.Title</div>
+		}
+	</div>
+
+	<br />
+
+	<div class="home-bookcard-container">
+		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Skip(3).Take(3))
+		{
+			<div class="home-bookcard">@book.Title</div>
+		}
+	</div>>
+</div>
