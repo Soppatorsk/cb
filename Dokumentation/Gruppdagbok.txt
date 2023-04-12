@@ -10,3 +10,14 @@ Onsdag 6:e april
 Vi har fortsatt med User Stories och kört Planning Poker. Vi har tidsestimerat alla kort och prioriterat dem.
 Vi har lagt upp databasen samt samt skapat grunden för (kod)projektet.
 
+Tisdag 11:e april
+
+Vi har bråkat en del med databasen och Github. Själva kopplingen mellan databasen och
+programmet är det som ställt till mest fuffens. Speciellt om vi velat ändra något i 
+databasen.
+
+Onsdag 12:e april
+
+Vi har skapat ett nytt repository då vi haft problem med git-ignores. Idag har vi
+äntligen börjat koda på riktigt med user stories. Vi märkte att registera/logga in-knapparna
+inte gick att hitta i koden. Vi beslutade oss för att ta bort dem och istället skapa egna.
