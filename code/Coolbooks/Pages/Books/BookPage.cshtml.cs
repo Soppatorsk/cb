@@ -17,13 +17,17 @@ namespace Coolbooks.Pages.Books
         }
         public void OnGet(int id)
         {
-            //Book = _db.Books.Include("Genre").Find(id);
-            Book = _db.Books.Find(id);
+            //Book = _db.Books.Include("Genre").Where(b => b.BookId == id);
+            //Book = _db.Books.Find(id);
             //Book = _db.Books.Include(b => b.Genre).FirstOrDefault(b => b.GenreId == id);
             //Book = _db.Books
             //    .Include(b => b.Genre)
             //    .FirstOrDefault(b => b.GenreId == id)
-            ;
+            //;
+            Book = _db.Books
+    .Include("Genre")
+    .Include("Author")
+    .FirstOrDefault(b => b.BookId == id);
         }
     }
 }
