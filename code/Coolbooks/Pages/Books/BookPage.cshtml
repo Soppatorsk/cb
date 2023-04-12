@@ -2,4 +2,6 @@
 @model Coolbooks.Pages.Books.BookPageModel
 @{
 }
-<h2>This is book page</h2>
+
+<h3>@Model.Book.Title</h3>
+<img src="@Model.Book.Imagepath" class="img-fluid" />
