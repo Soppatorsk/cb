@@ -1,0 +1,31 @@
+﻿@page
+@model Coolbooks.Pages.Reviews.WriteModel
+@{
+}
+
+<h1>Write a review for @Model.Book.Title</h1>
+by @Model.Book.Author.Firstname @Model.Book.Author.Lastname
+<form method="POST"> 
+	@*UserId from session*@
+	<h3>Title</h3>
+	<input type="text" name="title" />
+	<br />
+	<h3>Text</h3>
+	<textarea name="text"></textarea>
+	<br />
+	<h3>Rating</h3>
+	<select name="rating">
+	<br />
+		<option value="1">1 star  ★</option>
+		<option value="2">2 stars ★★ </option>
+		<option value="3">3 stars ★★★</option>
+		<option value="4">4 stars ★★★★</option>
+		<option value="5">5 stars ★★★★★</option>
+	</select>
+	<br />
+	<br />
+	<button type="submit">submit</button>
+	@*Created auto timestamp*@
+	@*ReviewId auto in database?*@
+	@*BookId from get*@
+</form>
