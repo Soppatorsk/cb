@@ -24,10 +24,14 @@ namespace Coolbooks.Pages.Books
             //    .Include(b => b.Genre)
             //    .FirstOrDefault(b => b.GenreId == id)
             //;
-            Book = _db.Books
-    .Include("Genre")
-    .Include("Author")
-    .FirstOrDefault(b => b.BookId == id);
+            if (id != null)
+            {
+                Book = _db.Books
+            .Include("Genre")
+            .Include("Author")
+            .FirstOrDefault(b => b.BookId == id);
+            }
+
         }
     }
 }
