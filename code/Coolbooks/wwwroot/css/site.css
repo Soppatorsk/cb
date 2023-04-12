@@ -20,3 +20,37 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.home-main-container {
+
+/*border:solid;*/
+border-color: red;
+width: 70em;
+}
+
+.home-hero-container {
+    border: solid;
+    border-color: dodgerblue;
+    width: 60em;
+    height: 20em;
+    margin-left: 5em;
+}
+
+.home-bookcard-container {
+    display: flex;
+    flex-direction: row;
+    /*border: solid;*/
+    border-color:blueviolet;
+    width: 60em;
+    height: 15em;
+    margin-left: 5em;
+}
+
+.home-bookcard {
+   
+    border: solid;
+    border-color:aquamarine;
+    width: 20em;
+    height: 15em;
+}

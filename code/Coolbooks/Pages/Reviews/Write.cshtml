@@ -3,13 +3,10 @@
 @{
 }
 
-<h1>Write a review for <@*book name*@></></h1>
-
-<form> 
-	@*ReviewId auto on post*@
-	@*BookId from get*@
+<h1>Write a review for @Model.Book.Title</h1>
+by @Model.Book.Author.Firstname @Model.Book.Author.Lastname
+<form method="POST"> 
 	@*UserId from session*@
-	
 	<h3>Title</h3>
 	<input type="text" name="title" />
 	<br />
@@ -22,11 +19,13 @@
 		<option value="1">1 star  ★</option>
 		<option value="2">2 stars ★★ </option>
 		<option value="3">3 stars ★★★</option>
-		<option value="4">4 stars ★★★★★</option>
-		<option value="5">5 stars ★★★★★★★</option>
+		<option value="4">4 stars ★★★★</option>
+		<option value="5">5 stars ★★★★★</option>
 	</select>
+	<br />
+	<br />
+	<button type="submit">submit</button>
 	@*Created auto timestamp*@
-	<br />
-	<br />
-	<button type="submit">Send</button>
+	@*ReviewId auto in database?*@
+	@*BookId from get*@
 </form>
