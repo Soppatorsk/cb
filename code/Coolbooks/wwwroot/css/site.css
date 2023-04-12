@@ -40,19 +40,45 @@ width: 70em;
 .home-bookcard-container {
     display: flex;
     flex-direction: row;
-    /*border: solid;
+   /* border: solid;
     border-color:blueviolet;*/
     width: 60em;
-    height: 15em;
+    height: 17em;
     margin-left: 5em;
-    justify-content:center;
+    justify-content:space-around;
+    
 }
 
 .home-bookcard {
-   
     /*border: solid;
-    border-color:aquamarine;*/
-    width: 12em;
-    height: 15em;
+    border-color: aquamarine;*/
+    width: 10em;
+    height: 17em;
+    /*background-color:orange;*/
+    position: relative;
+    overflow: hidden;
+   
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    /*background: rgb(0, 0, 0);*/
+    background: rgba(0, 0, 0, 0.8); /* Black see-through */
+    color: #f1f1f1;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    transition: .5s ease;
+    opacity: 0;
+    color: white;
+    font-size: 20px;
+    text-align: center;
     
+   
+}
+
+.home-bookcard:hover .overlay {
+    opacity: 1;
+  
 }

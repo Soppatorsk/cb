@@ -16,21 +16,21 @@
 	<br />
 
 	<div class="home-bookcard-container">
-		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Take(3))
+		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Take(4))
 		{
 			<div class="home-bookcard">
-				<img src="@book.Imagepath" height="230"/>
+				<img src="@book.Imagepath" height="267" width="157" />
+				<div class="overlay">@book.Title @book.Author</div>
 			</div>
 		}
 	</div>
-
 	<br />
-
 	<div class="home-bookcard-container">
-		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Skip(3).Take(3))
+		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Skip(4).Take(4))
 		{
 			<div class="home-bookcard">
-				<img src="@book.Imagepath" height="230" />
+				<img src="@book.Imagepath" height="267" width="157" />
+				<div class="overlay">@book.Title @book.Author</div>
 			</div>
 		}
 	</div>>
