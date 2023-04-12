@@ -40,17 +40,19 @@ width: 70em;
 .home-bookcard-container {
     display: flex;
     flex-direction: row;
-    /*border: solid;*/
-    border-color:blueviolet;
+    /*border: solid;
+    border-color:blueviolet;*/
     width: 60em;
     height: 15em;
     margin-left: 5em;
+    justify-content:center;
 }
 
 .home-bookcard {
    
-    border: solid;
-    border-color:aquamarine;
-    width: 20em;
+    /*border: solid;
+    border-color:aquamarine;*/
+    width: 12em;
     height: 15em;
+    
 }
