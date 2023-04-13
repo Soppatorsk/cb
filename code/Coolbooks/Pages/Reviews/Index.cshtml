@@ -3,37 +3,40 @@
 @{
 }
 
-@*
-<a href="reviews/write?id=1">Review book 1</a>
-*@
-<div>Want to write your own?</div>
-<form action="/Reviews/Write">
-    @* TODO a search would be preferred here *@
-    <select name="id" asp-items="Model.Options"></select>
-	<button type="submit">Go >>></button>
-</form>
-<br />
 <tbody>
-<table class="table table-bordered table-striped">
-            <tr>
-                <th>Review Title</th>
-                <th>User</th>
-                <th>Book</th>
-                <th>Date</th>
-            </tr>
-   @foreach (var review in Model.Reviews)
-        {
-            <tr>
-                <td>@review.Title</td>
-                <td>@review.User.Userinfo.Firstname</td> @* TODO *@
-                <td>@review.Book.Title</td> 
-                <td>@review.Created</td>
-                @* TODO Review Read Page*@
-                <td><a class="btn btn-primary float-lg-end" asp-route-id="" asp-page="">View</a></td>
-            </tr>
-            <br />
-        }
-</table>
+	@*
+	<a href="reviews/write?id=1">Review book 1</a>
+	<a href="reviews/read?id=1">Read review 1</a>
+	*@
+	<div>Want to write your own?</div>
+	<form action="/Reviews/Write">
+		@* TODO a search would be preferred here *@
+		<select name="id" asp-items="Model.Options"></select>
+		<button type="submit">Go >>></button>
+	</form>
+	<br />
+	<h3>Latest reviews</h3>
+	<table class="table table-bordered table-striped">
+		<tr>
+			<th>Review Title</th>
+			<th>Book</th>
+
+			<th>Date</th>
+			<th>User</th>
+			<th>Link</th>
+		</tr>
+		@foreach (var review in Model.Reviews)
+		{
+			<tr>
+				<td>@review.Title</td>
+				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
+				<td>@review.Created</td>
+				<td>@*TODO USER*@</td>
+				<td><a class="btn btn-primary float-lg-end" asp-route-id="@review.ReviewId" asp-page="/Reviews/Read">Read</a></td>
+			</tr>
+			<br />
+		}
+	</table>
 </tbody>
 
 

@@ -1,0 +1,25 @@
+﻿@page
+@model Coolbooks.Pages.Reviews.ReadModel
+@{
+}
+@* TODO id check*@
+
+<h1>@Model.Review.Title</h1>
+<a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
+
+ by @Model.AuthorFullName
+<br @for (int i = 0; i <= int.Parse(Model.Review.Rating); i++)
+{
+	 <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+}
+<br />
+A review by [USERNAME] on @Model.Review.Created
+<br />
+<br />
+<div style="">
+	@Model.Review.Text
+</div>
+
+
+
+
