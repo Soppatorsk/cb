@@ -17,7 +17,8 @@ namespace Coolbooks.Pages
 
         public void OnGet()
         {
-            Books = _db.Books.Include("Author").ToList();
+            Books = _db.Books.Include("Author").Include("Genre").ToList();
+            
             
         }
     }

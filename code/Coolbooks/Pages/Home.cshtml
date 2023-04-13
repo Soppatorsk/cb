@@ -7,32 +7,69 @@
 <br />
 <div class="home-main-container">
 
+
 	
-
 	<div class="home-hero-container">
+		
+		<div class="home-hero-cover">
 
-		hej
+			
+			@foreach (var book in Model.Books.OrderBy(b => b.Created).Take(1))
+		{
+			<a asp-page="Books/BookPage" asp-route-id="@book.BookId">
+					<img src="@Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Imagepath" height="310">
+			</a>
+		}
+		</div>
+		<div class="home-hero-text">
+			<h4>In the limelight</h4>
+			<br/>
+			<h5>Title:</h5> @Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Title
+			<br />
+			<br />
+			<h5>Author:</h5> @Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Author.Firstname
+			
+			
+		</div>
+		<div class="home-hero-text">
+			<br />
+			<br />
+			<br />
+			
+			<p></p>
+			<h5>Genre:</h5> @Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Genre.Name
+			<br />
+			<br />
+			<h5>Synopsis:</h5> @Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Description
+
+		</div>
 	</div>
 	<br />
-
+	<br />
+	
 	<div class="home-bookcard-container">
 		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Take(4))
 		{
 			
-			<div class="home-bookcard">
-				<img src="@book.Imagepath" height="267" width="157" />
-				<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
-			</div>
+			<a asp-page="Books/BookPage" asp-route-id="@book.BookId">
+				<div class="home-bookcard">
+					<img src="@book.Imagepath" height="267" width="157" />
+					<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
+				</div>
+			</a>
+
 		}
 	</div>
 	<br />
 	<div class="home-bookcard-container">
 		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Skip(4).Take(4))
 		{
-			<div class="home-bookcard">
-				<img src="@book.Imagepath" height="267" width="157" />
-				<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
-			</div>
+			<a asp-page="Books/BookPage" asp-route-id="@book.BookId">
+				<div class="home-bookcard">
+					<img src="@book.Imagepath" height="267" width="157" />
+					<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
+				</div>
+			</a>
 		}
 	</div>>
 </div>
