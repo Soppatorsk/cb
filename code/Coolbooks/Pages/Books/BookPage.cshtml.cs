@@ -8,12 +8,10 @@ namespace Coolbooks.Pages.Books
     public class BookPageModel : PageModel
     {
         private readonly CoolbooksContext _db;
-        public Book Book { get; set; }
-        public Review Review { get; set; }
-        //public IEnumerable<Book> Book { get; set; }
-
+        public Book? Book { get; set; }
         public double TotalRatingSum { get; set; }
-        public double OneRatings { get; set; }
+        public string TotalRatingSumString { get; set; }
+        public double TotalRatings { get; set; }
 
         public BookPageModel(CoolbooksContext db)
         {
@@ -21,8 +19,6 @@ namespace Coolbooks.Pages.Books
         }
         public void OnGet(int id)
         {
-            //WORKING
-            //Review = _db.Reviews.FirstOrDefault(b => b.BookId == id);
 
             //Get all 1 star ratings
             var oneRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 1)
@@ -52,18 +48,19 @@ namespace Coolbooks.Pages.Books
 
             var totalFiveRatingScore = fiveRatings * 5;
 
-            var total = _db.Reviews.Sum(x => Convert.ToDouble(x.Rating));
+            //Get the total sum of all ratings from specific book
+            var total = _db.Reviews.Where(x => x.BookId == id).Sum(x => Convert.ToDouble(x.Rating));
 
-            var allRating = _db.Reviews.Where(x => x.BookId == id)
-.Sum(x => Convert.ToDouble(x.Rating));
-            //TotalRatingSum = (totalOneRatingScore + totalTwoRatingScore + totalThreeRatingScore + totalFourRatingScore + totalFiveRatingScore) / total;
-            TotalRatingSum = (allRating) / total;
+            //Gets all the Ratings of datatype Double so that 
+            //it is possible to use the numeric type in BookPage.cshtml
+            TotalRatingSum = (totalOneRatingScore + totalTwoRatingScore + totalThreeRatingScore + totalFourRatingScore + totalFiveRatingScore) / total;
 
+            //Converts it to stringformat and only shows the first decimal
+            TotalRatingSumString = string.Format("{0:0.0}", TotalRatingSum);
+            //TotalRatingSum = (allRating) / total;
 
-            //TEST
-
-
-
+            //Total number of ratings done
+            TotalRatings = _db.Reviews.Where(x => x.BookId == id).Count();
 
             Book = _db.Books
             .Include("Genre")

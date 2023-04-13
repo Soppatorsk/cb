@@ -13,14 +13,16 @@
         <h6>@Model.Book.Description</h6>
         <h6>@Model.Book.Genre.Name</h6>
         <h6>@Model.Book.Author.Firstname @Model.Book.Author.Lastname</h6>
-        <h6>@Model.Book.Created</h6>
-        <h6>Total: @Model.TotalRatingSum</h6>
+        <h6>@String.Format($"{Model.Book.Created:yy-MM-dd}")</h6>
+
 
 
 
         <div class="d-flex p-2">
-
-            @if (Model.TotalRatingSum > 1)
+            @*check if there is a rating, the val variable decides
+                how many times the stars should be printed.
+            *@
+            @if (Model.TotalRatingSum >= 1)
             {
                 int val = 0;
                 bool run = true;
@@ -29,35 +31,31 @@
                 {
                     if(run == true)
                     {
-                        @for (int i = 1; i < Model.TotalRatingSum; i++)
+                        @for (int i = 1; i <= Model.TotalRatingSum; i++)
                         {
                             <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
                             val++;
                             run = false;
-                       }
-                    }
 
+                        }
+                    }
+                    if (val == 5)
+                        break;
                     <i class="bi bi-star-fill" style="font-size: 18px"></i>
                     val++;
                 }
-
+                <h5>@Model.TotalRatingSumString</h5> <p>@Model.TotalRatings Ratings</p>
             }
             else
             {
-                <h6>Total: No Ratings</h6>
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                <h5>No Rating</h5>
             }
-            
-
-
-
-@*            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-            <i class="bi bi-star-fill" style="font-size: 18px"></i>*@
+           
 
 
         </div>
