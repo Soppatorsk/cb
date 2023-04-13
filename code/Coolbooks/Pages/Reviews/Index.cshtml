@@ -20,19 +20,16 @@
 		<tr>
 			<th>Review Title</th>
 			<th>Book</th>
-
 			<th>Date</th>
 			<th>User</th>
-			<th>Link</th>
 		</tr>
 		@foreach (var review in Model.Reviews)
 		{
 			<tr>
-				<td>@review.Title</td>
+				<td><a asp-route-id="@review.ReviewId" asp-page="/Reviews/Read">@review.Title</a></td>
 				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
 				<td>@review.Created</td>
 				<td>@*TODO USER*@</td>
-				<td><a class="btn btn-primary float-lg-end" asp-route-id="@review.ReviewId" asp-page="/Reviews/Read">Read</a></td>
 			</tr>
 			<br />
 		}
