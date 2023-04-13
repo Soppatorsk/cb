@@ -4,9 +4,10 @@
 }
 
 @*TODO user logged in? redirect or warn*@
+@*TODO id check*@
 
 <h1>Write a review for @Model.Book.Title</h1>
-<form method="POST"> 
+<form method="POST">
 	<h3>Title</h3>
 	<input type="text" name="title" />
 	<br />
@@ -15,7 +16,7 @@
 	<br />
 	<h3>Rating</h3>
 	<select name="rating">
-	<br />
+		<br />
 		<option value="1">1 star  ★</option>
 		<option value="2">2 stars ★★ </option>
 		<option value="3">3 stars ★★★</option>
@@ -27,8 +28,10 @@
 	<button type="submit">Submit</button>
 </form>
 <br />
-	<img style="width: 20vw"src="@Model.Book.Imagepath" />
-	<p>@Model.Book.Title by @Model.AuthorFullName <br />
-		Review by [USERNAME]</p>
-		@*TODO user*@
+<img style="width: 20vw" src="@Model.Book.Imagepath" />
+<p>
+	@Model.Book.Title by @Model.AuthorFullName <br />
+	Review by [USERNAME]
+</p>
+@*TODO user*@
 
