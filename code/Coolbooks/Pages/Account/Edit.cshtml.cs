@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Coolbooks.Models;
 
-namespace Coolbooks.Pages.Shared.Account
+namespace Coolbooks.Pages.Account
 {
     public class EditModel : PageModel
     {

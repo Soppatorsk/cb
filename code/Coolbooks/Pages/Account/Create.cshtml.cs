@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Coolbooks.Models;
 
-namespace Coolbooks.Pages.Shared.Account
+namespace Coolbooks.Pages.Account
 {
     public class CreateModel : PageModel
     {
