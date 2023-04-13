@@ -6,7 +6,6 @@
 <h1>Write a review for @Model.Book.Title</h1>
 by @Model.Book.Author.Firstname @Model.Book.Author.Lastname
 <form method="POST"> 
-	@*UserId from session*@
 	<h3>Title</h3>
 	<input type="text" name="title" />
 	<br />
@@ -25,7 +24,4 @@ by @Model.Book.Author.Firstname @Model.Book.Author.Lastname
 	<br />
 	<br />
 	<button type="submit">submit</button>
-	@*Created auto timestamp*@
-	@*ReviewId auto in database?*@
-	@*BookId from get*@
 </form>
