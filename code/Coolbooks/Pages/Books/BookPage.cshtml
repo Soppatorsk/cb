@@ -14,14 +14,52 @@
         <h6>@Model.Book.Genre.Name</h6>
         <h6>@Model.Book.Author.Firstname @Model.Book.Author.Lastname</h6>
         <h6>@Model.Book.Created</h6>
+        <h6>Total: @Model.TotalRatingSum</h6>
+
+
 
         <div class="d-flex p-2">
+
+            @if (Model.TotalRatingSum > 1)
+            {
+                int val = 0;
+                bool run = true;
+
+                while (val < 5)
+                {
+                    if(run == true)
+                    {
+                        @for (int i = 1; i < Model.TotalRatingSum; i++)
+                        {
+                            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+                            val++;
+                            run = false;
+                       }
+                    }
+
+                    <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                    val++;
+                }
+
+            }
+            else
+            {
+                <h6>Total: No Ratings</h6>
+                <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                <i class="bi bi-star-fill" style="font-size: 18px"></i>
+            }
+            
+
+
+
+@*            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
             <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-            <i class="bi bi-star-fill" style="font-size: 18px"></i>
-            <i class="bi bi-star-fill" style="font-size: 18px"></i>
-            <h4>@Model.Review.Rating</h4>
+            <i class="bi bi-star-fill" style="font-size: 18px"></i>*@
+
+
         </div>
         <br />
         <br />
