@@ -18,9 +18,10 @@
 	<div class="home-bookcard-container">
 		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Take(4))
 		{
+			
 			<div class="home-bookcard">
 				<img src="@book.Imagepath" height="267" width="157" />
-				<div class="overlay">@book.Title @book.Author</div>
+				<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
 			</div>
 		}
 	</div>
@@ -30,7 +31,7 @@
 		{
 			<div class="home-bookcard">
 				<img src="@book.Imagepath" height="267" width="157" />
-				<div class="overlay">@book.Title @book.Author</div>
+				<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
 			</div>
 		}
 	</div>>

@@ -1,6 +1,7 @@
 ﻿using Coolbooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coolbooks.Pages
 {
@@ -16,7 +17,8 @@ namespace Coolbooks.Pages
 
         public void OnGet()
         {
-            Books = _db.Books;
+            Books = _db.Books.Include("Author").ToList();
+            
         }
     }
 }
