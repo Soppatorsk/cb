@@ -10,20 +10,22 @@ namespace Coolbooks.Pages.Reviews
 	{
 		private readonly CoolbooksContext _db;
 		public Book Book { get; set; }
-		public Review Review = new Review(); 
-
+		public Review Review = new Review();
+		public string AuthorFullName = string.Empty;
 		public WriteModel(CoolbooksContext db) => _db = db;
 		public void OnGet(int id)
 		{
+			//TODO check if valid BookID
 			Book = _db.Books
 	   .Include("Genre")
 	   .Include("Author")
 	   .FirstOrDefault(b => b.BookId == id);
 
+			AuthorFullName = Book.Author.Firstname + " " + Book.Author.Lastname;
 		}
 		public void OnPost(int id)
 		{
-			//TODO redirect and rm
+			//TODO redirect instead
 		Book = _db.Books
 	   .Include("Genre")
 	   .Include("Author")
