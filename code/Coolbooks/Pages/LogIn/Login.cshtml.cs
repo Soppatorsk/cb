@@ -14,14 +14,21 @@ namespace Coolbooks.Pages.LogIn
         public void OnGet()
         {
         }
-    public class Credential
+        public void OnPost()
+        {
+            
+        }
+        public class Credential
         {
             [Required]
+
             public string Email { get; set; }
             [Required]
             [DataType(DataType.Password)]
+            [Display(Name = "Password")]
             public string Passwordhash { get; set; }
             [Required]
+            [Display(Name = "Stamp")]
             public string SecurityStamp { get; set; }
 
          }
