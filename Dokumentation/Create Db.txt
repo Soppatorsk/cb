@@ -265,6 +265,13 @@ values ('Short Stories')
 Insert into Genre (Name)
 values ('Non-Fiction')
 
+Insert into Genre (Name)
+values ('Horror')
+
+Insert into Genre (Name)
+values ('Murder Mystery')
+
+
 GO
 USE [master]
 GO
@@ -274,35 +281,32 @@ GO
 
 
 
-Create PROCEDURE [dbo].[spAddBook]
-AS
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (1,2,'The Fellowship of the Ring', 'First of the Lord of the Rings trilogy','789456', '/Images/lotr.jpg',  0, '2022-01-01');
 
 Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
-values (1,2,'The Fellowship of the Ring', 'First of the Lord of the Rings trilogy','789456', '/Images/lotr.jpg',  0, '2022-01-01')
+values (2,1,'Neuromancer', 'Birth of Cyberpunk', '456123','/Images/neuromancer.jpg', 0, '2022-01-01');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (2,1,'Neuromancer', 'Birth of Cyberpunk', '456123','/Images/neuromancer.jpg', 0, '2022-01-01')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (3,6,'One Child', 'child psychopathology, child abuse', '456123','/Images/onechild.jpg', 0,'2022-04-02');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (3,6,'One Child', 'child psychopathology, child abuse', '456123','/Images/onechild.jpg', 0,'2022-04-02')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (4,5,'Grand Union: Stories', '10 short stories', '45612311','/Images/grandunion.jpg', 0, '2022-09-11');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (4,5'Grand Union: Stories', '10 short stories', '45612311','/Images/grandunion.jpg 0', '2022-09-11')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (5,3,'Winnie-The-Pooh', 'Our beloved Pooh Bear', '4561231145','/Images/winniethepooh.jpg', 0, '2022-10-03');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (5,3,'Winnie-The-Pooh', 'Our beloved Pooh Bear', '4561231145','/Images/winniethepooh.jpg', 0, '2022-10-03')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (6,4,'Paradise Lost', 'Where the angles fear to tread', '456123666','/Images/paradiselost.jpg', 0, '2022-10-03');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (6,4,'Paradise Lost', 'Where the angles fear to tread', '456123666','/Images/paradiselost.jpg', 0, '2022-10-03')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (7,7,'The Call of Cthulhu', 'Weird tales from the unknown', '444555666','/Images/callofcthulhu.jpg', 0, '2022-04-12');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (7,7,'The Call of Cthulhu', 'Weird tales from the unknown', '444555666','/Images/callofcthulhu.jpg', 0, '2022-04-12')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (8,8,'4.50 from Paddington', 'Miss Marple is back', '111333','/Images/450frompaddington.jpg', 0, '2022-04-11');
 
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (8,8,'4.50 from Paddington', 'Miss Marple is back', '111333','/Images/450frompaddington.jpg', 0, '2022-04-11')
-
-Insert into Book (Title, Description, ISBN, IsDeleted, Created)
-values (9,3,'Treasure Island', 'Yar!', '78941523','/Images/treasureisland.jpg', 0, '2021-04-12')
+Insert into Book (AuthorID, GenreID, Title, Description, ISBN, Imagepath, IsDeleted, Created)
+values (9,3,'Treasure Island', 'Yar!', '78941523','/Images/treasureisland.jpg', 0, '2021-04-12');
 
 
 GO
