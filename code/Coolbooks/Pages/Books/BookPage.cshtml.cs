@@ -11,8 +11,7 @@ namespace Coolbooks.Pages.Books
         public Book? Book { get; set; }
         public double TotalRatingSum { get; set; }
         public string TotalRatingSumString { get; set; }
-
-        public string DateOnly { get; set; }
+        public double TotalRatings { get; set; }
 
         public BookPageModel(CoolbooksContext db)
         {
@@ -60,12 +59,8 @@ namespace Coolbooks.Pages.Books
             TotalRatingSumString = string.Format("{0:0.0}", TotalRatingSum);
             //TotalRatingSum = (allRating) / total;
 
-            // var ateTime = _db.Books.Where(x => x.BookId == id)
-            //                    .Select(x => Convert.ToDateTime(x.Created));
-
-            //var DateTime = Convert.ToDateTime(ateTime);
-
-            //DateOnly = DateTime.ToShortDateString();
+            //Total number of ratings done
+            TotalRatings = _db.Reviews.Where(x => x.BookId == id).Count();
 
             Book = _db.Books
             .Include("Genre")
