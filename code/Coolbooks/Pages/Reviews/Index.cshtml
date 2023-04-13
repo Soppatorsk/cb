@@ -3,15 +3,23 @@
 @{
 }
 
+@*
 <a href="reviews/write?id=1">Review book 1</a>
+*@
+<div>Want to write your own?</div>
+<form action="/Reviews/Write">
+    @* TODO a search would be preferred here *@
+    <select name="id" asp-items="Model.Options"></select>
+	<button type="submit">Go >>></button>
+</form>
 <br />
 <tbody>
-<table class="table">
-
+<table class="table table-bordered table-striped">
             <tr>
                 <th>Review Title</th>
                 <th>User</th>
                 <th>Book</th>
+                <th>Date</th>
             </tr>
    @foreach (var review in Model.Reviews)
         {
@@ -19,6 +27,7 @@
                 <td>@review.Title</td>
                 <td>@review.User.Userinfo.Firstname</td> @* TODO *@
                 <td>@review.Book.Title</td> 
+                <td>@review.Created</td>
                 @* TODO Review Read Page*@
                 <td><a class="btn btn-primary float-lg-end" asp-route-id="" asp-page="">View</a></td>
             </tr>
