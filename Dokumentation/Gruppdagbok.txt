@@ -21,3 +21,9 @@ Onsdag 12:e april
 Vi har skapat ett nytt repository då vi haft problem med git-ignores. Idag har vi
 äntligen börjat koda på riktigt med user stories. Vi märkte att registera/logga in-knapparna
 inte gick att hitta i koden. Vi beslutade oss för att ta bort dem och istället skapa egna.
+
+Torsdag 13:e april
+
+Vi jobbade med våra user stories mest hela dagen. Vi har också lagt till mer sampla data för alla tabeller.
+Vi har också funderat på att skapa om databasen då det finns en del småfel. Men vi löste det i koden istället.
+Dock ska vi notera dessa småfel om vi eventuellt behöver bygga om den (databasen) senare.
