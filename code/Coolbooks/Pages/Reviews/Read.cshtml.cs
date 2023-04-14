@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Coolbooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,8 @@ namespace Coolbooks.Pages.Reviews
     {
         public Book Book { get; set; }
         public Review Review { get; set; }
+        public SiteUser SiteUser { get; set; }
+        public string UserFullName { get; set; }
         public string AuthorFullName = string.Empty;
         private readonly CoolbooksContext _db;
         public ReadModel(CoolbooksContext db) => _db = db;
@@ -23,7 +26,13 @@ namespace Coolbooks.Pages.Reviews
                 .Include("Author")
                 .FirstOrDefault(b => b.BookId == Review.BookId);
 
-            AuthorFullName = Book.Author.Firstname + " " + Book.Author.Lastname;
+
+            SiteUser = _db.SiteUsers
+                .Include("Userinfo")
+                .FirstOrDefault(b => b.UserId == Review.UserId);
+
+            UserFullName = SiteUser.Userinfo.Firstname + " " + SiteUser.Userinfo.Lastname;
+            AuthorFullName = Review.Book.Author.Firstname + " " + Review.Book.Author.Lastname;
         }
     }
 }

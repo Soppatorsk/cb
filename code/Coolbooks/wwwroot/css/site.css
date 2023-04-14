@@ -30,11 +30,25 @@ width: 70em;
 }
 
 .home-hero-container {
-    border: solid;
-    border-color: dodgerblue;
+    display: flex;
+    /*border: solid;
+    border-color: dodgerblue;*/
     width: 60em;
     height: 20em;
     margin-left: 5em;
+}
+
+.home-hero-cover {
+    width: 20em;
+   /* border: solid;
+    border-color: deeppink;*/
+}
+
+.home-hero-text {
+    width: 10em;
+    /*border: solid;
+    border-color:chartreuse;*/
+    text-align:left;
 }
 
 .home-bookcard-container {
