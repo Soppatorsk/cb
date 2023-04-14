@@ -35,6 +35,9 @@
         </tr>
     </thead>
     <tbody>
+        <p>
+            <a asp-page="Next">Next</a>
+        </p>
 @foreach (var item in Model.Userinfo) {
         <tr>
             <td>
@@ -60,7 +63,9 @@
                 <a asp-page="./Details" asp-route-id="@item.UserInfoId">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.UserInfoId">Delete</a>
             </td>
+
         </tr>
+
 }
     </tbody>
 </table>

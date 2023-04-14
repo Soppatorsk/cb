@@ -9,11 +9,11 @@ using Coolbooks.Models;
 
 namespace Coolbooks.Pages.Account
 {
-    public class CreateModel : PageModel
+    public class Next : PageModel
     {
         private readonly Coolbooks.Models.CoolbooksContext _context;
 
-        public CreateModel(Coolbooks.Models.CoolbooksContext context)
+        public Next(Coolbooks.Models.CoolbooksContext context)
         {
             _context = context;
         }
