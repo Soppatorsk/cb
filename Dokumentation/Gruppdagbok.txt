@@ -27,3 +27,8 @@ Torsdag 13:e april
 Vi jobbade med våra user stories mest hela dagen. Vi har också lagt till mer sampla data för alla tabeller.
 Vi har också funderat på att skapa om databasen då det finns en del småfel. Men vi löste det i koden istället.
 Dock ska vi notera dessa småfel om vi eventuellt behöver bygga om den (databasen) senare.
+
+Fredag 14:e april
+
+Vi bestämde oss för att ändra om i databasen. När vi väl grejade med det så var det inte så krånligt.
+Det visade sig att man bara behövde köra Power Tools igen för att uppdatera Models-filerna.
