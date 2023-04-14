@@ -1,6 +1,7 @@
 ﻿@page
 @model Coolbooks.Pages.Books.BookPageModel
 @{
+
 }
 
 
@@ -18,11 +19,27 @@
 
 
 
-        <div class="d-flex p-2">
+        <div class="d-flex">
             @*check if there is a rating, the val variable decides
                 how many times the stars should be printed.
             *@
-            @if (Model.TotalRatingSum >= 1)
+
+            @{
+                int starCounter = 5;
+
+                for (int i = 1; i <= Math.Abs(Model.TotalRatingSum); i++)
+                {
+                    <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+                    starCounter--;
+                }
+                for (int i = 1; i <= starCounter; i++)
+                {
+                    <i class="bi bi-star-fill" style="font-size: 18px"></i>
+                }
+            }
+
+
+@*            @if (Model.TotalRatingSum >= 1)
             {
                 int val = 0;
                 bool run = true;
@@ -43,8 +60,9 @@
                         break;
                     <i class="bi bi-star-fill" style="font-size: 18px"></i>
                     val++;
-                }
-                <h5>@Model.TotalRatingSumString</h5> <p>@Model.TotalRatings Ratings</p>
+                }*@
+                <h5 style="margin-right:2em;">@Model.TotalRatingSumString</h5> <p>@Model.TotalRatings Ratings</p>
+@*
             }
             else
             {
@@ -54,7 +72,7 @@
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
                 <h5>No Rating</h5>
-            }
+            }*@
            
 
 
@@ -64,6 +82,31 @@
         <br />
         <br />
         <h3>Reviews</h3>
+        <a style="margin-bottom:3em;" class="btn btn-primary" asp-route-id="@Model.Book.BookId" asp-page="/Reviews/Write">Write a Review</a>
+
+
+
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="col-md-4 d-flex" style=" margin-top:3em;">
+                <h5 style="margin-right:10px;">@review.User.Userinfo.Firstname @review.User.Userinfo.Lastname</h5>
+            @{
+            int starCounterR = 5;
+
+            for (int i = 1; i <= Convert.ToInt32(review.Rating); i++)
+            {
+                <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+                starCounterR--;
+            }
+            for (int i = 1; i <= starCounterR; i++)
+            {
+                <i class="bi bi-star-fill" style="font-size: 18px"></i>
+            }
+            }
+            </div>
+            <h6 style="font-weight:bold;">@review.Title</h6>
+            <p>@review.Text</p>
+        }
     </div>
 </div>
 

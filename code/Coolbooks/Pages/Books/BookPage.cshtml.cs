@@ -9,6 +9,7 @@ namespace Coolbooks.Pages.Books
     {
         private readonly CoolbooksContext _db;
         public Book? Book { get; set; }
+        public IEnumerable<Review?> Reviews { get; set; }
         public double TotalRatingSum { get; set; }
         public string TotalRatingSumString { get; set; }
         public double TotalRatings { get; set; }
@@ -62,10 +63,38 @@ namespace Coolbooks.Pages.Books
             //Total number of ratings done
             TotalRatings = _db.Reviews.Where(x => x.BookId == id).Count();
 
+            //Gets the book and info around it
             Book = _db.Books
             .Include("Genre")
             .Include("Author")
             .FirstOrDefault(b => b.BookId == id);
+
+            ////Get reviews and info bout the reviewer
+            //Reviews = _db.Reviews.Where(x => x.BookId == id)
+            //                    .Include("User")
+            //                    .ThenInclude("Userinfo")
+            //                    .Select(x => x.BookId);
+
+            Reviews = _db.Reviews
+            .Where(r => r.BookId == id)
+            .Include(r => r.User)
+            .ThenInclude(u => u.Userinfo)
+            .ToList();
+
         }
+        //public static string StarPrinter(int ratingSummary)
+        //{
+        //    bool hasRating = false;
+
+        //    if (ratingSummary >= 1)
+        //    {
+        //        hasRating = true;
+        //    }
+
+        //    if (hasRating)
+        //    {
+
+        //    }
+        //}
     }
 }
