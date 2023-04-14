@@ -79,6 +79,7 @@ namespace Coolbooks.Pages.Books
             .Where(r => r.BookId == id)
             .Include(r => r.User)
             .ThenInclude(u => u.Userinfo)
+            .OrderByDescending(x => x.Created)
             .ToList();
 
         }

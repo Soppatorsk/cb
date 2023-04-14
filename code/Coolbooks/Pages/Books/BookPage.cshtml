@@ -88,7 +88,7 @@
 
         @foreach (var review in Model.Reviews)
         {
-            <div class="col-md-4 d-flex" style=" margin-top:3em;">
+            <div class="col-md-4 d-flex" style=" margin-top:3em; width:30em;">
                 <h5 style="margin-right:10px;">@review.User.Userinfo.Firstname @review.User.Userinfo.Lastname</h5>
             @{
             int starCounterR = 5;
@@ -102,6 +102,7 @@
             {
                 <i class="bi bi-star-fill" style="font-size: 18px"></i>
             }
+            <p style="font-style:italic; color:gray; margin-left:1em;">@review.Created</p>
             }
             </div>
             <h6 style="font-weight:bold;">@review.Title</h6>
