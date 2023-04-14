@@ -7,10 +7,10 @@ using System.Text;
 
 namespace Coolbooks.Pages.LogIn
 {
-	public class LoginModel : PageModel
+	public class Register : PageModel
 	{
 		[BindProperty]
-		public Credential Credent { get; set; }
+		public Credential CredentReg { get; set; }
 
 
 
@@ -20,21 +20,21 @@ namespace Coolbooks.Pages.LogIn
 		}
 		public void OnPost()
 		{
-			var input = this.Credent.Passwordhash;
+			var input = this.CredentReg.Passwordhash;
 			var passwordHash = GenerateMD5Hash(input);
 		}
 		public class Credential
 		{
 			[Required]
 
-			public string Email { get; set; }
+			public string? Email { get; set; }
 			[Required]
 			[DataType(DataType.Password)]
 			[Display(Name = "Password")]
-			public string Passwordhash { get; set; }
+			public string? Passwordhash { get; set; }
 			[Required]
 			[Display(Name = "Stamp")]
-			public string SecurityStamp { get; set; }
+			public string? SecurityStamp { get; set; }
 
 		}
 		public string GenerateMD5Hash(string input)
