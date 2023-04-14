@@ -27,7 +27,7 @@
             @{
                 int starCounter = 5;
 
-                for (int i = 1; i <= Math.Abs(Model.TotalRatingSum); i++)
+                for (int i = 1; i <= Math.Abs(Convert.ToDouble(Model.TotalRatingSum)); i++)
                 {
                     <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
                     starCounter--;
@@ -62,6 +62,7 @@
                     val++;
                 }*@
                 <h5 style="margin-right:2em;">@Model.TotalRatingSumString</h5> <p>@Model.TotalRatings Ratings</p>
+
 @*
             }
             else
