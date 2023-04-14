@@ -33,7 +33,7 @@ namespace Coolbooks.Pages.Reviews
 
 			Review.Title = Request.Form["title"];
 			Review.Text = Request.Form["text"];
-			Review.Rating = Request.Form["rating"];
+			Review.Rating = int.Parse(Request.Form["rating"]);
 			//Review.Title = "test";
 			//Review.Text = "longer text here";
 			//Review.Rating = "1";
