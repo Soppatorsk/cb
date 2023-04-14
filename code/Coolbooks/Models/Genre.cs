@@ -11,7 +11,5 @@ public partial class Genre
 
     public string Name { get; set; }
 
-    public string Description { get; set; }
-
     public virtual ICollection<Book> Books { get; } = new List<Book>();
 }

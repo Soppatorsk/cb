@@ -15,8 +15,6 @@ public partial class SiteUser
 
     public string PasswordHash { get; set; }
 
-    public string SecurityStamp { get; set; }
-
     public virtual ICollection<Book> Books { get; } = new List<Book>();
 
     public virtual ICollection<Review> Reviews { get; } = new List<Review>();
