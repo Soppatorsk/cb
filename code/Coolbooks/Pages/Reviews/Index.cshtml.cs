@@ -11,6 +11,7 @@ namespace Coolbooks.Pages.Reviews
 		private readonly CoolbooksContext _db;
 		public Book Book { get; set; }
 		public IEnumerable<Review> Reviews { get; set; }
+		public string UserFullName = string.Empty;
 
 		public IndexModel(CoolbooksContext db) => _db = db;
 
@@ -21,6 +22,7 @@ namespace Coolbooks.Pages.Reviews
 		{
 			Reviews = _db.Reviews
 				.Include("Book")
+				.Include("User.Userinfo")
 				.ToList();
 
 			Options = _db.Books.Select(a =>
