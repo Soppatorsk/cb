@@ -1,9 +1,13 @@
+using Coolbooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Identity.Client.Platforms.Features.DesktopOs.Kerberos;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace Coolbooks.Pages.LogIn
 {
@@ -11,19 +15,50 @@ namespace Coolbooks.Pages.LogIn
 	{
 		[BindProperty]
 		public Credential Credent { get; set; }
+		// Inject IHttpContextAccessor for session management
+		private readonly IHttpContextAccessor _httpContextAccessor;
+		private readonly CoolbooksContext _db;
 
-
-
+		// Check if user is already logged in
 		public void OnGet()
 		{
+			//if (_httpContextAccessor.HttpContext.Session.GetString("UserId") != null)
+			//{
+			//	Response.Redirect("/Home");
+			//}
+		}
+        public async Task<IActionResult> OnPost()
+        {
+            if (ModelState.IsValid)
+            {
+                // Get user input & generate MD5Hash
+                var input = this.Credent.Passwordhash;
+                var passwordHash = GenerateMD5Hash(input);
+                var email = this.Credent.Email;
 
-		}
-		public void OnPost()
-		{
-			var input = this.Credent.Passwordhash;
-			var passwordHash = GenerateMD5Hash(input);
-		}
-		public class Credential
+                // Perform query to check if the user exists 
+				var user = await _db.SiteUsers.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHash);
+                 if(user != null)
+                {
+					// if User is found, set session variables
+					_httpContextAccessor.HttpContext.Session.SetString("UserId", user.UserId.ToString());
+					_httpContextAccessor.HttpContext.Session.SetString("UserName", user.Email);
+
+					// Redirect to home page
+					return RedirectToPage("/Home");
+				}
+                else
+                {
+                    // if User not found
+                    ModelState.AddModelError(string.Empty, "Invalid email or password. ");
+                    return Page();
+                }
+			
+            }
+            return null;
+      
+        }
+        public class Credential
 		{
 			[Required]
 
@@ -32,11 +67,16 @@ namespace Coolbooks.Pages.LogIn
 			[DataType(DataType.Password)]
 			[Display(Name = "Password")]
 			public string Passwordhash { get; set; }
-			[Required]
-			[Display(Name = "Stamp")]
-			public string SecurityStamp { get; set; }
-
+		 
+			
 		}
+
+		public LoginModel(CoolbooksContext db, IHttpContextAccessor httpContextAccessor)
+		{
+			_db = db;
+			_httpContextAccessor = httpContextAccessor;
+		}
+ 
 		public string GenerateMD5Hash(string input)
 		{
 			// Create an instance of MD5 hash algorithm
