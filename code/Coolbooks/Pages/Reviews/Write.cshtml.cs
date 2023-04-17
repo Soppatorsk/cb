@@ -34,11 +34,11 @@ namespace Coolbooks.Pages.Reviews
 			Review.Title = Request.Form["title"];
 			Review.Text = Request.Form["text"];
 			Review.Rating = int.Parse(Request.Form["rating"]);
-			//Review.Title = "test";
-			//Review.Text = "longer text here";
-			//Review.Rating = "1";
+			Review.Status = "Public";
 
+			//TODO user
 			Review.UserId = 1;
+
 			Review.Created = DateTime.Now;
 			Review.BookId = id;
 			_db.Add(Review);

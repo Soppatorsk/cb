@@ -15,10 +15,11 @@ namespace Coolbooks.Pages.Reviews
         public string AuthorFullName = string.Empty;
         private readonly CoolbooksContext _db;
         public ReadModel(CoolbooksContext db) => _db = db;
-        public void OnGet(int id)
+
+        public void Load(int id)
         {
 
-            Review = _db.Reviews
+             Review = _db.Reviews
            .Include("Book")
            .FirstOrDefault(b => b.ReviewId == id);
 
@@ -33,6 +34,23 @@ namespace Coolbooks.Pages.Reviews
 
             UserFullName = SiteUser.Userinfo.Firstname + " " + SiteUser.Userinfo.Lastname;
             AuthorFullName = Review.Book.Author.Firstname + " " + Review.Book.Author.Lastname;
+
+        }
+        public void OnGet(int id)
+        {
+            Load(id);
+        }
+
+        public void OnPostFlag(int id)
+        {
+            Load(id);
+
+			Review = _db.Reviews
+            .Where(r => r.ReviewId == id).FirstOrDefault();
+            Review.Status = "Flagged";
+            _db.SaveChanges();
+            Redirect("Reviews/Read");
+
         }
     }
 }

@@ -4,6 +4,19 @@
 }
 @* TODO id check*@
 
+@* Flag ticket? User, date, reason?*@
+
+@if (Model.Review.Status == "Flagged")
+{
+	<p>This review has been flagged</p>
+}
+else
+{
+<form asp-page-handler="Flag" method="POST">
+	<button type="submit">Flag this review</button>
+	<input type="hidden" name="id" value="1" />
+</form>
+}
 <h1>@Model.Review.Title</h1>
 <a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
 
