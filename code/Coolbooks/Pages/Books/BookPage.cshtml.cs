@@ -10,9 +10,10 @@ namespace Coolbooks.Pages.Books
         private readonly CoolbooksContext _db;
         public Book? Book { get; set; }
         public IEnumerable<Review?> Reviews { get; set; }
-        public double TotalRatingSum { get; set; }
+        public double? TotalRatingSum { get; set; }
         public string TotalRatingSumString { get; set; }
         public double TotalRatings { get; set; }
+        public double Total { get; set; }
 
         public BookPageModel(CoolbooksContext db)
         {
@@ -22,39 +23,40 @@ namespace Coolbooks.Pages.Books
         {
 
             //Get all 1 star ratings
-            var oneRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 1)
-                              .Sum(x => Convert.ToDouble(x.Rating));
+            var oneRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 1)
+                              .Sum(x => x.Rating);
 
             var totalOneRatingScore = oneRatings * 1;
 
             //Get all 2 star ratings
-            var twoRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 2)
-                  .Sum(x => Convert.ToDouble(x.Rating));
+            var twoRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 2)
+                  .Sum(x => x.Rating);
 
             var totalTwoRatingScore = twoRatings * 2;
 
             //Get all 3 star ratings
-            var threeRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 3)
-                  .Sum(x => Convert.ToDouble(x.Rating));
+            var threeRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 3)
+                  .Sum(x => x.Rating);
 
             var totalThreeRatingScore = threeRatings * 3;
             //Get all 4 star ratings
-            var fourRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 4)
-                  .Sum(x => Convert.ToDouble(x.Rating));
+            var fourRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 4)
+                  .Sum(x => x.Rating);
 
             var totalFourRatingScore = fourRatings * 4;
             //Get all 5 star ratings
-            var fiveRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 5)
-                  .Sum(x => Convert.ToDouble(x.Rating));
+            var fiveRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 5)
+                  .Sum(x => x.Rating);
 
             var totalFiveRatingScore = fiveRatings * 5;
 
             //Get the total sum of all ratings from specific book
-            var total = _db.Reviews.Where(x => x.BookId == id).Sum(x => Convert.ToDouble(x.Rating));
+             double allReviews = Convert.ToDouble(_db.Reviews.Where(x => x.BookId == id).Sum(x => x.Rating));
+            var total = _db.Reviews.Where(x => x.BookId == id).Count();
 
             //Gets all the Ratings of datatype Double so that 
             //it is possible to use the numeric type in BookPage.cshtml
-            TotalRatingSum = (totalOneRatingScore + totalTwoRatingScore + totalThreeRatingScore + totalFourRatingScore + totalFiveRatingScore) / total;
+            TotalRatingSum = Convert.ToDouble((allReviews) / total);
 
             //Converts it to stringformat and only shows the first decimal
             TotalRatingSumString = string.Format("{0:0.0}", TotalRatingSum);
@@ -97,5 +99,42 @@ namespace Coolbooks.Pages.Books
 
         //    }
         //}
+
+
+
+
+
+
+
+
+
+
+        ////////RATING
+        /////
+        ////Get all 1 star ratings
+        //var oneRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 1)
+        //                  .Sum(x => Convert.ToDouble(x.Rating));
+
+        //var totalOneRatingScore = oneRatings * 1;
+
+        ////Get all 2 star ratings
+        //var twoRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 2)
+        //      .Sum(x => Convert.ToDouble(x.Rating));
+
+        //var totalTwoRatingScore = twoRatings * 2;
+
+        ////Get all 3 star ratings
+        //var threeRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 3)
+        //      .Sum(x => Convert.ToDouble(x.Rating));
+
+        //var totalThreeRatingScore = threeRatings * 3;
+        ////Get all 4 star ratings
+        //var fourRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 4)
+        //      .Sum(x => Convert.ToDouble(x.Rating));
+
+        //var totalFourRatingScore = fourRatings * 4;
+        ////Get all 5 star ratings
+        //var fiveRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 5)
+        //      .Sum(x => Convert.ToDouble(x.Rating));
     }
 }

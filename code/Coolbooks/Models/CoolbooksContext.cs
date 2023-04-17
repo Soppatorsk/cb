@@ -24,6 +24,7 @@ public partial class CoolbooksContext : DbContext
     public virtual DbSet<SiteUser> SiteUsers { get; set; }
 
     public virtual DbSet<Userinfo> Userinfos { get; set; }
+    public object Users { get; internal set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
