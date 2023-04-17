@@ -32,3 +32,8 @@ Fredag 14:e april
 
 Vi bestämde oss för att ändra om i databasen. När vi väl grejade med det så var det inte så krånligt.
 Det visade sig att man bara behövde köra Power Tools igen för att uppdatera Models-filerna.
+
+Måndag 17:e april
+
+Updaterat databasen med ny tabeler, relationer, columner. Sprint ett retrospective. 
+Uppdaterat userstories i trello och dokumentation

@@ -17,20 +17,23 @@ public partial class CoolbooksContext : DbContext
 
     public virtual DbSet<Book> Books { get; set; }
 
+    public virtual DbSet<Comment> Comments { get; set; }
+
     public virtual DbSet<Genre> Genres { get; set; }
+
+    public virtual DbSet<Like> Likes { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
 
     public virtual DbSet<SiteUser> SiteUsers { get; set; }
 
     public virtual DbSet<Userinfo> Userinfos { get; set; }
-    public object Users { get; internal set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Author>(entity =>
         {
-            entity.HasKey(e => e.AuthorId).HasName("PK__Author__70DAFC14B58393B4");
+            entity.HasKey(e => e.AuthorId).HasName("PK__Author__70DAFC1487FB006D");
 
             entity.ToTable("Author");
 
@@ -42,7 +45,7 @@ public partial class CoolbooksContext : DbContext
 
         modelBuilder.Entity<Book>(entity =>
         {
-            entity.HasKey(e => e.BookId).HasName("PK__Book__3DE0C227170EF5E0");
+            entity.HasKey(e => e.BookId).HasName("PK__Book__3DE0C2276FBC81D5");
 
             entity.ToTable("Book");
 
@@ -59,20 +62,47 @@ public partial class CoolbooksContext : DbContext
 
             entity.HasOne(d => d.Author).WithMany(p => p.Books)
                 .HasForeignKey(d => d.AuthorId)
-                .HasConstraintName("FK__Book__AuthorID__412EB0B6");
+                .HasConstraintName("FK__Book__AuthorID__44FF419A");
 
             entity.HasOne(d => d.Genre).WithMany(p => p.Books)
                 .HasForeignKey(d => d.GenreId)
-                .HasConstraintName("FK__Book__GenreID__4222D4EF");
+                .HasConstraintName("FK__Book__GenreID__45F365D3");
 
             entity.HasOne(d => d.User).WithMany(p => p.Books)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Book__UserID__4316F928");
+                .HasConstraintName("FK__Book__UserID__46E78A0C");
+        });
+
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => e.CommentId).HasName("PK__Comment__C3B4DFAA204EEFE0");
+
+            entity.ToTable("Comment");
+
+            entity.Property(e => e.CommentId).HasColumnName("CommentID");
+            entity.Property(e => e.Created).HasColumnType("datetime");
+            entity.Property(e => e.ParentCommentId).HasColumnName("ParentCommentID");
+            entity.Property(e => e.ReviewId).HasColumnName("ReviewID");
+            entity.Property(e => e.Status).HasMaxLength(50);
+            entity.Property(e => e.Text).HasMaxLength(250);
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.ParentComment).WithMany(p => p.InverseParentComment)
+                .HasForeignKey(d => d.ParentCommentId)
+                .HasConstraintName("FK__Comment__ParentC__4AB81AF0");
+
+            entity.HasOne(d => d.Review).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.ReviewId)
+                .HasConstraintName("FK__Comment__ReviewI__4BAC3F29");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Comment__UserID__4CA06362");
         });
 
         modelBuilder.Entity<Genre>(entity =>
         {
-            entity.HasKey(e => e.GenreId).HasName("PK__Genre__0385055EFAA7EF7A");
+            entity.HasKey(e => e.GenreId).HasName("PK__Genre__0385055E2E23D0A5");
 
             entity.ToTable("Genre");
 
@@ -80,30 +110,58 @@ public partial class CoolbooksContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(250);
         });
 
+        modelBuilder.Entity<Like>(entity =>
+        {
+            entity.HasKey(e => e.LikeId).HasName("PK__Like__A2922CF4AC673F6D");
+
+            entity.ToTable("Like");
+
+            entity.Property(e => e.LikeId).HasColumnName("LikeID");
+            entity.Property(e => e.CommentId).HasColumnName("CommentID");
+            entity.Property(e => e.Like1)
+                .HasMaxLength(50)
+                .HasColumnName("Like");
+            entity.Property(e => e.ReviewId).HasColumnName("ReviewID");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.Comment).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.CommentId)
+                .HasConstraintName("FK__Like__CommentID__4F7CD00D");
+
+            entity.HasOne(d => d.Review).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.ReviewId)
+                .HasConstraintName("FK__Like__ReviewID__4E88ABD4");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Likes)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Like__UserID__4D94879B");
+        });
+
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79AE012501BE");
+            entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79AE7C423597");
 
             entity.ToTable("Review");
 
             entity.Property(e => e.ReviewId).HasColumnName("ReviewID");
             entity.Property(e => e.BookId).HasColumnName("BookID");
             entity.Property(e => e.Created).HasColumnType("datetime");
+            entity.Property(e => e.Status).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(250);
             entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.Book).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.BookId)
-                .HasConstraintName("FK__Review__BookID__440B1D61");
+                .HasConstraintName("FK__Review__BookID__47DBAE45");
 
             entity.HasOne(d => d.User).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Review__UserID__44FF419A");
+                .HasConstraintName("FK__Review__UserID__48CFD27E");
         });
 
         modelBuilder.Entity<SiteUser>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__SiteUser__1788CCAC2972D2D1");
+            entity.HasKey(e => e.UserId).HasName("PK__SiteUser__1788CCAC0FD00BFD");
 
             entity.ToTable("SiteUser");
 
@@ -114,12 +172,12 @@ public partial class CoolbooksContext : DbContext
 
             entity.HasOne(d => d.Userinfo).WithMany(p => p.SiteUsers)
                 .HasForeignKey(d => d.UserinfoId)
-                .HasConstraintName("FK__SiteUser__Userin__45F365D3");
+                .HasConstraintName("FK__SiteUser__Userin__49C3F6B7");
         });
 
         modelBuilder.Entity<Userinfo>(entity =>
         {
-            entity.HasKey(e => e.UserInfoId).HasName("PK__Userinfo__D07EF2C43612288A");
+            entity.HasKey(e => e.UserInfoId).HasName("PK__Userinfo__D07EF2C42B439DB3");
 
             entity.ToTable("Userinfo");
 

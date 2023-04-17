@@ -21,7 +21,13 @@ public partial class Review
 
     public DateTime? Created { get; set; }
 
+    public string Status { get; set; }
+
     public virtual Book Book { get; set; }
+
+    public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+
+    public virtual ICollection<Like> Likes { get; } = new List<Like>();
 
     public virtual SiteUser User { get; set; }
 }
