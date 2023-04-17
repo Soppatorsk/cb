@@ -16,7 +16,7 @@ namespace Coolbooks.Pages.Reviews
         private readonly CoolbooksContext _db;
         public ReadModel(CoolbooksContext db) => _db = db;
 
-        public void Load(int id)
+        public void LoadPage(int id)
         {
 
              Review = _db.Reviews
@@ -38,19 +38,30 @@ namespace Coolbooks.Pages.Reviews
         }
         public void OnGet(int id)
         {
-            Load(id);
+            LoadPage(id);
         }
 
         public void OnPostFlag(int id)
         {
-            Load(id);
+            LoadPage(id);
 
 			Review = _db.Reviews
             .Where(r => r.ReviewId == id).FirstOrDefault();
             Review.Status = "Flagged";
             _db.SaveChanges();
-            Redirect("Reviews/Read");
 
         }
+
+        public void OnPostRemove(int id)
+        {
+            LoadPage(id);
+
+			Review = _db.Reviews
+            .Where(r => r.ReviewId == id).FirstOrDefault();
+            Review.Status = "Removed";
+            _db.SaveChanges();
+
+        }
+
     }
 }
