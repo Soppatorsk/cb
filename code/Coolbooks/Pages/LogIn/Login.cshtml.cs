@@ -19,7 +19,7 @@ namespace Coolbooks.Pages.LogIn
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly CoolbooksContext _db;
 
-		// Check if user is already logged in
+		// Check if user is already logged in !Under construction!
 		public void OnGet()
 		{
 			//if (_httpContextAccessor.HttpContext.Session.GetString("UserId") != null)
@@ -32,8 +32,8 @@ namespace Coolbooks.Pages.LogIn
             if (ModelState.IsValid)
             {
                 // Get user input & generate MD5Hash
-                var input = this.Credent.Passwordhash;
-                var passwordHash = GenerateMD5Hash(input);
+                var passwordHash = this.Credent.Passwordhash; // byter plats på input & passwordHash *input*
+			//	var passwordHash = GenerateMD5Hash(input);
                 var email = this.Credent.Email;
 
                 // Perform query to check if the user exists 
