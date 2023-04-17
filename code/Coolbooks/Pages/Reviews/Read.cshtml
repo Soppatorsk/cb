@@ -3,6 +3,8 @@
 @{
 }
 @* TODO check if id in database, else 404*@
+
+@*Remove a review*@
 @if (Model.Review.Status == "Removed")
 {
 	@* TODO redirect to a error page*@
@@ -14,7 +16,7 @@ else if (true @*TODO if Mod+ session*@)
 {
 	<form asp-page-handler="Remove" method="POST">
 	<button class="btn btn-danger" type="submit">Remove this review</button>
-	<input type="hidden" name="id" value="1" />
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 	</form>
 }
 @* Flag a review if not already*@
@@ -26,7 +28,7 @@ else
 {
 <form asp-page-handler="Flag" method="POST">
 	<button type="submit">Flag this review</button>
-	<input type="hidden" name="id" value="1" />
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 </form>
 }
 
@@ -45,7 +47,27 @@ A review by @Model.UserFullName on @Model.Review.Created
 <div style="">
 	@Model.Review.Text
 </div>
+<br />
+<br />
 
+
+@if (false @* TODO user already voted?*@)
+{
+
+}else
+{
+<form asp-page-handler="Like" method="POST">
+	<p>Did you like this review?</p>
+	<select name="Vote">
+		<option value="Like">Yes</option>
+		<option value="Dislike">No</option>
+	</select>
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	<button type="submit">Vote on this review</button>
+</form>
+}
+Likes: @Model.Likes
+Dislikes: @Model.Dislikes
 
 
 
