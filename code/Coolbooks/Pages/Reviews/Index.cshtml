@@ -22,6 +22,11 @@
 			<th>Book</th>
 			<th>User</th>
 			<th>Date</th>
+			@if (true@*TODO Admin session*@)
+			{
+			<th>Status</th>
+			<th>Remove</th>
+			}
 		</tr>
 		@foreach (var review in Model.Reviews)
 		{
@@ -30,6 +35,17 @@
 				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
 				<td>@review.User.Userinfo.Firstname @review.User.Userinfo.Lastname</td>
 				<td>@review.Created</td>
+				@if (true @* TODO Admin session*@)
+				{
+				<td>@review.Status</td>
+				<td>
+				<form asp-page-handler="Remove" method="POST">
+				<button class="btn btn-danger" type="submit">Remove</button>
+				<input type="hidden" name="id" value="@review.ReviewId" />
+				</form>
+				</td>
+
+				}
 			</tr>
 			<br />
 		}

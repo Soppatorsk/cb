@@ -25,7 +25,7 @@ namespace Coolbooks.Pages.Reviews
 		}
 		public void OnPost(int id)
 		{
-			//TODO redirect instead
+			//TODO redirect instead?
 		Book = _db.Books
 	   .Include("Genre")
 	   .Include("Author")

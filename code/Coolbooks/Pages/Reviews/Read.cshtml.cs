@@ -13,6 +13,8 @@ namespace Coolbooks.Pages.Reviews
         public SiteUser SiteUser { get; set; }
         public Like NewLike = new Like();
 
+        public Like ExistantUserLike { get; set; }
+
 
         public string UserFullName { get; set; }
         public string AuthorFullName = string.Empty;
@@ -46,6 +48,7 @@ namespace Coolbooks.Pages.Reviews
             Dislikes = _db.Likes.Where(x => x.ReviewId == id && x.Like1 == "Dislike")
                 .Count();
 
+            ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id && x.UserId == 1).FirstOrDefault();
 
         }
         public void OnGet(int id)

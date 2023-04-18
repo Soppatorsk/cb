@@ -51,9 +51,9 @@ A review by @Model.UserFullName on @Model.Review.Created
 <br />
 
 
-@if (false @* TODO user already voted?*@)
+@if (Model.ExistantUserLike.Like1 != null)
 {
-
+<p>You @Model.ExistantUserLike.Like1 this review</p>
 }else
 {
 <form asp-page-handler="Like" method="POST">
