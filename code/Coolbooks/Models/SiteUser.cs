@@ -17,6 +17,10 @@ public partial class SiteUser
 
     public virtual ICollection<Book> Books { get; } = new List<Book>();
 
+    public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+
+    public virtual ICollection<Like> Likes { get; } = new List<Like>();
+
     public virtual ICollection<Review> Reviews { get; } = new List<Review>();
 
     public virtual Userinfo Userinfo { get; set; }

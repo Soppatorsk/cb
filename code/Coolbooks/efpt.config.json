@@ -23,7 +23,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Comment]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Genre]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Like]",
          "ObjectType": 0
       },
       {

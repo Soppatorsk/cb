@@ -2,7 +2,35 @@
 @model Coolbooks.Pages.Reviews.ReadModel
 @{
 }
-@* TODO id check*@
+@* TODO check if id in database, else 404*@
+
+@*Remove a review*@
+@if (Model.Review.Status == "Removed")
+{
+	@* TODO redirect to a error page*@
+	<p>This review has been removed</p>
+	<a asp-page="Reviews/Read">Go back to list of reviews</a>
+	@*TODO dont render rest of page*@
+} 
+else if (true @*TODO if Mod+ session*@)
+{
+	<form asp-page-handler="Remove" method="POST">
+	<button class="btn btn-danger" type="submit">Remove this review</button>
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	</form>
+}
+@* Flag a review if not already*@
+@if (Model.Review.Status == "Flagged")
+{
+	<p>This review has been flagged</p>
+}
+else
+{
+<form asp-page-handler="Flag" method="POST">
+	<button type="submit">Flag this review</button>
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+</form>
+}
 
 <h1>@Model.Review.Title</h1>
 <a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
@@ -19,7 +47,27 @@ A review by @Model.UserFullName on @Model.Review.Created
 <div style="">
 	@Model.Review.Text
 </div>
+<br />
+<br />
 
+
+@if (false @* TODO user already voted?*@)
+{
+
+}else
+{
+<form asp-page-handler="Like" method="POST">
+	<p>Did you like this review?</p>
+	<select name="Vote">
+		<option value="Like">Yes</option>
+		<option value="Dislike">No</option>
+	</select>
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	<button type="submit">Vote on this review</button>
+</form>
+}
+Likes: @Model.Likes
+Dislikes: @Model.Dislikes
 
 
 
