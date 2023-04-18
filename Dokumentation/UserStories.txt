@@ -82,6 +82,23 @@ P3.
 22. As an admin I want to be able to add and delete users. There will be a form for this. Admin1 cannot be deleted or updated.
 3P.
 
+23. As a logged in user I want to be able to Like/dislike a review. So others can see the overall feedback on
+	a review.
+
+24. As a logged in user I want to be able to comment other people's comments. So it feels like a community. (VG)
+
+25. As a logged in user I want to be able to flag an inapropriate review, so a moderator can take it down.
+
+26. As a logged in user I want to be able to flag an inapropriate comment so a moderator can take it down. (VG)
+
+27. As a user want to be able to see other people's comments about a review when I'm visiting the
+	review. So that I can get a sense of community. (VG)
+
+28. As a site admin/customer I want admins to be able to assign some users the role of moderators.
+	This so that admins don't have to review comments and book reviews. (VG, kommentarer).
+
+
+
 
 
 
