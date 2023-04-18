@@ -15,6 +15,7 @@ namespace Coolbooks.Pages.Books
         public double TotalRatings { get; set; }
         public double Total { get; set; }
         public bool CommentField { get; set; }
+        public Like Like { get; set; }
 
         public BookPageModel(CoolbooksContext db)
         {
@@ -53,7 +54,14 @@ namespace Coolbooks.Pages.Books
             .ToList();
 
         }
+        public async Task<IActionResult> OnPostLike(Like like, int bookId)
+        {
 
+
+            await _db.Likes.AddAsync(like);
+            await _db.SaveChangesAsync();
+            return RedirectToPage("BookPage");
+        }
         ////////RATING
         /////
         ////Get all 1 star ratings
