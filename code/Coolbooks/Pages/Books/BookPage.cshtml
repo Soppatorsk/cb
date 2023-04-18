@@ -17,12 +17,7 @@
         <h6>@String.Format($"{Model.Book.Created:yy-MM-dd}")</h6>
 
 
-
-
         <div class="d-flex">
-            @*check if there is a rating, the val variable decides
-                how many times the stars should be printed.
-            *@
 
             @{
                 int starCounter = 5;
@@ -38,44 +33,7 @@
                 }
             }
 
-
-@*            @if (Model.TotalRatingSum >= 1)
-            {
-                int val = 0;
-                bool run = true;
-
-                while (val < 5)
-                {
-                    if(run == true)
-                    {
-                        @for (int i = 1; i <= Model.TotalRatingSum; i++)
-                        {
-                            <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-                            val++;
-                            run = false;
-
-                        }
-                    }
-                    if (val == 5)
-                        break;
-                    <i class="bi bi-star-fill" style="font-size: 18px"></i>
-                    val++;
-                }*@
                 <h5 style="margin-right:2em;">@Model.TotalRatingSumString</h5> <p>@Model.TotalRatings Ratings</p>
-
-@*
-            }
-            else
-            {
-                <i class="bi bi-star-fill" style="font-size: 18px"></i>
-                <i class="bi bi-star-fill" style="font-size: 18px"></i>
-                <i class="bi bi-star-fill" style="font-size: 18px"></i>
-                <i class="bi bi-star-fill" style="font-size: 18px"></i>
-                <i class="bi bi-star-fill" style="font-size: 18px"></i>
-                <h5>No Rating</h5>
-            }*@
-           
-
 
         </div>
         <br />
@@ -105,12 +63,45 @@
             }
             <p style="font-style:italic; color:gray; margin-left:1em;">@review.Created</p>
             }
+
+            <div>
+                
+            </div>
             </div>
             <h6 style="font-weight:bold;">@review.Title</h6>
             <p>@review.Text</p>
+
+            <a asp-for class="btn btn-outline-primary"><i class="bi bi-hand-thumbs-up"></i></a>
+            <a class="btn btn-outline-danger"><i class="bi bi-hand-thumbs-down"></i></a>
+            <form>
+                <label>Olle Persson</label>
+                <br>
+                <input type="text" style="margin-top:5px" placeholder="Comment...">
+                <input type="submit" value="Comment">
+            </form>
+            //Sample data
+            string[] Comments = { "What an amazing review Marilyn, described so perfectly", 
+            "Great review Marilyn. I loved this book and enjoyed the movie :)", 
+            "AND the movie version is now on Netflix! " };
+            <br />
+
+            //Foreach through sample data
+            foreach (var comment in Comments)
+            {
+                <p>Maja Hansson: <br>@comment</p>
+                <hr />
+
+                @*ADD COMMENTS DOWN BELOW*@
+                <div id="comments-section" style="display: none;">
+                    Comments are here
+                </div>
+            }
         }
+
+
+        
+
     </div>
 </div>
-
 
 

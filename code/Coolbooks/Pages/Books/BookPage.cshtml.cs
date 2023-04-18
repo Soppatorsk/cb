@@ -14,6 +14,7 @@ namespace Coolbooks.Pages.Books
         public string TotalRatingSumString { get; set; }
         public double TotalRatings { get; set; }
         public double Total { get; set; }
+        public bool CommentField { get; set; }
 
         public BookPageModel(CoolbooksContext db)
         {
@@ -21,34 +22,6 @@ namespace Coolbooks.Pages.Books
         }
         public void OnGet(int id)
         {
-
-            //Get all 1 star ratings
-            var oneRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 1)
-                              .Sum(x => x.Rating);
-
-            var totalOneRatingScore = oneRatings * 1;
-
-            //Get all 2 star ratings
-            var twoRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 2)
-                  .Sum(x => x.Rating);
-
-            var totalTwoRatingScore = twoRatings * 2;
-
-            //Get all 3 star ratings
-            var threeRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 3)
-                  .Sum(x => x.Rating);
-
-            var totalThreeRatingScore = threeRatings * 3;
-            //Get all 4 star ratings
-            var fourRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 4)
-                  .Sum(x => x.Rating);
-
-            var totalFourRatingScore = fourRatings * 4;
-            //Get all 5 star ratings
-            var fiveRatings = _db.Reviews.Where(x => x.BookId == id && x.Rating == 5)
-                  .Sum(x => x.Rating);
-
-            var totalFiveRatingScore = fiveRatings * 5;
 
             //Get the total sum of all ratings from specific book
              double allReviews = Convert.ToDouble(_db.Reviews.Where(x => x.BookId == id).Sum(x => x.Rating));
@@ -71,11 +44,6 @@ namespace Coolbooks.Pages.Books
             .Include("Author")
             .FirstOrDefault(b => b.BookId == id);
 
-            ////Get reviews and info bout the reviewer
-            //Reviews = _db.Reviews.Where(x => x.BookId == id)
-            //                    .Include("User")
-            //                    .ThenInclude("Userinfo")
-            //                    .Select(x => x.BookId);
 
             Reviews = _db.Reviews
             .Where(r => r.BookId == id)
@@ -85,29 +53,6 @@ namespace Coolbooks.Pages.Books
             .ToList();
 
         }
-        //public static string StarPrinter(int ratingSummary)
-        //{
-        //    bool hasRating = false;
-
-        //    if (ratingSummary >= 1)
-        //    {
-        //        hasRating = true;
-        //    }
-
-        //    if (hasRating)
-        //    {
-
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
 
         ////////RATING
         /////
