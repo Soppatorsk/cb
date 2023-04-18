@@ -15,19 +15,22 @@ namespace Coolbooks.Pages.Reviews
 
         public Like ExistantUserLike { get; set; }
 
+        public Comment Comment = new Comment();
+
 
         public string UserFullName { get; set; }
         public string AuthorFullName = string.Empty;
         public int Likes = 0;
         public int Dislikes = 0;
 
+        public List<Comment> Comments = new List<Comment>();
         private readonly CoolbooksContext _db;
         public ReadModel(CoolbooksContext db) => _db = db;
 
         public void LoadPage(int id)
         {
 
-             Review = _db.Reviews
+            Review = _db.Reviews
            .Include("Book")
            .FirstOrDefault(b => b.ReviewId == id);
 
@@ -42,6 +45,7 @@ namespace Coolbooks.Pages.Reviews
             UserFullName = SiteUser.Userinfo.Firstname + " " + SiteUser.Userinfo.Lastname;
             AuthorFullName = Review.Book.Author.Firstname + " " + Review.Book.Author.Lastname;
 
+            //Likes
             Likes = _db.Likes.Where(x => x.ReviewId == id && x.Like1 == "Like")
                 .Count();
 
@@ -49,6 +53,11 @@ namespace Coolbooks.Pages.Reviews
                 .Count();
 
             ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id && x.UserId == 1).FirstOrDefault();
+
+            //Comments
+            Comments = _db.Comments.Include("User.Userinfo").Where(x => x.ReviewId == id).ToList();
+
+
 
         }
         public void OnGet(int id)
@@ -92,6 +101,21 @@ namespace Coolbooks.Pages.Reviews
 
                 if (true /* TODO User no previous vote */ ) _db.Add(NewLike);
                 _db.SaveChanges();
+        }
+
+        public void OnPostComment(int id)
+        {
+            LoadPage(id);
+
+            Comment.Text = Request.Form["text"];
+            Comment.ReviewId = id;
+            Comment.Created = DateTime.Now;
+            //TODO user
+            Comment.UserId = 1;
+
+            _db.Add(Comment);
+            _db.SaveChanges();
+
         }
 
     }

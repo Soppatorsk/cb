@@ -11,12 +11,12 @@
 	<p>This review has been removed</p>
 	<a asp-page="Reviews/Read">Go back to list of reviews</a>
 	@*TODO dont render rest of page*@
-} 
+}
 else if (true @*TODO if Mod+ session*@)
 {
 	<form asp-page-handler="Remove" method="POST">
-	<button class="btn btn-danger" type="submit">Remove this review</button>
-	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+		<button class="btn btn-danger" type="submit">Remove this review</button>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 	</form>
 }
 @* Flag a review if not already*@
@@ -26,48 +26,78 @@ else if (true @*TODO if Mod+ session*@)
 }
 else
 {
-<form asp-page-handler="Flag" method="POST">
-	<button type="submit">Flag this review</button>
-	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
-</form>
+	<form asp-page-handler="Flag" method="POST">
+		<button type="submit">Flag this review</button>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	</form>
 }
 
-<h1>@Model.Review.Title</h1>
-<a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
+<div style="background-color:aquamarine" class="ReviewContainer">
 
- by @Model.AuthorFullName
-<br @for (int i = 0; i <= Model.Review.Rating; i++)
-{
-	 <i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
-}
-<br />
-A review by @Model.UserFullName on @Model.Review.Created
-<br />
-<br />
-<div style="">
-	@Model.Review.Text
+	<h1>@Model.Review.Title</h1>
+	<a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
+
+	by @Model.AuthorFullName
+	<br />
+	@for (int i = 0; i <= Model.Review.Rating; i++)
+	{
+		<i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+	}
+	<br />
+	A review by @Model.UserFullName on @Model.Review.Created
+	<br />
+	<br />
+	<div style="">
+		@Model.Review.Text
+	</div>
+	<br />
+	<br />
 </div>
-<br />
-<br />
 
+<div style="background-color:deepskyblue">
 
 @if (Model.ExistantUserLike.Like1 != null)
 {
-<p>You @Model.ExistantUserLike.Like1 this review</p>
-}else
+	<p>You @Model.ExistantUserLike.Like1 this review</p>
+}
+else
 {
-<form asp-page-handler="Like" method="POST">
-	<p>Did you like this review?</p>
-	<select name="Vote">
-		<option value="Like">Yes</option>
-		<option value="Dislike">No</option>
-	</select>
-	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
-	<button type="submit">Vote on this review</button>
-</form>
+	<form asp-page-handler="Like" method="POST">
+		<p>Did you like this review?</p>
+		<select name="Vote">
+			<option value="Like">Yes</option>
+			<option value="Dislike">No</option>
+		</select>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+		<button type="submit">Vote on this review</button>
+	</form>
 }
 Likes: @Model.Likes
 Dislikes: @Model.Dislikes
+<br />
+<br />
 
+<form asp-page-handler="Comment" method="POST">
+	<p>Leave a comment</p>
+	<p>Logged in as @*TODO user*@ UserID 1</p>
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	<input type="hidden" name="UserID" value="1" @*TODO user*@ />
+	<textarea name="text"></textarea>
+	<br />
+	<button type="submit">Submit</button>
+</form>
+
+</div>
+@* Comments *@
+
+<div>
+	@foreach (var Comment in Model.Comments)
+	{
+		<div style="background-color: lightgreen" class="CommentBox">
+			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname on @Comment.Created:</p>
+			<p>@Comment.Text</p>
+		</div>
+	}
+</div>
 
 
