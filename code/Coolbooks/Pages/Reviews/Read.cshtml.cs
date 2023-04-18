@@ -3,6 +3,7 @@ using Coolbooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing.Text;
 
 namespace Coolbooks.Pages.Reviews
 {
@@ -72,6 +73,17 @@ namespace Coolbooks.Pages.Reviews
 			Review = _db.Reviews
             .Where(r => r.ReviewId == id).FirstOrDefault();
             Review.Status = "Flagged";
+            _db.SaveChanges();
+            Redirect("/Reviews/Index");
+
+        }
+
+        public void OnPostFlagComment(int id, int CommentId)
+        {
+            LoadPage(id);
+			Comment = _db.Comments
+            .Where(r => r.CommentId == CommentId).FirstOrDefault();
+            Comment.Status = "Flagged";
             _db.SaveChanges();
 
         }

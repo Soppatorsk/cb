@@ -55,7 +55,8 @@ else
 </div>
 
 <div style="background-color:deepskyblue">
-
+<i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
+	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
 @if (Model.ExistantUserLike.Like1 != null)
 {
 	<p>You @Model.ExistantUserLike.Like1 this review</p>
@@ -72,32 +73,48 @@ else
 		<button type="submit">Vote on this review</button>
 	</form>
 }
-Likes: @Model.Likes
-Dislikes: @Model.Dislikes
-<br />
-<br />
 
-<form asp-page-handler="Comment" method="POST">
-	<p>Leave a comment</p>
+<button id="ToggleFormButton" onclick="toggleForm()">Leave a comment...</button>
+<form style="display:none" id="ReviewCommentForm" asp-page-handler="Comment" method="POST">
 	<p>Logged in as @*TODO user*@ UserID 1</p>
 	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 	<input type="hidden" name="UserID" value="1" @*TODO user*@ />
 	<textarea name="text"></textarea>
 	<br />
-	<button type="submit">Submit</button>
+	<button type="submit">Post comment</button>
 </form>
 
 </div>
 @* Comments *@
 
 <div>
+	Comments on this review:
 	@foreach (var Comment in Model.Comments)
 	{
 		<div style="background-color: lightgreen" class="CommentBox">
 			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname on @Comment.Created:</p>
 			<p>@Comment.Text</p>
+			<form asp-page-handler="FlagComment" method="POST">
+			<button class="btn btn-link" type="submit"><i class="bi bi-flag-fill"></i></button>
+			<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+			<input type="hidden" name="CommentId" value="@Comment.CommentId" />
+			</form>
 		</div>
 	}
 </div>
+
+<script>
+	function toggleForm() {
+		var x = document.getElementById("ReviewCommentForm");
+		var b = document.getElementById("ToggleFormButton");
+		if (x.style.display === "none") {
+			x.style.display = "block";
+			b.style.display = "none";
+		} else {
+			x.style.display = "none";
+			b.style.display = "block";
+		}
+	}
+</script>
 
 
