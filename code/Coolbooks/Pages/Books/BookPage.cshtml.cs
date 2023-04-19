@@ -54,14 +54,22 @@ namespace Coolbooks.Pages.Books
             .ToList();
 
         }
-        public async Task<IActionResult> OnPostLike(Like like, int bookId)
+        public async Task<IActionResult> OnPostLike(Like like, int id)
         {
-
-
+            int bookId = id;
             await _db.Likes.AddAsync(like);
             await _db.SaveChangesAsync();
-            return RedirectToPage("BookPage");
+            //return RedirectToPage("BookPage");
+            return RedirectToPage("BookPage", new { id = bookId });
         }
+        //public void OnPostLike2(Like like)
+        //{
+
+
+        //    _db.Likes.Add(like);
+        //    _db.SaveChanges();
+
+        //}
         ////////RATING
         /////
         ////Get all 1 star ratings
