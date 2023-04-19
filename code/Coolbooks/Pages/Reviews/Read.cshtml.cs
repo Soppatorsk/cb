@@ -9,16 +9,14 @@ namespace Coolbooks.Pages.Reviews
 {
     public class ReadModel : PageModel
     {
-        public Book Book { get; set; }
-        public Review Review { get; set; }
-        public SiteUser SiteUser { get; set; }
+        public Book? Book { get; set; }
+        public Review? Review { get; set; }
+        public SiteUser? SiteUser { get; set; }
         public Like NewLike = new Like();
 
         public Like ExistantUserLike { get; set; }
 
         public Comment Comment = new Comment();
-
-
         public string UserFullName { get; set; }
         public string AuthorFullName = string.Empty;
         public int Likes = 0;
@@ -57,9 +55,6 @@ namespace Coolbooks.Pages.Reviews
 
             //Comments
             Comments = _db.Comments.Include("User.Userinfo").Where(x => x.ReviewId == id).ToList();
-
-
-
         }
         public void OnGet(int id)
         {
@@ -74,13 +69,12 @@ namespace Coolbooks.Pages.Reviews
             .Where(r => r.ReviewId == id).FirstOrDefault();
             Review.Status = "Flagged";
             _db.SaveChanges();
-            Redirect("/Reviews/Index");
-
         }
 
         public void OnPostFlagComment(int id, int CommentId)
         {
             LoadPage(id);
+
 			Comment = _db.Comments
             .Where(r => r.CommentId == CommentId).FirstOrDefault();
             Comment.Status = "Flagged";
@@ -111,7 +105,7 @@ namespace Coolbooks.Pages.Reviews
                 //TODO user
                 NewLike.UserId = 1;
 
-                if (true /* TODO User no previous vote */ ) _db.Add(NewLike);
+                if (ExistantUserLike == null) _db.Add(NewLike);
                 _db.SaveChanges();
         }
 
@@ -122,6 +116,8 @@ namespace Coolbooks.Pages.Reviews
             Comment.Text = Request.Form["text"];
             Comment.ReviewId = id;
             Comment.Created = DateTime.Now;
+            Comment.ParentCommentId = int.Parse(Request.Form["CommentParentId"]);
+
             //TODO user
             Comment.UserId = 1;
 
