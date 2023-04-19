@@ -2,6 +2,8 @@ using Coolbooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
+using System.Net;
 
 namespace Coolbooks.Pages.Books
 {
@@ -16,6 +18,9 @@ namespace Coolbooks.Pages.Books
         public double Total { get; set; }
         public bool CommentField { get; set; }
         public Like Like { get; set; }
+
+        public IEnumerable<Like> LikeList { get; set; }
+        public bool LikeExist { get; set; }
 
         public BookPageModel(CoolbooksContext db)
         {
@@ -53,15 +58,64 @@ namespace Coolbooks.Pages.Books
             .OrderByDescending(x => x.Created)
             .ToList();
 
+
         }
-        public async Task<IActionResult> OnPostLike(Like like, int bookId)
+        public async Task<IActionResult> OnPostLike(Like like, int id)
         {
+             var likeExist = _db.Likes.FirstOrDefault(x => x.UserId == like.UserId && x.ReviewId == like.ReviewId);
+
+            int bookId = id;
+
+            var likeFromDb = _db.Likes.Find(like.UserId);
+            if (likeFromDb != null)
+            {
+
+                _db.Likes.Remove(likeFromDb);
+                _db.SaveChanges();
+                return RedirectToPage("BookPage", new { id = bookId });
+            }
+            else
+            {
+
+                await _db.Likes.AddAsync(like);
+                await _db.SaveChangesAsync();
+                //return RedirectToPage("BookPage");
+                return RedirectToPage("BookPage", new { id = bookId });
+            }
 
 
-            await _db.Likes.AddAsync(like);
-            await _db.SaveChangesAsync();
-            return RedirectToPage("BookPage");
+            //// check if the like already exists for the current user and review
+            //var existingLike = _db.Likes.FirstOrDefault(l => l.UserId == like.UserId && l.ReviewId == like.ReviewId);
+
+            //int bookId = id;
+            //if (existingLike != null)
+            //{
+            //    // remove the existing like from the database
+            //    _db.Likes.Remove(existingLike);
+            //    await _db.SaveChangesAsync();
+            //}
+            //else
+            //{
+            //    // add the new like to the database
+            //    await _db.Likes.AddAsync(like);
+            //    await _db.SaveChangesAsync();
+            //}
+
+            //// redirect to the book page
+            //return RedirectToPage("BookPage", new { id = bookId });
+
+
+
         }
+
+        //public void OnPostLike2(Like like)
+        //{
+
+
+        //    _db.Likes.Add(like);
+        //    _db.SaveChanges();
+
+        //}
         ////////RATING
         /////
         ////Get all 1 star ratings
