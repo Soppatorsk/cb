@@ -63,6 +63,8 @@ namespace Coolbooks.Pages.Books
             .OrderByDescending(x => x.Created)
             .ToList();
 
+            LikeList = _db.Likes.ToList();
+
         }
         public async Task<IActionResult> OnPostLike(Like like, int id)
         {
