@@ -18,6 +18,10 @@ namespace Coolbooks.Pages.Books
         public double Total { get; set; }
         public bool CommentField { get; set; }
         public Like Like { get; set; }
+        public bool Clicked { get; set; }
+        public int ReviewLikes { get; set; }
+        public int ReviewDislikes { get; set; }
+
 
         public IEnumerable<Like> LikeList { get; set; }
         public bool LikeExist { get; set; }
@@ -55,9 +59,9 @@ namespace Coolbooks.Pages.Books
             .Where(r => r.BookId == id)
             .Include(r => r.User)
             .ThenInclude(u => u.Userinfo)
+            .Include(l => l.Likes) //Ta bort om det strular... Denna rad används inte just nu.
             .OrderByDescending(x => x.Created)
             .ToList();
-
 
         }
         public async Task<IActionResult> OnPostLike(Like like, int id)
@@ -66,17 +70,36 @@ namespace Coolbooks.Pages.Books
 
             int bookId = id;
 
-            var likeFromDb = _db.Likes.Find(like.UserId);
+            //var likeFromDb = _db.Likes.Find(like.UserId);
+            var likeFromDb = _db.Likes.FirstOrDefault(x => x.UserId == like.UserId && x.ReviewId == like.ReviewId);
+
             if (likeFromDb != null)
             {
-
-                _db.Likes.Remove(likeFromDb);
-                _db.SaveChanges();
-                return RedirectToPage("BookPage", new { id = bookId });
+                if (likeFromDb.Like1 == "Like" && like.Like1 == "Dislike")
+                {
+                    likeFromDb.Like1 = like.Like1;
+                    _db.SaveChanges();
+                    return RedirectToPage("BookPage", new { id = bookId });
+                }
+                else if (likeFromDb.Like1 == "Dislike" && like.Like1 == "Like")
+                {
+                    likeFromDb.Like1 = like.Like1;
+                    _db.SaveChanges();
+                    return RedirectToPage("BookPage", new { id = bookId });
+                }
+                else
+                {
+                    _db.Likes.Remove(likeFromDb);
+                    _db.SaveChanges();
+                    return RedirectToPage("BookPage", new { id = bookId });
+                }
+                //WORKING COPY
+                //_db.Likes.Remove(likeFromDb);
+                //_db.SaveChanges();
+                //return RedirectToPage("BookPage", new { id = bookId });
             }
             else
             {
-
                 await _db.Likes.AddAsync(like);
                 await _db.SaveChangesAsync();
                 //return RedirectToPage("BookPage");
@@ -107,41 +130,5 @@ namespace Coolbooks.Pages.Books
 
 
         }
-
-        //public void OnPostLike2(Like like)
-        //{
-
-
-        //    _db.Likes.Add(like);
-        //    _db.SaveChanges();
-
-        //}
-        ////////RATING
-        /////
-        ////Get all 1 star ratings
-        //var oneRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 1)
-        //                  .Sum(x => Convert.ToDouble(x.Rating));
-
-        //var totalOneRatingScore = oneRatings * 1;
-
-        ////Get all 2 star ratings
-        //var twoRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 2)
-        //      .Sum(x => Convert.ToDouble(x.Rating));
-
-        //var totalTwoRatingScore = twoRatings * 2;
-
-        ////Get all 3 star ratings
-        //var threeRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 3)
-        //      .Sum(x => Convert.ToDouble(x.Rating));
-
-        //var totalThreeRatingScore = threeRatings * 3;
-        ////Get all 4 star ratings
-        //var fourRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 4)
-        //      .Sum(x => Convert.ToDouble(x.Rating));
-
-        //var totalFourRatingScore = fourRatings * 4;
-        ////Get all 5 star ratings
-        //var fiveRatings = _db.Reviews.Where(x => x.BookId == id && Convert.ToDouble(x.Rating) == 5)
-        //      .Sum(x => Convert.ToDouble(x.Rating));
     }
 }
