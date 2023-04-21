@@ -37,3 +37,10 @@ Måndag 17:e april
 
 Updaterat databasen med ny tabeler, relationer, columner. Sprint ett retrospective. 
 Uppdaterat userstories i trello och dokumentation
+
+Tisdag 18:e april
+
+
+
+Onsdag 19:e april
+Vi har suttit och grejat med våra user stories. Pratat en del om att Like-funktionen och inloggningen är knepig.
