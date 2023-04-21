@@ -84,14 +84,17 @@
 
             var count = Model.LikeList.Count();
 
+            //var count2 = Model.LikeList.Where(x => x.ReviewId == Model.Reviews.).Count();
 
+            var count3 = Model.LikeCount;
+            bool stop = false;
 
             foreach (var like in Model.LikeList)
             {
                 //Prints out total likes
                 var likeSummary = Model.LikeList.Where(x => x.Like1 == "Like" && x.ReviewId == review.ReviewId).Count();
                 var dislikeSummary = Model.LikeList.Where(x => x.Like1 == "Dislike" && x.ReviewId == review.ReviewId).Count();
-                if (count == Model.LikeList.Count())
+                if (count3 == Model.LikeCount)
                 {
                     <p>TOTAL LIKES: @likeSummary</p>
                     <p>TOTAL DISLIKES: @dislikeSummary</p>
@@ -109,7 +112,7 @@
                             <input asp-for="@Model.Like.UserId" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Like">
-                            <button type="submit" asp-page-handler="Like" class="btn btn-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up"></i></button>
+                            <button type="submit" asp-page-handler="Like" class="btn btn-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up">@likeSummary</i></button>
                         </form>
 
                         <form method="post">
@@ -117,12 +120,10 @@
                             <input asp-for="@Model.Like.UserId" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Dislike">
-                            <button type="submit" asp-page-handler="Like" class="btn btn-outline-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down"></i></button>
+                            <button type="submit" asp-page-handler="Like" class="btn btn-outline-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down">@dislikeSummary</i></button>
                         </form>
-                        count--;
-                        count--;
-                        count--;
-                        count--;
+                        break;
+
                     }
                     else
                     {
@@ -131,7 +132,7 @@
                             <input asp-for="@Model.Like.UserId" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Like">
-                            <button type="submit" asp-page-handler="Like" class="btn btn-outline-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up"></i></button>
+                            <button type="submit" asp-page-handler="Like" class="btn btn-outline-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up">@likeSummary</i></button>
                         </form>
 
                         <form method="post">
@@ -139,26 +140,24 @@
                             <input asp-for="@Model.Like.UserId" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Dislike">
-                            <button type="submit" asp-page-handler="Like" class="btn btn-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down"></i></button>
+                            <button type="submit" asp-page-handler="Like" class="btn btn-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down">@dislikeSummary</i></button>
                         </form>
-                        count--;
-                        count--;
-                        count--;
-                        count--;
+
+                        break;
                     }
 
 
 
 
                 }
-                else if (count == 1)
+                else if (count3 == 0)
                 {
                     <form method="post">
                         <input hidden asp-for="@Model.Like.LikeId">
                         <input asp-for="@Model.Like.UserId" type="hidden" value="2">
                         <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                         <input asp-for="@Model.Like.Like1" type="hidden" value="Like">
-                        <button type="submit" asp-page-handler="Like" class="btn btn-outline-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up"></i></button>
+                        <button type="submit" asp-page-handler="Like" class="btn btn-outline-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up">@likeSummary</i></button>
                     </form>
 
                     <form method="post">
@@ -166,45 +165,52 @@
                         <input asp-for="@Model.Like.UserId" type="hidden" value="2">
                         <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                         <input asp-for="@Model.Like.Like1" type="hidden" value="Dislike">
-                        <button type="submit" asp-page-handler="Like" class="btn btn-outline-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down"></i></button>
+                        <button type="submit" asp-page-handler="Like" class="btn btn-outline-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down">@dislikeSummary</i></button>
                     </form>
-                    count--;
-                    count--;
-                    count--;
-                    count--;
-                    break;
+
                 }
-                count--;
+
+                count3--;
 
             }
 
             ////////////////////////////////
 
+            <div>
+                <form method="post">
+                    <label>Olle Persson</label>
+                    <br>
+                    <input hidden asp-for="@Model.Comment.Status" value="Public">
+                    <input asp-for="@Model.Comment.UserId" type="hidden" value="2">
+                    <input asp-for="@Model.Comment.ReviewId" type="hidden" value="@review.ReviewId">
+                    <input asp-for="@Model.Comment.Created" type="hidden" value="@DateTime.Now">
+                    <textarea asp-for="@Model.Comment.Text" class="form-control" aria-label="With textarea"></textarea>
+                    <input type="submit" asp-page-handler="Comment" class="btn btn-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" value="Comment" style="margin-top: 10px">
+                </form>
+
+
+                @{
+                    //Foreach through sample data
+                    foreach (var comment in Model.Comments)
+                    {
+                        if (comment != null)
+                        {
+                            if (comment.ReviewId == review.ReviewId)
+                            {
+                                <p style="font-weight:bold;">@comment.User.Userinfo.Firstname @comment.User.Userinfo.Lastname</p>
+                                <p>@comment.Text</p>
+                                <hr />
+                            }
+                        }
+
+                    }
+                }
+
+            </div>
+
+
+            //INSERT SESSION USER
             
-
-            <form>
-                <label>Olle Persson</label>
-                <br>
-                <input type="text" style="margin-top:5px" placeholder="Comment...">
-                <input type="submit" value="Comment">
-            </form>
-            //Sample data
-            string[] Comments = { "What an amazing review Marilyn, described so perfectly", 
-            "Great review Marilyn. I loved this book and enjoyed the movie :)", 
-            "AND the movie version is now on Netflix! " };
-            <br />
-
-            //Foreach through sample data
-            foreach (var comment in Comments)
-            {
-                <p>Maja Hansson: <br>@comment</p>
-                <hr />
-
-                @*ADD COMMENTS DOWN BELOW*@
-                <div id="comments-section" style="display: none;">
-                    Comments are here
-                </div>
-            }
         }
 
 
