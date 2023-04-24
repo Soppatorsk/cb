@@ -26,23 +26,23 @@
                         </li>
                         @* TODO temp inactive, less clutter
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">About</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Contact</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Authors</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Authors</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Genres</a>
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Genres</a>
                         </li>
                         *@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Books/Index">Books</a>
                         </li>
-                        
-                   <li class="nav-item">
+
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/reviews/Index">Reviews</a>
                         </li>
                         <li class="nav-item">
@@ -57,9 +57,13 @@
                                 Admin controls
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="/Admin/AddBook">Add book</a></li>
                                 <li><a class="dropdown-item" href="/Admin/AddAuthor">Add author</a></li>
+                                <li><a class="dropdown-item" href="/Admin/AddBook">Add book</a></li>
                                 <li><a class="dropdown-item" href="/Admin/AddGenre">Add genre</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><a class="dropdown-item" href="/Admin/AddAuthor">Update author</a></li>
+                                <li><a class="dropdown-item" href="/Admin/AddBook">Update book</a></li>
+                                <li><a class="dropdown-item" href="/Admin/AddGenre">Update genre</a></li>
                                 <div class="dropdown-divider"></div>
                                 <li><a class="dropdown-item" href="/Admin/ManageUsers">Manage users</a></li>
                             </ul>
@@ -70,7 +74,7 @@
 
 
                     </ul>
-                   
+
                 </div>
             </div>
         </nav>
