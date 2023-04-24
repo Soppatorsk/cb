@@ -15,13 +15,10 @@ namespace Coolbooks.Pages.Books
         public double? TotalRatingSum { get; set; }
         public string TotalRatingSumString { get; set; }
         public double TotalRatings { get; set; }
-        public double Total { get; set; }
-        public bool CommentField { get; set; }
         public Like Like { get; set; }
-        public bool Clicked { get; set; }
-        public int ReviewLikes { get; set; }
-        public int ReviewDislikes { get; set; }
-
+        public Comment Comment { get; set; }
+        public IEnumerable<Comment?> Comments { get; set; }
+        public int LikeCount { get; set; }
 
         public IEnumerable<Like> LikeList { get; set; }
         public bool LikeExist { get; set; }
@@ -54,7 +51,6 @@ namespace Coolbooks.Pages.Books
             .Include("Author")
             .FirstOrDefault(b => b.BookId == id);
 
-
             Reviews = _db.Reviews
             .Where(r => r.BookId == id)
             .Include(r => r.User)
@@ -63,16 +59,36 @@ namespace Coolbooks.Pages.Books
             .OrderByDescending(x => x.Created)
             .ToList();
 
-            LikeList = _db.Likes.ToList();
+            //LikeList = _db.Likes.Include("Review")
+            //    .Include("Comment")
+            //    .ToList();
+
+            LikeList = _db.Likes.Include(r => r.Review)
+                            .Include(c => c.Comment)
+                            .Where(r => r.Review.BookId == id)
+                            .ToList();
+
+            //A try to print out the amount of likes in each bookpage. 
+            //it is used in the cshtml file. You can see it in one of the foreachloops
+            LikeCount = (
+    from review in _db.Reviews
+    join like in _db.Likes on review.ReviewId equals like.ReviewId
+    where review.BookId == id
+    select like
+    ).Count();
+
+
+            Comments = _db.Comments.Include(x => x.User)
+                .ThenInclude(u => u.Userinfo)
+                .Include(r => r.Review)
+                .Where(r => r.Review.BookId == id)
+                .OrderByDescending(x => x.Created);
 
         }
         public async Task<IActionResult> OnPostLike(Like like, int id)
         {
-             var likeExist = _db.Likes.FirstOrDefault(x => x.UserId == like.UserId && x.ReviewId == like.ReviewId);
-
             int bookId = id;
 
-            //var likeFromDb = _db.Likes.Find(like.UserId);
             var likeFromDb = _db.Likes.FirstOrDefault(x => x.UserId == like.UserId && x.ReviewId == like.ReviewId);
 
             if (likeFromDb != null)
@@ -95,42 +111,20 @@ namespace Coolbooks.Pages.Books
                     _db.SaveChanges();
                     return RedirectToPage("BookPage", new { id = bookId });
                 }
-                //WORKING COPY
-                //_db.Likes.Remove(likeFromDb);
-                //_db.SaveChanges();
-                //return RedirectToPage("BookPage", new { id = bookId });
             }
             else
             {
                 await _db.Likes.AddAsync(like);
                 await _db.SaveChangesAsync();
-                //return RedirectToPage("BookPage");
                 return RedirectToPage("BookPage", new { id = bookId });
             }
-
-
-            //// check if the like already exists for the current user and review
-            //var existingLike = _db.Likes.FirstOrDefault(l => l.UserId == like.UserId && l.ReviewId == like.ReviewId);
-
-            //int bookId = id;
-            //if (existingLike != null)
-            //{
-            //    // remove the existing like from the database
-            //    _db.Likes.Remove(existingLike);
-            //    await _db.SaveChangesAsync();
-            //}
-            //else
-            //{
-            //    // add the new like to the database
-            //    await _db.Likes.AddAsync(like);
-            //    await _db.SaveChangesAsync();
-            //}
-
-            //// redirect to the book page
-            //return RedirectToPage("BookPage", new { id = bookId });
-
-
-
+        }
+        public async Task<IActionResult> OnPostComment(Comment comment, int id)
+        {
+            int bookId = id;
+            await _db.Comments.AddAsync(comment);
+            await _db.SaveChangesAsync();
+            return RedirectToPage("BookPage", new { id = bookId });
         }
     }
 }
