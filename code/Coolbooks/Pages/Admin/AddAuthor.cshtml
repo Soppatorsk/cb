@@ -34,3 +34,21 @@
     <br />
     <button type="submit" class="btn btn-primary">Add author</button>
 </form>
+
+<table width="100%" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Author</th>
+            <th>Created</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model.Authors)
+        {
+            <tr>
+                <td>@author.Firstname @author.Lastname</td>
+                <td>@author.Created <a class="btn btn-primary float-lg-end" asp-route-id="@author.AuthorId" asp-page="UpdateAuthor">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

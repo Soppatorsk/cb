@@ -1,0 +1,34 @@
+﻿@page
+@model Coolbooks.Pages.Admin.UpdateAuthorModel
+@{
+}
+<h2>Update Author Page</h2>
+
+<div class="form-group row">
+    <form method="post">
+        <p style="font-weight:bold">Firstname</p>
+        <input class="form-control" asp-for="@Model.Author.Firstname" type="text" placeholder="@Model.Author.Firstname" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Lastname</p>
+        <input class="form-control" asp-for="@Model.Author.Lastname" type="text" placeholder="@Model.Author.Lastname" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Date</p>
+        <p>Current date: @Model.Author.Created</p>
+        <input class="form-control" asp-for="@Model.Author.Created" type="date" style="margin-top:10px" />
+        <br />
+
+        @*
+        *
+        *
+        *
+        CHANGE TO CURRENT ADMIN USER ID BELOW
+        *
+        *
+        **@
+        <input hidden value="@Model.Author.AuthorId" asp-for="@Model.Author.AuthorId" />
+
+        <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 10px" asp-page-handler="Update" asp-page="UpdateAuthor" />
+    </form>
+</div>
