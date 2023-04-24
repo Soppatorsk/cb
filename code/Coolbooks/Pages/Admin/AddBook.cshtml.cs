@@ -9,6 +9,7 @@ namespace Coolbooks.Pages
     {
         private readonly CoolbooksContext _db;
         public IEnumerable<Book> Books { get; set; }
+
         public IEnumerable<Author> Authors { get; set; } //nytt
 
         public AddBookModel(CoolbooksContext db)

@@ -5,22 +5,6 @@
 
 <br />
 <br />
-@*<form method="post" asp-page-handler="SelectBooks">
-    <label for="currentBooks"><h4>Current list of books</h4></label>
-    <br />
-    <br />
-    <select id="currentBooks" name="SelectBooks" multiple size="10">
-        @foreach (var bk in Model.Books.OrderBy(b => b.Title))
-        {
-            <option value="@bk.Title">@bk.Title</option>
-        }
-    </select>
-    @*<button type="submit">Submit</button>
-</form>*@
-<br />
-<br />
-
-
 <h4>Add new book</h4>
 <form method="post">
     <div class="w-25">
@@ -40,7 +24,7 @@
             }
         </select>
 
-        @{int deletedNot = 0;}
+        
         <label asp-for="Book.Isbn"></label>
         <textarea asp-for="Book.Isbn" class="form-control" required></textarea>
         <label asp-for="Book.Description"></label>
@@ -48,7 +32,7 @@
 
         <input asp-for="Book.Created" type="hidden" value="@DateTime.Now" />
         <input asp-for="Book.Imagepath" type="hidden" value="minmapp/bild.jpg" />
-        @*<input asp-for="Book.IsDeleted" type="hidden" value="0" />*@
+        <input asp-for="Book.IsDeleted" type="hidden" value="false" />
         @*<input asp-for="Book.IsDeleted" type="hidden" value="@deletedNot" />*@
 
 
@@ -56,3 +40,26 @@
     <br />
     <button type="submit" class="btn btn-primary">Add author</button>
 </form>
+
+<table width="100%" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Genre</th>
+            <th>Author</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Description</td>
+                <td>@book.Genre.Name</td>
+                <td>@book.Author.Firstname @book.Author.Lastname <a class="btn btn-primary float-lg-end" asp-route-id="@book.BookId" asp-page="UpdateBook">Edit</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
