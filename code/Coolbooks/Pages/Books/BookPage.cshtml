@@ -85,11 +85,11 @@
                 //Prints out total likes
                 var likeSummary = Model.LikeList.Where(x => x.Like1 == "Like" && x.ReviewId == review.ReviewId).Count();
                 var dislikeSummary = Model.LikeList.Where(x => x.Like1 == "Dislike" && x.ReviewId == review.ReviewId).Count();
-                if (likeCounter == Model.LikeCount)
+@*                if (likeCounter == Model.LikeCount)
                 {
                     <p>TOTAL LIKES: @likeSummary</p>
                     <p>TOTAL DISLIKES: @dislikeSummary</p>
-                }
+                }*@
 
                 //Prints out all the buttons depending on different statements.
         //INSTEAD OF 2 IN THE IF STATEMENT INSERT THE USER ID FROM THE SESSION
