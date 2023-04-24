@@ -35,6 +35,5 @@ namespace Coolbooks.Pages.Admin
             await _db.SaveChangesAsync();
             return RedirectToPage("UpdateBook", new { id = book.BookId });
         }
-
     }
 }

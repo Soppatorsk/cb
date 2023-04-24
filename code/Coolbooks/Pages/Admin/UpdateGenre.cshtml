@@ -1,0 +1,27 @@
+﻿@page
+@model Coolbooks.Pages.Admin.UpdateGenreModel
+@{
+}
+
+<h2>Update Genre</h2>
+
+
+<div class="form-group row">
+    <form method="post">
+        <p style="font-weight:bold">Genre Name</p>
+        <input class="form-control" asp-for="@Model.Genre.Name" type="text" placeholder="@Model.Genre.Name" style="margin-top:10px" />
+        <br />
+
+        @*
+        *
+        *
+        *
+        CHANGE TO CURRENT ADMIN USER ID BELOW
+        *
+        *
+        **@
+        <input hidden value="@Model.Genre.GenreId" asp-for="@Model.Genre.GenreId" />
+
+        <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 10px" asp-page-handler="Update" asp-page="UpdateGenre" />
+    </form>
+</div>

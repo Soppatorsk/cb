@@ -41,8 +41,10 @@
 
         <p style="font-weight:bold">Date</p>
         <p>Current date: @Model.Book.Created</p>
-        <input class="form-control" asp-for="@Model.Book.Isbn" type="date" style="margin-top:10px" />
+        <input class="form-control" asp-for="@Model.Book.Created" type="date" style="margin-top:10px" />
         <br />
+
+        <input asp-for="@Model.Book.BookId" hidden />
 
         @*
         *
