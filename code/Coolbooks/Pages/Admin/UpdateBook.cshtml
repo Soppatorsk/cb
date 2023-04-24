@@ -2,8 +2,58 @@
 @model Coolbooks.Pages.Admin.UpdateBookModel
 @{
 }
-<p>Update @Model.Book.Title</p>
 
-<form>
-	<input type="text" placeholder="@Model.Book.Title" />
-</form>
+
+
+
+<h2 style="margin-bottom: 2em">Update @Model.Book.Title</h2>
+<div class="form-group row">
+    <form method="post">
+        <p style="font-weight:bold">Title</p>
+        <input class="form-control" asp-for="@Model.Book.Title" type="text" placeholder="@Model.Book.Title" style="margin-top:10px"/>
+        <br />
+        <p style="font-weight:bold">Author</p>
+        <select asp-for="@Model.Book.AuthorId" class="form-select" aria-label="Default select example" style="margin-top:10px">
+           @*Foreach here*@
+           @foreach (var author in Model.AuthorList)
+            {
+                <option value="@author.AuthorId">@author.Firstname @author.Lastname</option>
+            }
+        </select>
+        <br />
+        <p style="font-weight:bold">Genre</p>
+        <select asp-for="@Model.Book.GenreId" class="form-select" aria-label="Default select example" style="margin-top:10px">
+            @*Foreach here*@
+            @foreach (var genre in Model.GenreList)
+            {
+                <option value="@genre.GenreId">@genre.Name</option>
+            }
+            <option value="2">Genre</option>
+        </select>
+        <br />
+        <p style="font-weight:bold">Description</p>
+        <textarea asp-for="@Model.Book.Description" placeholder="@Model.Book.Description"class="form-control" aria-label="With textarea"></textarea>
+        <br />
+
+        <p style="font-weight:bold">ISBN</p>
+        <input class="form-control" asp-for="@Model.Book.Isbn" type="text" placeholder="@Model.Book.Isbn" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Date</p>
+        <p>Current date: @Model.Book.Created</p>
+        <input class="form-control" asp-for="@Model.Book.Isbn" type="date" style="margin-top:10px" />
+        <br />
+
+        @*
+        *
+        *
+        *
+        CHANGE TO CURRENT ADMIN USER ID BELOW
+        *
+        *
+        **@
+        <input hidden value="1" asp-for="@Model.Book.UserId" />
+
+        <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 10px" asp-page-handler="Update" asp-page="UpdateBook"/>
+    </form>
+</div>
