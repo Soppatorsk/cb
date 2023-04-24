@@ -59,9 +59,14 @@ namespace Coolbooks.Pages.Books
             .OrderByDescending(x => x.Created)
             .ToList();
 
-            LikeList = _db.Likes.Include("Review")
-                .Include("Comment")
-                .ToList();
+            //LikeList = _db.Likes.Include("Review")
+            //    .Include("Comment")
+            //    .ToList();
+
+            LikeList = _db.Likes.Include(r => r.Review)
+                            .Include(c => c.Comment)
+                            .Where(r => r.Review.BookId == id)
+                            .ToList();
 
             //A try to print out the amount of likes in each bookpage. 
             //it is used in the cshtml file. You can see it in one of the foreachloops
