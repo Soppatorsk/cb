@@ -1,0 +1,26 @@
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model UploadModel
+
+@{
+	Layout = null;
+}
+
+<!Doctype html>
+
+<html>
+	<head>
+		<meta name="view" content="width=device-width"/>
+	</head>
+	<body>
+		<form method="post" enctype="multipart/form-data">
+			<span>Select File</span>
+			<input type="file" name="postedFiles"/>
+			<input type="submit" value="Upload" asp-page-handler="Upload"/>
+			<br />
+			<span style="color:green">@Html.Raw(Model.Message)</span>
+		</form>
+
+	</body>
+
+</html>
