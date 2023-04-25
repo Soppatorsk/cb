@@ -63,6 +63,7 @@
                                 
                                 <div class="dropdown-divider"></div>
                                 <li><a class="dropdown-item" href="/Admin/ManageUsers">Manage users</a></li>
+                                <li><a class="dropdown-item" href="/Admin/Upload">Upload File</a></li>
                             </ul>
                         </div>
 
@@ -71,6 +72,20 @@
 
 
                     </ul>
+
+                </div>
+                <div class=" align-content-end ">
+                    @*Visar användarnamn om inloggad*@
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+
+                        <p>@User.Identity.Name, you're looking good! </p>
+
+                    }
+                    else
+                    {
+                        <a asp-page="/Login/Login">Sign in</a>
+                    }
 
                 </div>
             </div>

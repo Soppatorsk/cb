@@ -1,6 +1,7 @@
 ﻿using Coolbooks.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace Coolbooks.Pages
 {
@@ -13,8 +14,14 @@ namespace Coolbooks.Pages
            
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                _db.Userinfos.Include("SiteUser");
+                return Page();
+            }
+            return Challenge();
         }
     }
 }

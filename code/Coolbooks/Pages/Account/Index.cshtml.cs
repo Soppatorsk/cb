@@ -22,7 +22,7 @@ namespace Coolbooks.Pages.Account
 
         public async Task OnGetAsync()
         {
-            if (_context.Userinfos != null)
+            if (!User.Identity.IsAuthenticated)
             {
                 Userinfo = await _context.Userinfos.ToListAsync();
             }
