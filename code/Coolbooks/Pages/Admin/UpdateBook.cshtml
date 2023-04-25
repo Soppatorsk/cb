@@ -8,7 +8,7 @@
 
 <h2 style="margin-bottom: 2em">Update @Model.Book.Title</h2>
 <div class="form-group row">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <p style="font-weight:bold">Title</p>
         <input class="form-control" asp-for="@Model.Book.Title" type="text" placeholder="@Model.Book.Title" style="margin-top:10px"/>
         <br />
@@ -47,6 +47,17 @@
         <input asp-for="@Model.Book.BookId" hidden />
         <input asp-for="@Model.Book.Imagepath" hidden />
         <input asp-for="@Model.Book.IsDeleted" hidden />
+
+        <input type="file" name="postedFile"/>
+
+        @{
+            foreach (var file in Model.FileList)
+            {
+                <select>
+                <option>@file</option>
+                </select>
+            }
+        }
 
         @*
         *
