@@ -1,0 +1,121 @@
+﻿@page
+@model Coolbooks.Pages.Admin.ReviewUpdateModel
+@{
+}
+<h2>Edit Review</h2>
+
+<div class="form-group row">
+    <form method="post">
+        <p style="font-weight:bold">Title</p>
+        <input class="form-control" asp-for="@Model.Review.Title" type="text" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Text</p>
+        <textarea class="form-control" asp-for="@Model.Review.Text" type="text" style="margin-top:10px"></textarea>
+
+
+        <select asp-for="@Model.Review.Rating">
+            <br />
+            <option value="1">1 star  ★</option>
+            <option value="2">2 stars ★★ </option>
+            <option value="3">3 stars ★★★</option>
+            <option value="4">4 stars ★★★★</option>
+            <option value="5">5 stars ★★★★★</option>
+        </select>
+        <br />
+
+        <p style="font-weight:bold">Date</p>
+        <p>Current date: @Model.Review.Created</p>
+        <input class="form-control" asp-for="@Model.Review.Created" type="datetime" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Book</p>
+        <select asp-for="@Model.Review.BookId" class="form-select" aria-label="Default select example" style="margin-top:10px">
+            @*Foreach here*@
+            @foreach (var book in Model.BookList)
+            {
+                <option value="@book.BookId">@book.Title</option>
+            }
+        </select>
+        <br />
+
+        <p style="font-weight:bold">Status</p>
+        <select asp-for="@Model.Review.Status" class="form-select" aria-label="Default select example" style="margin-top:10px">
+            <option value="Removed">Removed</option>
+            <option value="Public">Public</option>
+        </select>
+        <br />
+        @*
+        *
+        *
+        *
+        CHANGE TO CURRENT ADMIN USER ID BELOW
+        *
+        *
+        **@
+        <input hidden asp-for="@Model.Review.UserId" />
+        <input hidden value="@Model.Review.ReviewId" asp-for="@Model.Review.ReviewId" />
+
+
+        <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 10px" asp-page-handler="Update" asp-page="ReviewUpdate" />
+    </form>
+</div>
+
+
+@*///////////////////////////////////////////////////////////*@
+
+
+@*<div class="form-group row">
+    <form method="post">
+        <p style="font-weight:bold">Title</p>
+        <input class="form-control" asp-for="@Model.Review.Title" type="text" value="@Model.Review.Title" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Text</p>
+        <textarea class="form-control" asp-for="@Model.Review.Text" type="text" value="@Model.Review.Text" style="margin-top:10px"></textarea>
+
+
+        <select name="rating" asp-for="@Model.Review.Rating">
+            <br />
+            <option value="1">1 star  ★</option>
+            <option value="2">2 stars ★★ </option>
+            <option value="3">3 stars ★★★</option>
+            <option value="4">4 stars ★★★★</option>
+            <option value="5">5 stars ★★★★★</option>
+        </select>
+        <br />
+
+        <p style="font-weight:bold">Date</p>
+        <p>Current date: @Model.Review.Created</p>
+        <input class="form-control" asp-for="@Model.Review.Created" value="@Model.Review.Created" type="datetime" style="margin-top:10px" />
+        <br />
+
+        <p style="font-weight:bold">Book</p>
+        <select asp-for="@Model.Review.BookId" class="form-select" aria-label="Default select example" style="margin-top:10px">
+            @*Foreach here*@
+@*            @foreach (var book in Model.BookList)
+            {
+                <option value="@book.BookId">@book.Title</option>
+            }
+        </select>
+        <br />*@
+
+@*        <p style="font-weight:bold">Status</p>
+        <select asp-for="@Model.Review.Status" class="form-select" aria-label="Default select example" style="margin-top:10px">
+            <option value="Removed">Removed</option>
+            <option value="Public">Public</option>
+        </select>
+        <br />*@
+        @*
+        *
+        *
+        *
+        CHANGE TO CURRENT ADMIN USER ID BELOW
+        *
+        *
+        **@
+@*        <input hidden value="@Model.Review.ReviewId" asp-for="@Model.Review.ReviewId" />
+
+        <input type="submit" value="Update" class="btn btn-primary" style="margin-top: 10px" asp-page-handler="Update" asp-page="UpdateReview" />
+    </form>
+</div>*@

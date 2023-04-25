@@ -26,6 +26,7 @@
 			{
 			<th>Status</th>
 			<th>Remove</th>
+			<th>Edit</th>
 			}
 		</tr>
 		@foreach (var review in Model.Reviews)
@@ -43,8 +44,8 @@
 				<button class="btn btn-danger" type="submit">Remove</button>
 				<input type="hidden" name="id" value="@review.ReviewId" />
 				</form>
-				</td>
-
+					</td>			   
+					<td><a class="btn btn-primary float-lg-end" asp-route-id="@review.ReviewId" asp-page="/Admin/ReviewUpdate">Edit</a></td>
 				}
 			</tr>
 			<br />

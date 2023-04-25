@@ -57,7 +57,7 @@ else
 <div style="background-color:deepskyblue">
 <i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
 	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
-@if (Model.ExistantUserLike.Like1 != null)
+@*@if (Model.ExistantUserLike.Like1 != null)
 {
 	<p>You @Model.ExistantUserLike.Like1 this review</p>
 }
@@ -72,7 +72,7 @@ else
 		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 		<button type="submit">Vote on this review</button>
 	</form>
-}
+}*@
 
 
 </div>
