@@ -1,0 +1,50 @@
+﻿@page
+@model Coolbooks.Pages.Statistics.IndexModel
+@{
+}
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: 
+        [
+            @Model.dateTimes[6].Day,
+            @Model.dateTimes[5].Day,
+            @Model.dateTimes[4].Day,
+            @Model.dateTimes[3].Day,
+            @Model.dateTimes[2].Day,
+            @Model.dateTimes[1].Day,
+            @Model.dateTimes[0].Day,
+        ],
+        datasets: 
+        [{
+          label: '# of Comments',
+          data: [
+          @Model.a[6].Count(),
+          @Model.a[5].Count(),
+          @Model.a[4].Count(),
+          @Model.a[3].Count(),
+          @Model.a[2].Count(),
+          @Model.a[1].Count(),
+          @Model.a[0].Count()
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+</script>
