@@ -74,6 +74,20 @@
                     </ul>
 
                 </div>
+                <div class=" align-content-end ">
+                    @*Visar användarnamn om inloggad*@
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+
+                        <p>@User.Identity.Name, you're looking good! </p>
+
+                    }
+                    else
+                    {
+                        <a asp-page="/Login/Login">Sign in</a>
+                    }
+
+                </div>
             </div>
         </nav>
     </header>

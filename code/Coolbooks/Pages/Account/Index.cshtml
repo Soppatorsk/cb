@@ -39,7 +39,8 @@
         <p>
             <a asp-page="Next">Next</a>
         </p>
-@foreach (var item in Model.Userinfo) {
+        @foreach (var item in Model.Userinfo)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Firstname)
