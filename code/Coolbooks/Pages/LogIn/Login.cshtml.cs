@@ -8,10 +8,17 @@ using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies; //newly added
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Runtime.CompilerServices;
 
 namespace Coolbooks.Pages.LogIn
 {
 	public class LoginModel : PageModel
+
+	
 	{
 		[BindProperty]
 		public Credential Credent { get; set; }
@@ -26,50 +33,67 @@ namespace Coolbooks.Pages.LogIn
 			//{
 			//	Response.Redirect("/Home");
 			//}
+
+
 		}
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
-            {
-                // Get user input & generate MD5Hash
-                var passwordHash = this.Credent.Passwordhash; // byter plats på input & passwordHash *input*
-			//	var passwordHash = GenerateMD5Hash(input);
-                var email = this.Credent.Email;
 
-                // Perform query to check if the user exists 
-				var user = await _db.SiteUsers.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHash);
-                 if(user != null)
-                {
-					// if User is found, set session variables
-					_httpContextAccessor.HttpContext.Session.SetString("UserId", user.UserId.ToString());
-					_httpContextAccessor.HttpContext.Session.SetString("UserName", user.Email);
+			//Get user input & generate MD5Hash
+			var passwordHash = GenerateMD5Hash(Credent.Passwordhash);
+			var email = this.Credent.Email;
 
-					// Redirect to home page
-					return RedirectToPage("/Home");
-				}
-                else
-                {
-                    // if User not found
-                    ModelState.AddModelError(string.Empty, "Invalid email or password. ");
-                    return Page();
-                }
+
+			//Perform query to check if the user exists
+            var user = await _db.SiteUsers.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == passwordHash);
+
+			if (user != null) { 
+			// check user Role
+			var role = _db.Userinfos.Where(x => x.UserInfoId == user.UserinfoId)
+										.Select(x=>x.Role)
+										.FirstOrDefault();
 			
+            var name = _db.Userinfos.Where(x => x.UserInfoId == user.UserinfoId)
+                            .Select(x => x.Firstname)
+                            .FirstOrDefault();
+            var lastName = _db.Userinfos.Where(x => x.UserInfoId == user.UserinfoId)
+                .Select(x => x.Lastname)
+                .FirstOrDefault();
+
+
+				// Creating the security context
+				var claim = new List<Claim> { //this is the cookie
+						new Claim (ClaimTypes.Role,role),
+						new Claim (ClaimTypes.Name,name),
+						new Claim (ClaimTypes.Name,lastName),
+						new Claim (ClaimTypes.Email,email)
+					}; 
+				var identity = new ClaimsIdentity(claim,
+				CookieAuthenticationDefaults.AuthenticationScheme);
+				ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
+            // Sign in the principal in
+            await HttpContext.SignInAsync(claimsPrincipal);
+				var userName = HttpContext.User.Identity;
+				// Vad är skillnaden mellan System ClaimsPrincipal och Principal.Identity
+               // await HttpContext.SignInAsync(base.User.Identity);
+                return RedirectToPage("/Home");
             }
-            return null;
-      
+			return Page();
+
+
         }
         public class Credential
 		{
 			[Required]
-
 			public string Email { get; set; }
 			[Required]
 			[DataType(DataType.Password)]
 			[Display(Name = "Password")]
 			public string Passwordhash { get; set; }
-		 
-			
-		}
+		
+
+
+        }
 
 		public LoginModel(CoolbooksContext db, IHttpContextAccessor httpContextAccessor)
 		{

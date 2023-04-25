@@ -1,8 +1,22 @@
 ﻿@page
 @model Coolbooks.Pages.LogIn.LoginModel
 @{
-	 
+
 }
+<div class=" align-content-end ">
+
+	@if (User.Identity.IsAuthenticated)
+	{
+		
+		<p>@User.Identity.Name, you're looking good! </p>
+
+	}
+	else
+	{
+		<a asp-page="/Login">Sign in</a>
+	}
+
+</div>
 <div class = "container border" style="padding:20px">
 	<form method="post">
 		<div class="text-danger" asp-validation-summary="ModelOnly"></div>
