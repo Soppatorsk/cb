@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace Coolbooks.Pages.Admin
 {
@@ -12,9 +15,16 @@ namespace Coolbooks.Pages.Admin
         public Book? Book { get; set; }
         public IEnumerable<Author>? AuthorList { get; set; }
         public IEnumerable<Genre>? GenreList { get; set; }
-        public UpdateBookModel(CoolbooksContext db)
+
+        private readonly IWebHostEnvironment _environment;
+
+        public List<string> FileList { get; set; }
+
+        public UpdateBookModel(CoolbooksContext db, IWebHostEnvironment environment)
         {
             _db = db;
+            _environment = environment;
+            FileList = new List<string>();
         }
         public void OnGet(int id)
         {
@@ -26,12 +36,40 @@ namespace Coolbooks.Pages.Admin
             .Include("Genre")
             .Include("Author")
             .FirstOrDefault(b => b.BookId == id);
-        }
-        public async Task<IActionResult> OnPostUpdate(Book book)
-        {
-            //var bookFromDb = _db.Books.FirstOrDefault(x => x.BookId == book.BookId);
 
-             _db.Books.Update(book);
+
+
+            var imageFolder = Path.Combine(_environment.WebRootPath, "Images");
+            var imageFiles = Directory.GetFiles(imageFolder)
+                .Where(file => Path.GetExtension(file).ToLower() == ".jpg"
+                                           || Path.GetExtension(file).ToLower() == ".png");
+
+            foreach (var file in imageFiles)
+            {
+                FileList.Add(Path.GetFileName(file));
+            }
+        }
+        public async Task<IActionResult> OnPostUpdate(Book book, IFormFile postedFile)
+        {
+            string wwwPath = _environment.WebRootPath;
+            string contentPath = _environment.ContentRootPath;
+
+            string path = Path.Combine(_environment.WebRootPath, "Images");
+            if(!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            string filename = Path.GetFileName(postedFile.FileName);
+
+            using (FileStream stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
+            {
+                postedFile.CopyTo(stream);
+            }
+
+
+
+            book.Imagepath = "/Images/" + filename;
+
+            _db.Books.Update(book);
             await _db.SaveChangesAsync();
             return RedirectToPage("UpdateBook", new { id = book.BookId });
         }
