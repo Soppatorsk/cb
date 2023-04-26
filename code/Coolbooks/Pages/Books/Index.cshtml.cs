@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Coolbooks.Pages.Books
 {
-    [Authorize(Roles = "User,Admin,Moderator")]
+    //[Authorize(Roles = "User,Admin,Moderator")]
     public class IndexModel : PageModel
     {
         private readonly CoolbooksContext _db;

@@ -21,6 +21,15 @@
 			<span style="color:green">@Html.Raw(Model.Message)</span>
 		</form>
 
+		
 	</body>
 
 </html>
+
+@*@{
+	
+	@foreach (string imagePath in Directory.GetFiles($"{_hostingEnvironment.WebRootPath}/Images"))
+	{
+		<img src="@($"~/Images/{Path.GetFileName(imagePath)}")" />
+	}
+}*@
