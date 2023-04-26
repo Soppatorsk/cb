@@ -48,7 +48,7 @@
 	<br />
 	
 	<div class="home-bookcard-container">
-		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Take(4))
+		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).ThenBy(x => x.Title).Take(4))
 		{
 			
 			<a asp-page="Books/BookPage" asp-route-id="@book.BookId">
@@ -62,7 +62,7 @@
 	</div>
 	<br />
 	<div class="home-bookcard-container">
-		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).Skip(4).Take(4))
+		@foreach (var book in Model.Books.OrderByDescending(b => b.Created).ThenBy(x => x.Title).Skip(4).Take(4))
 		{
 			<a asp-page="Books/BookPage" asp-route-id="@book.BookId">
 				<div class="home-bookcard">
