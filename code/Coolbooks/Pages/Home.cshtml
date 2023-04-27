@@ -2,13 +2,11 @@
 @model HomeModel
 
 
-
 <h1>Random Books for inspiration</h1>
 <br />
 <div class="home-main-container">
 
-
-	
+	<h4>In the limelight</h4>
 	<div class="home-hero-container">
 		
 		<div class="home-hero-cover">
@@ -22,7 +20,7 @@
 		}
 		</div>
 		<div class="home-hero-text">
-			<h4>In the limelight</h4>
+			
 			<br/>
 			<h5>Title:</h5> @Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Title
 			<br />
@@ -33,10 +31,6 @@
 		</div>
 		<div class="home-hero-text">
 			<br />
-			<br />
-			<br />
-			
-			<p></p>
 			<h5>Genre:</h5> @Model.Books.OrderBy(x=>x.Created).FirstOrDefault().Genre.Name
 			<br />
 			<br />
@@ -68,8 +62,13 @@
 				<div class="home-bookcard">
 					<img src="@book.Imagepath" height="267" width="157" />
 					<div class="overlay">@book.Title <br /> <br /> @book.Author.Firstname @book.Author.Lastname</div>
+				
 				</div>
+				
 			</a>
+			
 		}
-	</div>>
+	</div>
 </div>
+
+
