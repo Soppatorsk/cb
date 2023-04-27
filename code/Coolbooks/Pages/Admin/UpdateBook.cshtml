@@ -7,6 +7,11 @@
 
 
 <h2 style="margin-bottom: 2em">Update @Model.Book.Title</h2>
+<div class="col-md-4 flex-wrap align-content-center">
+    			<a asp-page="/Books/BookPage" asp-route-id="@Model.Book.BookId">
+    <img src="@Model.Book.Imagepath" class="img-fluid" />
+    </a>
+</div>
 <div class="form-group row">
     <form method="post" enctype="multipart/form-data">
         <p style="font-weight:bold">Title</p>
@@ -51,12 +56,12 @@
         <input type="file" name="postedFile"/>
 
         @{
-            foreach (var file in Model.FileList)
-            {
-                <select>
-                <option>@file</option>
-                </select>
-            }
+            //foreach (var file in Model.FileList)
+            //{
+            //    <select>
+            //    <option>@file</option>
+            //    </select>
+            //}
         }
 
         @*
