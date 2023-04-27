@@ -1,0 +1,22 @@
+﻿@page
+@model Coolbooks.Pages.ChoiceAwards.ChoiceAwardsPageModel
+@{
+}
+
+
+
+<h1>Choice Awards Page</h1>
+
+<form method="post">
+    <select name="selectedYear">
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+    </select>
+    <button type="submit">Submit</button>
+</form>
+
+@if (Model.SelectedYear != 0)
+{
+    <h1>YOU PICKED @Model.SelectedYear</h1>
+}
