@@ -2,6 +2,25 @@
 @model Coolbooks.Pages.Statistics.IndexModel
 @{
 }
+<form method="POST" asp-page-handler="DateSelect">
+
+<input type="date" id="startDate" name="sd"
+       value="@Model.DateToString(Model.startDate)" />
+
+<input type="date" id="endDate" name="ed"
+       value="@Model.DateToString(Model.endDate)" />
+       <input type="submit" />
+</form>
+<br />
+
+@*
+
+@foreach ( var c in Model.Comments)
+{
+    <text>@c.Text @c.Created</text>
+    <br />
+}
+*@
 <div>
     <canvas id="myChart"></canvas>
 </div>
@@ -16,26 +35,20 @@
       data: {
         labels: 
         [
-            @Model.dateTimes[6].Day,
-            @Model.dateTimes[5].Day,
-            @Model.dateTimes[4].Day,
-            @Model.dateTimes[3].Day,
-            @Model.dateTimes[2].Day,
-            @Model.dateTimes[1].Day,
-            @Model.dateTimes[0].Day,
-        ],
+    @foreach ( var d in Model.dates)
+    {
+        <text>@d.Day,</text>
+    }
+            ],
         datasets: 
         [{
           label: '# of Comments',
           data: [
-          @Model.a[6].Count(),
-          @Model.a[5].Count(),
-          @Model.a[4].Count(),
-          @Model.a[3].Count(),
-          @Model.a[2].Count(),
-          @Model.a[1].Count(),
-          @Model.a[0].Count()
-          ],
+    @foreach (var c in Model.commentCount)
+    {
+        <text>@c,</text>
+    }
+    ],
           borderWidth: 1
         }]
       },
