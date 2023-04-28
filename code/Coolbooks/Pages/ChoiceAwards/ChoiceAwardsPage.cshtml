@@ -3,20 +3,74 @@
 @{
 }
 
+<div class="container">
+    @if (Model.IsSet && Model.SelectedYear <= 0)
+    {
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <h1>Welcome to choice Awards</h1>
+                <h3>Please select the year below</h3>
+
+                <br>
+
+                <form method="post">
+                    <select name="year">
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+
+    }
 
 
-<h1>Choice Awards Page</h1>
 
-<form method="post">
-    <select name="selectedYear">
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-        <option value="2021">2021</option>
-    </select>
-    <button type="submit">Submit</button>
-</form>
 
-@if (Model.SelectedYear != 0)
-{
-    <h1>YOU PICKED @Model.SelectedYear</h1>
-}
+    @if (Model.IsSet && Model.SelectedYear > 0)
+    {
+        <form method="post">
+            <select name="year">
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <h1>Best books of @Model.SelectedYear</h1>
+        <div class="row">
+            <div class="col-sm">
+                <h4>Top rated book: <b>@Model.Book.Title</b></h4>
+                <p>With a crazy rating at: <b>@Model.HighestRatedBookSum</b></p>
+                <img src="@Model.Book.Imagepath" class="img-fluid" />
+            </div>
+            <div class="col-sm">
+                <h4>Most reviewed book: <b>@Model.MostReviewdBook.Title</b></h4>
+                <p>With a crazy total amount of rates at: <b>@Model.TotalReviews</b></p>
+                <img src="@Model.MostReviewdBook.Imagepath" class="img-fluid" />
+            </div>
+            <div class="col-sm">
+                <h4>Top rated book: <b>@Model.Book.Title</b></h4>
+                <p>With a crazy total amount of rates at: <b>@Model.TotalReviews</b></p>
+                <img src="@Model.Book.Imagepath" class="img-fluid" />
+            </div>
+        </div>
+
+
+    }
+
+
+</div>
+
+
+<div class="container">
+    
+</div>
