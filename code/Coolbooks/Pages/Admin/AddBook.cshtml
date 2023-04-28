@@ -55,6 +55,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Genre</th>
+            <th>Created</th>
             <th>Author</th>
         </tr>
     </thead>
@@ -65,6 +66,7 @@
                 <td>@book.Title</td>
                 <td>@book.Description</td>
                 <td>@book.Genre.Name</td>
+                <td>@String.Format($"{book.Created:yy-MM-dd}")</td>
                 <td>@book.Author.Firstname @book.Author.Lastname <a class="btn btn-primary float-lg-end" asp-route-id="@book.BookId" asp-page="UpdateBook">Edit</a></td>
             </tr>
         }
