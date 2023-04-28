@@ -1,10 +1,9 @@
 ﻿@page
 @model AddGenreModel
 
-<h4>See current list of genres</h4>
+@*<h4>See current list of genres</h4>*@
 
-
-<form method="post" asp-page-handler="SelectGenres">
+@*<form method="post" asp-page-handler="SelectGenres">
     <label for="currentGenres">Browse genres:</label>
     <select id="currentGenres" name="SelectGenres">
         @foreach (var gen in Model.Genres.OrderBy(g => g.Name))
@@ -12,12 +11,12 @@
             <option value="@gen.Name">@gen.Name</option>
 		}
     </select>
-    @*<button type="submit">Submit</button>*@
-</form>
-<br />
-<br />
+    <button type="submit">Submit</button>
+</form>*@
+
 
 <h3>Add new genre</h3>
+<br />
 <form method="post">
     <div class="w-25">
         <label asp-for="Genre.Name"></label>
@@ -26,6 +25,7 @@
     <br />
     <button type="submit" class="btn btn-primary">Add Genre</button>
 </form>
+<br />
 
 <table width="100%" class="table table-bordered table-striped">
     <thead>
