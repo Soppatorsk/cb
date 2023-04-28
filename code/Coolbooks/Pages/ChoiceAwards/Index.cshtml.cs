@@ -77,24 +77,47 @@ namespace Coolbooks.Pages.ChoiceAwards
 
             //}
 
-            FirstYearBook = GetTopBook(now.Year);
-            SecondYearBook = GetTopBook(now.Year -1);
-            ThirdYearBook = GetTopBook(now.Year - 2);
+            FirstYearBook = GetTopBook(now.Year, 1);
+            SecondYearBook = GetTopBook(now.Year -1, 2);
+            ThirdYearBook = GetTopBook(now.Year - 2, 3);
 
         }
-        public Book GetTopBook(int year)
+        public Book GetTopBook(int year, int yearValue)
         {
 
 
             DateTime date = new DateTime(year, 1, 1);
+            DateTime date2 = new DateTime(year +1, 1, 1);
+            //DateTime date3 = new DateTime(year, 1, 1);
 
+            if(yearValue == 1)
+            {
+                BooksFirst = _db.Books
+                .Include("Genre")
+                .Include("Author")
+                .Include("Reviews")
+                .Where(x => x.Created > date)
+                .ToList();
+            }
+            else if (yearValue == 2)
+            {
+                BooksFirst = _db.Books
+                .Include("Genre")
+                .Include("Author")
+                .Include("Reviews")
+                .Where(x => x.Created > date && x.Created < date2)
+                .ToList();
+            }
+            else if (yearValue == 3)
+            {
+                BooksFirst = _db.Books
+                .Include("Genre")
+                .Include("Author")
+                .Include("Reviews")
+                .Where(x => x.Created > date && x.Created < date2)
+                .ToList();
+            }
 
-            BooksFirst = _db.Books
-            .Include("Genre")
-            .Include("Author")
-            .Include("Reviews")
-            .Where(x => x.Created > date)
-            .ToList();
 
             double highestRatedBookSum = 0;
             int bookId = 0;
