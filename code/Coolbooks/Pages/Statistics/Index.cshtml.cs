@@ -7,24 +7,54 @@ namespace Coolbooks.Pages.Statistics
 {
     public class IndexModel : PageModel
     {
-        public DateTime OriginDate ;
-        public List<Comment>[] a = new List<Comment>[7] ;
-        public List<DateTime> dateTimes = new List<DateTime>();
+        public DateTime startDate = DateTime.Now.AddDays(-7).Date;
+        public DateTime endDate = DateTime.Now;
+
+        public List<DateTime> dates = new List<DateTime>();
+        public List<Comment> Comments = new List<Comment>();
+        public List<int> commentCount = new List<int>();
 
         private readonly CoolbooksContext _db;
         public IndexModel(CoolbooksContext db) => _db = db;
-
         public void OnGet()
         {
-            OriginDate = DateTime.Today;
-            for (int  i = 0; i < 7; i++)
-            {
-                dateTimes.Add(OriginDate.AddDays(-i));
-                List<Comment> c = _db.Comments.Where(x => x.Created >= OriginDate.AddDays(-i - 1) 
-                && x.Created <= OriginDate.AddDays(-i))
-                    .ToList();
-                a[i] = c;
-			}
+            getStats();
         }
+        public void OnPostDateSelect(string sd, string ed)
+        {
+            startDate = DateTime.Parse(sd);
+            endDate = DateTime.Parse(ed);
+            getStats();
+        }
+
+        public void getStats()
+        {
+
+            //Console.WriteLine("start: " + startDate);
+            //Console.WriteLine("end: " + endDate);
+            Comments = _db.Comments
+                .Where(x => x.Created >= startDate && x.Created <= endDate)
+                .OrderBy(x => x.Created)
+                .ToList();
+            for (DateTime d = startDate.Date; d != endDate.Date; d = d.AddDays(1))
+            {
+                int count = 0;
+                dates.Add(d);
+                foreach (var c in Comments)
+                {
+                    //Console.WriteLine(c.Created.GetType());
+                    //Console.WriteLine(d.GetType());
+                    if (DateToString(c.Created) == DateToString(d)) count++;
+                }
+                commentCount.Add(count);
+            }
+
+        }
+        public string DateToString(DateTime? d) //cuts time
+        {
+            return String.Format($"{d:yyyy-MM-dd}");
+        }
+
+
     }
 }
