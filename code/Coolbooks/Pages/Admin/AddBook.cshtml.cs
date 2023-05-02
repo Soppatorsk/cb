@@ -11,6 +11,7 @@ namespace Coolbooks.Pages
         public IEnumerable<Book> Books { get; set; }
         public IEnumerable<Author> Authors { get; set; } 
         public IEnumerable<Genre> Genres { get; set; }
+        public bool Taken { get; set; }
 
         private readonly IWebHostEnvironment _environment;
         public List<string> FileList { get; set; }
@@ -28,6 +29,7 @@ namespace Coolbooks.Pages
 
         public async Task<IActionResult> OnPostAdd(Book book)
         {
+          
             await _db.Books.AddAsync(book);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
@@ -48,13 +50,25 @@ namespace Coolbooks.Pages
                 postedFile.CopyTo(stream);
             }
 
+            var isbnTaken = await _db.Books.FirstOrDefaultAsync(x => x.Isbn == book.Isbn);
 
+            //if (isbnTaken)
+            if (isbnTaken != null)
+            {
+                ModelState.AddModelError("Book.Isbn", "There is already a book with this ISBN");
+                string errorMsg = "There is already a book with this ISBN";
+                //return Page();
+                return RedirectToPage("AddBook", new {isTaken = errorMsg } );
+            }
+            else
+            {
+                book.Imagepath = "/Images/" + filename;
 
-            book.Imagepath = "/Images/" + filename;
-
-            _db.Books.Update(book);
-            await _db.SaveChangesAsync();
-            return RedirectToPage("AddBook");
+                _db.Books.Update(book);
+                await _db.SaveChangesAsync();
+                return RedirectToPage("AddBook");
+            }
+            
         }
 
         public class ListBooks
@@ -63,11 +77,17 @@ namespace Coolbooks.Pages
 
         }
 
-        public void OnGet()
+        public void OnGet(string isTaken)
         {
             Books = _db.Books.Include("Author").Include("Genre").ToList();
             Authors = _db.Authors.ToList(); //nytt
             Genres = _db.Genres.ToList();
+
+
+            if (isTaken == null)
+            {
+                Taken = true;
+            }
 
 
             //var imageFolder = Path.Combine(_environment.WebRootPath, "Images");

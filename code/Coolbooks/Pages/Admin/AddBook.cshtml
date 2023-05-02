@@ -1,6 +1,11 @@
 ﻿@page
 @model AddBookModel
 
+@if (!Model.Taken)
+{
+    <h2 class="alert alert-danger">The ISBN is already in use</h2>
+}
+<h1></h1>
 <br />
 <br />
 <h4>Add new book</h4>
@@ -28,13 +33,18 @@
         <input type="file" name="postedFile" required />
 
         <br/>
+      
+
         <label asp-for="Book.Isbn"></label>
-        <textarea asp-for="Book.Isbn" class="form-control" required></textarea>
+        <textarea asp-for="Book.Isbn" class="form-control" required data-val="true" data-val-required="The ISBN field is required."></textarea>
+
+        <span asp-validation-for="Book.Isbn" class="text-danger"></span>
+        
         <label asp-for="Book.Description"></label>
         <textarea asp-for="Book.Description" class="form-control" rows="5" required></textarea>
 
         <input asp-for="Book.Created" type="hidden" value="@DateTime.Now" />
-        @*<input asp-for="Book.Imagepath" type="hidden" value="minmapp/bild.jpg" />*@
+  
         <input asp-for="Book.IsDeleted" type="hidden" value="false"/>
         <input asp-for="Book.UserId" type="hidden" value=1/> @*AFTER LOGIN, THIS HAS TO BE MODIFIED*@
         
