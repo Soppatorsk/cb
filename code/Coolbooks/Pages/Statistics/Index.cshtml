@@ -3,14 +3,23 @@
 @{
 }
 <form method="POST" asp-page-handler="DateSelect">
+	@* set params*@
 
-<input type="date" id="startDate" name="sd"
-       value="@Model.DateToString(Model.startDate)" />
+	<input type="date" id="startDate" name="sd"
+		   value="@Model.DateToString(Model.startDate)" />
 
-<input type="date" id="endDate" name="ed"
-       value="@Model.DateToString(Model.endDate)" />
-       <input type="submit" />
+	<input type="date" id="endDate" name="ed"
+		   value="@Model.DateToString(Model.endDate)" />
+		   <br />
+		   Genre:
+	<select name="genre" asp-items="Model.Genres"> <option value=null>None</option> </select>
+		   <br />
+	Author:
+	<select name="author" asp-items="Model.Authors"> <option value=null>None</option></select>
+		   <br />
+	<input type="submit" />
 </form>
+
 <br />
 
 @*
@@ -22,42 +31,42 @@
 }
 *@
 <div>
-    <canvas id="myChart"></canvas>
+	<canvas id="myChart"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const ctx = document.getElementById('myChart');
+	const ctx = document.getElementById('myChart');
 
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: 
-        [
-    @foreach ( var d in Model.dates)
-    {
-        <text>@d.Day,</text>
-    }
-            ],
-        datasets: 
-        [{
-          label: '# of Comments',
-          data: [
-    @foreach (var c in Model.commentCount)
-    {
-        <text>@c,</text>
-    }
-    ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+	new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels:
+				[
+	@foreach (var d in Model.dates)
+	{
+		<text>@d.Day, </text>
+	}
+				],
+			datasets:
+				[{
+					label: '# of Comments',
+					data: [
+	@foreach (var c in Model.commentCount)
+	{
+		<text>@c, </text>
+	}
+		],
+					borderWidth: 1
+				}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
 </script>
