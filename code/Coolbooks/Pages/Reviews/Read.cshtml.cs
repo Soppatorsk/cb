@@ -116,14 +116,20 @@ namespace Coolbooks.Pages.Reviews
             Comment.ReviewId = id;
             Comment.Created = DateTime.Now;
             //TODO error if empty, cant comment review
-            //Comment.ParentCommentId = int.Parse(Request.Form["CommentParentId"]);
+            try
+            {
+            Comment.ParentCommentId = int.Parse(Request.Form["CommentParentId"]);
+
+            } catch
+            {
+                Console.WriteLine("hehe");
+            }
 
             //TODO user
             Comment.UserId = 1;
 
             _db.Add(Comment);
             _db.SaveChanges();
-
         }
 
     }

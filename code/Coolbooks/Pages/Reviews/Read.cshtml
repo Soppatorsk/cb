@@ -84,8 +84,11 @@ else
 	@foreach (var Comment in Model.Comments)
 	{
 		<div id="#@Comment.CommentId" class="CommentBox">
-			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname @if (Comment.ParentCommentId != null) { <span> replied to >>>#@Comment.ParentCommentId</span> } on @Comment.Created:</p>
+			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname @if (Comment.ParentCommentId != null) { <span> replied to >>><a asp-page="Reviews/Read" asp-fragment="@Comment.ParentCommentId">@Comment.ParentCommentId</a></span> } on @Comment.Created:</p>
 			<p>@Comment.Text</p>
+			@if (Comment.Status == "Flagged") {	
+				<p style="color:red">This comment is flagged</p> 
+			}
 			<button class="btn btn-link" onclick="setCommentParentId(@Comment.CommentId)">Reply</button>
 			<form asp-page-handler="FlagComment" method="POST">
 			<button class="btn btn-link" type="submit"><i class="bi bi-flag-fill"></i></button>
