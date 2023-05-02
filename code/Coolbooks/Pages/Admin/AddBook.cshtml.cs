@@ -9,14 +9,20 @@ namespace Coolbooks.Pages
     {
         private readonly CoolbooksContext _db;
         public IEnumerable<Book> Books { get; set; }
-        public IEnumerable<Author> Authors { get; set; } //nytt
+        public IEnumerable<Author> Authors { get; set; } 
         public IEnumerable<Genre> Genres { get; set; }
 
+        private readonly IWebHostEnvironment _environment;
+        public List<string> FileList { get; set; }
 
-        public AddBookModel(CoolbooksContext db)
+        public AddBookModel(CoolbooksContext db, IWebHostEnvironment environment)
         {
             _db = db;
+            _environment = environment;
+            FileList = new List<string>();
         }
+
+
         [BindProperty]
         public Book Book { get; set; }
 
@@ -26,19 +32,29 @@ namespace Coolbooks.Pages
             await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostUpdate(Book book, IFormFile postedFile)
         {
-            if (!ModelState.IsValid)
+            string wwwPath = _environment.WebRootPath;
+            string contentPath = _environment.ContentRootPath;
+
+            string path = Path.Combine(_environment.WebRootPath, "Images");
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            string filename = Path.GetFileName(postedFile.FileName);
+
+            using (FileStream stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
             {
-                return Page();
+                postedFile.CopyTo(stream);
             }
 
-            _db.Books.Add(Book);
+
+
+            book.Imagepath = "/Images/" + filename;
+
+            _db.Books.Update(book);
             await _db.SaveChangesAsync();
-
-       
-
-            return RedirectToPage("/Admin/Index");
+            return RedirectToPage("AddBook");
         }
 
         public class ListBooks
@@ -52,7 +68,17 @@ namespace Coolbooks.Pages
             Books = _db.Books.Include("Author").Include("Genre").ToList();
             Authors = _db.Authors.ToList(); //nytt
             Genres = _db.Genres.ToList();
-            
+
+
+            //var imageFolder = Path.Combine(_environment.WebRootPath, "Images");
+            //var imageFiles = Directory.GetFiles(imageFolder)
+            //    .Where(file => Path.GetExtension(file).ToLower() == ".jpg"
+            //                               || Path.GetExtension(file).ToLower() == ".png");
+
+            //foreach (var file in imageFiles)
+            //{
+            //    FileList.Add(Path.GetFileName(file));
+            //}
 
         }
     }

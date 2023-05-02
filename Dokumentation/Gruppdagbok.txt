@@ -5,10 +5,12 @@ Därefter kikade vi på databasmodellen som ligger uppe på Classroom och struki
 Efter det gjorde vi en egen skräddarsydd modell av databasen.
 Vi har även påbörjat skrivandet av User Stories.
 
-Onsdag 6:e april
+Torsdag 6:e april
 
 Vi har fortsatt med User Stories och kört Planning Poker. Vi har tidsestimerat alla kort och prioriterat dem.
 Vi har lagt upp databasen samt samt skapat grunden för (kod)projektet.
+
+
 
 Tisdag 11:e april
 
@@ -33,14 +35,45 @@ Fredag 14:e april
 Vi bestämde oss för att ändra om i databasen. När vi väl grejade med det så var det inte så krånligt.
 Det visade sig att man bara behövde köra Power Tools igen för att uppdatera Models-filerna.
 
+
+
+
 Måndag 17:e april
 
 Updaterat databasen med ny tabeler, relationer, columner. Sprint ett retrospective. 
-Uppdaterat userstories i trello och dokumentation
+Uppdaterat userstories i trello och dokumentation.
 
 Tisdag 18:e april
-
+Fortsatt lite smått att prata om kundkraven och hur vi skall prioritera dessa.
+Därefter fortsatt att jobba var för sig.
 
 
 Onsdag 19:e april
-Vi har suttit och grejat med våra user stories. Pratat en del om att Like-funktionen och inloggningen är knepig.
+Vi har suttit och grejat med våra user stories. Pratat en del om att Like-funktionen och om att inloggningen är knepig.
+
+Torsdag 20:e april
+Vi har grejat med våra user stories. 
+
+Fredag 21:e april
+Vi har jobbat på var sitt håll. Avstämning som vanligt på morgonen men sedan inte så mycket kommunikation.
+
+
+
+
+Måndag 24:e april
+Ändrat och slagit ihop vissa user stories. Annars jobbat på som vanligt och kommunicerat när det behövts.
+
+Tisdag 25:e april
+Funderat kring review/retrospective för imorgon. Vi kom fram till att vi har det mesta på det torra och inte behövde lägga fokus på nån särskild punkt. Samt att vi vet 
+
+
+Onsdag 26:e april
+Vi hade sprint review och retrospective och fick fler önskemål från kund. Stor del av förmiddagen gick åt att
+diskutera detta. Vi skrev några fler user stories och fördelade/jobbade enskilt efter det.
+
+Torsdag 27:e april
+Några har fortsatt med de nya kundkraven medan andra fortsatt med de redan existerande storiesarna. Vi har till exempel statistik och inloggning kvar sedan tidigare.
+
+Fredag 28:e april
+Idag har vi pratat lite om vilket betyg vi skall gå för. Det har ändrat sig lite från när vi började med arbetet.
+Därefter har vi arbetat på var sin kant.

@@ -47,7 +47,7 @@
 
         @foreach (var review in Model.Reviews)
         {
-            <div class="col-md-4 d-flex" style=" margin-top:3em; width:30em;">
+            <div id="@review.ReviewId" class="col-md-4 d-flex" style=" margin-top:3em; width:30em;">
                 <h5 style="margin-right:10px;">@review.User.Userinfo.Firstname @review.User.Userinfo.Lastname</h5>
             @{
             int starCounterR = 5;

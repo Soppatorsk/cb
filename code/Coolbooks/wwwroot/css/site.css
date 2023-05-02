@@ -22,6 +22,9 @@ body {
 }
 
 
+
+/*Custom made derp form thead front page*/
+
 .home-main-container {
 
 /*border:solid;*/
@@ -58,7 +61,7 @@ width: 70em;
     border-color:blueviolet;*/
     width: 60em;
     height: 17em;
-    margin-left: 5em;
+    margin-left: 2.5em;
     justify-content:space-around;
     
 }
@@ -72,6 +75,11 @@ width: 70em;
     position: relative;
     overflow: hidden;
    
+}
+
+.image-card {
+    height: 267px;
+    width: 157px;
 }
 
 .overlay {
@@ -96,3 +104,33 @@ width: 70em;
     opacity: 1;
   
 }
+
+@media only screen and (max-width: 600px) {
+
+
+    .home-bookcard-container {
+        padding: 3em;
+        display: flex;
+        flex-direction: column;
+        width: 60em;
+        height: 17em;
+        margin-left: 5em;
+        justify-content: space-around;
+        margin-top: 49em;
+    }
+
+
+    .home-hero-container {
+        display: flex;
+        flex-direction: column;
+        width: 60em;
+        height: 20em;
+        margin-left: 5em;
+    }
+
+    .home-space{
+        height: 2px;
+    }
+       
+}
+

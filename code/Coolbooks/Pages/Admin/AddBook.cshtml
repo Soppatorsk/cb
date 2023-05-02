@@ -4,7 +4,7 @@
 <br />
 <br />
 <h4>Add new book</h4>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="w-25">
         <label asp-for="Book.Title"></label>
         <input asp-for="Book.Title" class="form-control" required />
@@ -24,26 +24,30 @@
                 <option value="@gen.GenreId">@gen.Name</option>
             }
         </select>
+        @*Add file to directory and add filepath as string to db*@
+        <input type="file" name="postedFile" required />
 
-        
+        <br/>
         <label asp-for="Book.Isbn"></label>
         <textarea asp-for="Book.Isbn" class="form-control" required></textarea>
         <label asp-for="Book.Description"></label>
         <textarea asp-for="Book.Description" class="form-control" rows="5" required></textarea>
 
         <input asp-for="Book.Created" type="hidden" value="@DateTime.Now" />
-        <input asp-for="Book.Imagepath" type="hidden" value="minmapp/bild.jpg" />
+        @*<input asp-for="Book.Imagepath" type="hidden" value="minmapp/bild.jpg" />*@
         <input asp-for="Book.IsDeleted" type="hidden" value="false"/>
         <input asp-for="Book.UserId" type="hidden" value=1/> @*AFTER LOGIN, THIS HAS TO BE MODIFIED*@
         
     </div>
     <br />
-    <button type="submit" class="btn btn-primary" asp-page-handler="Add" asp-page="AddBook">Add book</button>
+    @*<button type="submit" class="btn btn-primary" asp-page-handler="Add" asp-page="AddBook">Add book</button>*@
+    <input type="submit" value="Add book" class="btn btn-primary" asp-page-handler="Update" asp-page="AddBook" />
 </form>
 <br />
 <br />
 
 
+@*Books already in the system*@
 
 <table width="100%" class="table table-bordered table-striped">
     <thead>
@@ -51,6 +55,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Genre</th>
+            <th>Created</th>
             <th>Author</th>
         </tr>
     </thead>
@@ -61,6 +66,7 @@
                 <td>@book.Title</td>
                 <td>@book.Description</td>
                 <td>@book.Genre.Name</td>
+                <td>@String.Format($"{book.Created:yy-MM-dd}")</td>
                 <td>@book.Author.Firstname @book.Author.Lastname <a class="btn btn-primary float-lg-end" asp-route-id="@book.BookId" asp-page="UpdateBook">Edit</a></td>
             </tr>
         }

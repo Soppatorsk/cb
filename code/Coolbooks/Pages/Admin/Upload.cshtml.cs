@@ -6,7 +6,7 @@ using System.IO;
 
 public class UploadModel : PageModel
 {
-	private readonly IWebHostEnvironment _environment;
+	public readonly IWebHostEnvironment _environment;
 
 	public UploadModel(IWebHostEnvironment environment)
 	{
@@ -22,6 +22,7 @@ public class UploadModel : PageModel
 
 	public void OnPostUpload(List<IFormFile> postedFiles)
 	{
+
 		string wwwPath = _environment.WebRootPath;
 
 		string contentPath = _environment.ContentRootPath;
@@ -35,7 +36,10 @@ public class UploadModel : PageModel
 		List<string> uploadedFiles = new List<string>();
 		foreach (IFormFile postedFile in postedFiles)
 		{
-			string fileName = Path.GetFileName(postedFile.FileName);
+			string fileName = Path.GetFileName(postedFile.FileName); //the file name
+			string completePath = "/Images/" + fileName; //the address that is shown in the Db
+			
+
 			using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
 			{
 				postedFile.CopyTo(stream);

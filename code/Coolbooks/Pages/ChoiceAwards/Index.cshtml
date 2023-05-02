@@ -1,0 +1,15 @@
+﻿@page
+@model Coolbooks.Pages.ChoiceAwards.IndexModel
+@{
+    
+}
+<a asp-page="ChoiceAwardsPage">Click</a>
+
+<h1>Best book of @Model.CurrentYear: <br /><br />@Model.FirstYearBook.Title</h1>
+<img src="@Model.FirstYearBook.Imagepath" class="img-fluid" />
+
+<h1>Best book of @Model.SecondYear: <br /><br />@Model.SecondYearBook.Title</h1>
+<img src="@Model.SecondYearBook.Imagepath" class="img-fluid" />
+
+<h1>Best book of @Model.ThirdYear: <br /><br />@Model.ThirdYearBook.Title</h1>
+<img src="@Model.ThirdYearBook.Imagepath" class="img-fluid" />

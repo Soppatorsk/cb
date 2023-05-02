@@ -58,16 +58,38 @@ namespace Coolbooks.Pages.Admin
             if(!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            string filename = Path.GetFileName(postedFile.FileName);
+            bool test = true;
 
-            using (FileStream stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
+            string filename;
+            if (postedFile == null)
             {
-                postedFile.CopyTo(stream);
+                filename = book.Imagepath;
+                test = false;
+            }
+            else
+            {
+                filename = Path.GetFileName(postedFile.FileName);
+            }
+
+            if (test)
+            {
+                using (FileStream stream = new FileStream(Path.Combine(path, filename), FileMode.Create))
+                {
+                    postedFile.CopyTo(stream);
+                }
             }
 
 
+            if (test)
+            {
+                book.Imagepath = "/Images/" + filename;
+            }
+            else
+            {
+                book.Imagepath = filename;
+            }
 
-            book.Imagepath = "/Images/" + filename;
+
 
             _db.Books.Update(book);
             await _db.SaveChangesAsync();

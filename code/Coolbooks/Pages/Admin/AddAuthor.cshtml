@@ -5,7 +5,7 @@
 
 <br />
 <br />
-<form method="post" asp-page-handler="SelectAuthors">
+@*<form method="post" asp-page-handler="SelectAuthors">
     <label for="currentAuthors"><h4>Current list of authors</h4></label>
     <br />
     <br />
@@ -15,12 +15,11 @@
             <option value="@auth.Lastname, @auth.Firstname">@auth.Lastname, @auth.Firstname</option>
         }
     </select>
-    @*<button type="submit">Submit</button>*@
-</form>
-<br />
-<br />
+    <button type="submit">Submit</button>
+</form>*@
 
 <h4>Add new author</h4>
+<br>
 <form method="post">
     <div class="w-25">
         <label asp-for="Author.Lastname"></label>
@@ -47,7 +46,7 @@
         {
             <tr>
                 <td>@author.Firstname @author.Lastname</td>
-                <td>@author.Created <a class="btn btn-primary float-lg-end" asp-route-id="@author.AuthorId" asp-page="UpdateAuthor">Edit</a></td>
+                <td>@String.Format($"{author.Created:yy-MM-dd}") <a class="btn btn-primary float-lg-end" asp-route-id="@author.AuthorId" asp-page="UpdateAuthor">Edit</a></td>
             </tr>
         }
     </tbody>
