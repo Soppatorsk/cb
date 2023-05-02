@@ -2,6 +2,14 @@
 @model Coolbooks.Pages.Books.IndexModel
 
 <h1>Book list</h1>
+<form asp-page-handler="Filter">
+    <p>Genre:</p>
+		<select name="genre" asp-items="Model.Genres"><option value=0>None</option></select>
+    <p>Author:</p>
+		<select name="author" asp-items="Model.Authors"><option value=null>None</option></select>
+
+        <button type="submit">Filter</button>
+</form>
 
 <table id="bookTable" width="100%" class="table table-bordered table-striped">
     <thead>
