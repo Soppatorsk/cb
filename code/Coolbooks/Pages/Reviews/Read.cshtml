@@ -32,14 +32,14 @@ else
 	</form>
 }
 
-<div style="background-color:aquamarine" class="ReviewContainer">
+<div class="ReviewContainer">
 
 	<h1>@Model.Review.Title</h1>
 	<a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
 
 	by @Model.AuthorFullName
 	<br />
-	@for (int i = 0; i <= Model.Review.Rating; i++)
+	@for (int i = 1; i <= Model.Review.Rating; i++)
 	{
 		<i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
 	}
@@ -50,11 +50,9 @@ else
 	<div style="">
 		@Model.Review.Text
 	</div>
-	<br />
-	<br />
 </div>
 
-<div style="background-color:deepskyblue">
+<div>
 <i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
 	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
 @*@if (Model.ExistantUserLike.Like1 != null)
@@ -78,19 +76,25 @@ else
 </div>
 @* Comments *@
 
+<br />
+<br />
+<br />
 <div>
 	Comments on this review:
 	@foreach (var Comment in Model.Comments)
 	{
-		<div style="background-color: lightgreen" class="CommentBox">
-			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname @if (Comment.ParentCommentId != null) { <span> replied to >>>#@Comment.ParentCommentId</span> } on @Comment.Created:</p>
+		<div id="#@Comment.CommentId" class="CommentBox">
+			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname @if (Comment.ParentCommentId != null) { <span> replied to >>><a asp-page="Reviews/Read" asp-fragment="@Comment.ParentCommentId">@Comment.ParentCommentId</a></span> } on @Comment.Created:</p>
 			<p>@Comment.Text</p>
+			@if (Comment.Status == "Flagged") {	
+				<p style="color:red">This comment is flagged</p> 
+			}
+			<button class="btn btn-link" onclick="setCommentParentId(@Comment.CommentId)">Reply</button>
 			<form asp-page-handler="FlagComment" method="POST">
 			<button class="btn btn-link" type="submit"><i class="bi bi-flag-fill"></i></button>
 			<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 			<input type="hidden" name="CommentId" value="@Comment.CommentId" />
 			</form>
-			<button class="btn btn-link" onclick="setCommentParentId(@Comment.CommentId)">Reply</button>
 		</div>
 	}
 </div>
@@ -122,7 +126,8 @@ else
 		var x = document.getElementById("CommentParentId");
 		x.setAttribute("value", id);
 		var i = document.getElementById("CommentFormIndicator");
-		i.innerText = "Replying to comment" + id;
+		i.innerText = "Replying to comment #" + id;
+		if (document.getElementById("ReviewCommentForm").style.display == "none") toggleForm();
 	}
 </script>
 

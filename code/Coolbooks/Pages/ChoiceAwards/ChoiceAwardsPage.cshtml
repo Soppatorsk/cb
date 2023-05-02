@@ -22,6 +22,12 @@
                         <option value="2022">2022</option>
                         <option value="2021">2021</option>
                     </select>
+                    <select name="genre">
+                        @foreach (var genre in Model.Genres)
+                        {
+                            <option value="@genre.Name">@genre.Name</option>
+                        }
+                    </select>
                     <button type="submit">Submit</button>
                 </form>
             </div>
@@ -43,24 +49,52 @@
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
             </select>
+            <select name="genre">
+                @foreach (var genre in Model.Genres)
+                {
+                    <option value="@genre.Name">@genre.Name</option>
+                }
+            </select>
             <button type="submit">Submit</button>
         </form>
         <h1>Best books of @Model.SelectedYear</h1>
         <div class="row">
             <div class="col-sm">
-                <h4>Top rated book: <b>@Model.Book.Title</b></h4>
-                <p>With a crazy rating at: <b>@Model.HighestRatedBookSum</b></p>
-                <img src="@Model.Book.Imagepath" class="img-fluid" />
+                @if (Model.Book != null)
+                {
+                    <h4>Top rated book: <b>@Model.Book.Title</b></h4>
+                    <p>With a crazy rating at: <b>@Model.HighestRatedBookSum</b></p>
+                    <img src="@Model.Book.Imagepath" class="img-fluid" />
+                }
+                else
+                {
+                    <h4>There are no top rated book based on on your search.</h4>
+                }
             </div>
             <div class="col-sm">
-                <h4>Most reviewed book: <b>@Model.MostReviewdBook.Title</b></h4>
-                <p>With a crazy total amount of rates at: <b>@Model.TotalReviews</b></p>
-                <img src="@Model.MostReviewdBook.Imagepath" class="img-fluid" />
+                @if (Model.MostReviewdBook != null)
+                {
+                    <h4>Most reviewed book: <b>@Model.MostReviewdBook.Title</b></h4>
+                    <p>With a crazy total amount of rates at: <b>@Model.TotalReviews</b></p>
+                    <img src="@Model.MostReviewdBook.Imagepath" class="img-fluid" />
+                }
+                else
+                {
+                    <h4>There are no most reviewed book based on your search.</h4>
+                }
             </div>
             <div class="col-sm">
-                <h4>Top rated book: <b>@Model.Book.Title</b></h4>
-                <p>With a crazy total amount of rates at: <b>@Model.TotalReviews</b></p>
-                <img src="@Model.Book.Imagepath" class="img-fluid" />
+                @if (Model.BestGenreBook != null)
+                {
+                    <h4>Top rated @Model.SelectedGenre: <b>@Model.BestGenreBook.Title</b></h4>
+                    <p>With a stunning total amount of rates at: <b>@Model.TopGenreBookSum</b></p>
+                    <img src="@Model.BestGenreBook.Imagepath" class="img-fluid" />
+                }
+                else
+                {
+                    <h4>No book found that matched your search on Best @Model.SelectedGenre book of @Model.SelectedYear</h4>
+                }
+
             </div>
         </div>
 
