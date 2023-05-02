@@ -74,7 +74,6 @@ namespace Coolbooks.Pages.Reviews
         public void OnPostFlagComment(int id, int CommentId)
         {
             LoadPage(id);
-
 			Comment = _db.Comments
             .Where(r => r.CommentId == CommentId).FirstOrDefault();
             Comment.Status = "Flagged";
