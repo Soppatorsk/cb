@@ -21,6 +21,10 @@ body {
   margin-bottom: 60px;
 }
 
+.CommentBox {
+    border-style:solid;
+    border-width:1px;
+}
 
 
 /*Custom made derp form thead front page*/

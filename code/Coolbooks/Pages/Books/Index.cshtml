@@ -2,14 +2,22 @@
 @model Coolbooks.Pages.Books.IndexModel
 
 <h1>Book list</h1>
+<form asp-page-handler="Filter">
+    <p>Genre:</p>
+		<select name="genre" asp-items="Model.Genres"><option value=0>None</option></select>
+    <p>Author:</p>
+		<select name="author" asp-items="Model.Authors"><option value=null>None</option></select>
 
-<table width="100%" class="table table-bordered table-striped">
+        <button type="submit">Filter</button>
+</form>
+
+<table id="bookTable" width="100%" class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Genre</th>
-            <th>Author</th>
+            <th onclick="sortTable(0)">Title</th>
+            <th onclick="sortTable(1)">Description</th>
+            <th onclick="sortTable(2)">Genre</th>
+            <th onclick="sortTable(3)">Author</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +30,29 @@
                 <td>@book.Author.Firstname @book.Author.Lastname <a class="btn btn-primary float-lg-end" asp-route-id="@book.BookId" asp-page="BookPage">View</a></td>
             </tr>
         }
-
     </tbody>
 </table>
+<script>
+    function sortTable(col) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("bookTable");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[col];
+                y = rows[i + 1].getElementsByTagName("td")[col];
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+</script>
