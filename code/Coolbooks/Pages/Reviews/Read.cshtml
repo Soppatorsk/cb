@@ -83,7 +83,7 @@ else
 	@foreach (var Comment in Model.Comments)
 	{
 		<div style="background-color: lightgreen" class="CommentBox">
-			<p>#@Comment.CommentId @Comment.User.Userinfo.Firstname @if (Comment.ParentCommentId != null) { <span> replied to >>>#@Comment.ParentCommentId</span> } on @Comment.Created:</p>
+			<p>#@Comment.CommentId @Comment.IdNavigation.UserName @if (Comment.ParentCommentId != null) { <span> replied to >>>#@Comment.ParentCommentId</span> } on @Comment.Created:</p>
 			<p>@Comment.Text</p>
 			<form asp-page-handler="FlagComment" method="POST">
 			<button class="btn btn-link" type="submit"><i class="bi bi-flag-fill"></i></button>

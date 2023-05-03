@@ -34,7 +34,7 @@
 			<tr>
 				<td><a asp-fragment="@review.ReviewId" asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Title</a></td>
 				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
-				<td>@review.User.Userinfo.Firstname @review.User.Userinfo.Lastname</td>
+				<td>@review.IdNavigation.UserName</td>
 				<td>@review.Created</td>
 				@if (true @* TODO Admin session*@)
 				{

@@ -53,8 +53,8 @@ namespace Coolbooks.Pages.Books
 
             Reviews = _db.Reviews
             .Where(r => r.BookId == id)
-            .Include(r => r.User)
-            .ThenInclude(u => u.Userinfo)
+            .Include(r => r.IdNavigation) 
+            // -------------------------------------
             .Include(l => l.Likes) //Ta bort om det strular... Denna rad används inte just nu.
             .OrderByDescending(x => x.Created)
             .ToList();
@@ -77,9 +77,9 @@ namespace Coolbooks.Pages.Books
     select like
     ).Count();
 
-
-            Comments = _db.Comments.Include(x => x.User)
-                .ThenInclude(u => u.Userinfo)
+            // ----------------------------------------------------------------
+            Comments = _db.Comments.Include(x => x.IdNavigation)
+            
                 .Include(r => r.Review)
                 .Where(r => r.Review.BookId == id)
                 .OrderByDescending(x => x.Created);
@@ -87,10 +87,10 @@ namespace Coolbooks.Pages.Books
         }
         public async Task<IActionResult> OnPostLike(Like like, int id)
         {
-            int bookId = id;
+            int bookId = id;  // ---------------------------     
 
-            var likeFromDb = _db.Likes.FirstOrDefault(x => x.UserId == like.UserId && x.ReviewId == like.ReviewId);
-
+            var likeFromDb = _db.Likes.FirstOrDefault(x => x.IdNavigation == like.IdNavigation && x.ReviewId == like.ReviewId);
+                              
             if (likeFromDb != null)
             {
                 if (likeFromDb.Like1 == "Like" && like.Like1 == "Dislike")

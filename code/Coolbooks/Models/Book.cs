@@ -9,7 +9,7 @@ public partial class Book
 {
     public int BookId { get; set; }
 
-    public int? UserId { get; set; }
+    public string Id { get; set; }
 
     public int? AuthorId { get; set; }
 
@@ -31,7 +31,7 @@ public partial class Book
 
     public virtual Genre Genre { get; set; }
 
-    public virtual ICollection<Review> Reviews { get; } = new List<Review>();
+    public virtual AspNetUser IdNavigation { get; set; }
 
-    public virtual SiteUser User { get; set; }
+    public virtual ICollection<Review> Reviews { get; } = new List<Review>();
 }

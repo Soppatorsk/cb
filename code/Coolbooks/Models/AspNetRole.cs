@@ -5,21 +5,15 @@ using System.Collections.Generic;
 
 namespace Coolbooks.Models;
 
-public partial class Like
+public partial class AspNetRole
 {
-    public int LikeId { get; set; }
-
     public string Id { get; set; }
 
-    public int? ReviewId { get; set; }
+    public string Name { get; set; }
 
-    public int? CommentId { get; set; }
+    public string NormalizedName { get; set; }
 
-    public string Like1 { get; set; }
-
-    public virtual Comment Comment { get; set; }
+    public string ConcurrencyStamp { get; set; }
 
     public virtual AspNetUser IdNavigation { get; set; }
-
-    public virtual Review Review { get; set; }
 }
