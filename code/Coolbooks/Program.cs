@@ -37,7 +37,7 @@ namespace Coolbooks
                 .AddEntityFrameworkStores<CoolbooksContext>();
             builder.Services.AddRazorPages(Options =>
             {
-              //  Options.Conventions.AuthorizeFolder("/");
+                //Options.Conventions.AuthorizeFolder("/");
                 Options.Conventions.AllowAnonymousToPage("/Login/Login");
             });
 

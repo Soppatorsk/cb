@@ -78,8 +78,7 @@ namespace Coolbooks.Pages.Books
     ).Count();
 
             // ----------------------------------------------------------------
-            Comments = _db.Comments.Include(x => x.IdNavigation)
-            
+            Comments = _db.Comments.Include(x => x.IdNavigation)          
                 .Include(r => r.Review)
                 .Where(r => r.Review.BookId == id)
                 .OrderByDescending(x => x.Created);
@@ -89,7 +88,7 @@ namespace Coolbooks.Pages.Books
         {
             int bookId = id;  // ---------------------------     
 
-            var likeFromDb = _db.Likes.FirstOrDefault(x => x.IdNavigation == like.IdNavigation && x.ReviewId == like.ReviewId);
+            var likeFromDb = _db.Likes.FirstOrDefault(x => x.Id == like.Id && x.ReviewId == like.ReviewId);
                               
             if (likeFromDb != null)
             {
