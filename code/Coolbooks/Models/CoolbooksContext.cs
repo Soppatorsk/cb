@@ -2,18 +2,19 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coolbooks.Models;
 
-public partial class CoolbooksContext : DbContext
+public partial class CoolbooksContext : DbContext 
 {
     public CoolbooksContext(DbContextOptions<CoolbooksContext> options)
         : base(options)
     {
     }
 
-
+    public virtual DbSet<IdentityUser> IdentityUser { get; set; }
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
