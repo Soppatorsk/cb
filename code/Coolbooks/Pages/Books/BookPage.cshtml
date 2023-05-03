@@ -48,7 +48,7 @@
         @foreach (var review in Model.Reviews)
         {
             <div id="@review.ReviewId" class="col-md-4 d-flex" style=" margin-top:3em; width:30em;">
-                <h5 style="margin-right:10px;">@review.User.Userinfo.Firstname @review.User.Userinfo.Lastname</h5>
+                <h5 style="margin-right:10px;">@review.IdNavigation.UserName  </h5>
             @{
             int starCounterR = 5;
 
@@ -94,13 +94,14 @@
                 //Prints out all the buttons depending on different statements.
         //INSTEAD OF 2 IN THE IF STATEMENT INSERT THE USER ID FROM THE SESSION
                 //DONT FORGET TO ADD IT IN THE FORMS BELOW TOO.
-                if (like.UserId == 2 && like.ReviewId == review.ReviewId)
+                if (like.Id == "2" && like.ReviewId == review.ReviewId)
+                // From int 2 to string "2" --------------------------------------------------------------------------
                 {
                     if(like.Like1 == "Like")
                     {
                         <form method="post">
                             <input hidden asp-for="@Model.Like.LikeId">
-                            <input asp-for="@Model.Like.UserId" type="hidden" value="2">
+                            <input asp-for="@Model.Like.Id" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Like">
                             <button type="submit" asp-page-handler="Like" class="btn btn-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up">@likeSummary</i></button>
@@ -108,7 +109,7 @@
 
                         <form method="post">
                             <input hidden asp-for="@Model.Like.LikeId">
-                            <input asp-for="@Model.Like.UserId" type="hidden" value="2">
+                            <input asp-for="@Model.Like.Id" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Dislike">
                             <button type="submit" asp-page-handler="Like" class="btn btn-outline-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down">@dislikeSummary</i></button>
@@ -120,7 +121,7 @@
                     {
                         <form method="post">
                             <input hidden asp-for="@Model.Like.LikeId">
-                            <input asp-for="@Model.Like.UserId" type="hidden" value="2">
+                            <input asp-for="@Model.Like.Id" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Like">
                             <button type="submit" asp-page-handler="Like" class="btn btn-outline-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up">@likeSummary</i></button>
@@ -128,7 +129,7 @@
 
                         <form method="post">
                             <input hidden asp-for="@Model.Like.LikeId">
-                            <input asp-for="@Model.Like.UserId" type="hidden" value="2">
+                            <input asp-for="@Model.Like.Id" type="hidden" value="2">
                             <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                             <input asp-for="@Model.Like.Like1" type="hidden" value="Dislike">
                             <button type="submit" asp-page-handler="Like" class="btn btn-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down">@dislikeSummary</i></button>
@@ -144,7 +145,7 @@
             {
                 <form method="post">
                     <input hidden asp-for="@Model.Like.LikeId">
-                    <input asp-for="@Model.Like.UserId" type="hidden" value="2">
+                    <input asp-for="@Model.Like.Id" type="hidden" value="2">
                     <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                     <input asp-for="@Model.Like.Like1" type="hidden" value="Like">
                     <button type="submit" asp-page-handler="Like" class="btn btn-outline-primary" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-up"></i></button>
@@ -152,7 +153,7 @@
 
                 <form method="post">
                     <input hidden asp-for="@Model.Like.LikeId">
-                    <input asp-for="@Model.Like.UserId" type="hidden" value="2">
+                    <input asp-for="@Model.Like.Id" type="hidden" value="2">
                     <input asp-for="@Model.Like.ReviewId" type="hidden" value="@review.ReviewId">
                     <input asp-for="@Model.Like.Like1" type="hidden" value="Dislike">
                     <button type="submit" asp-page-handler="Like" class="btn btn-outline-danger" asp-route-id="@Model.Book.BookId" asp-page="BookPage" placeholder="Like"><i class="bi bi-hand-thumbs-down"></i></button>
@@ -167,7 +168,7 @@
                     <label>Olle Persson</label>
                     <br>
                     <input hidden asp-for="@Model.Comment.Status" value="Public">
-                    <input asp-for="@Model.Comment.UserId" type="hidden" value="2">
+                    <input asp-for="@Model.Comment.Id" type="hidden" value="@Model.Comment.Id">
                     <input asp-for="@Model.Comment.ReviewId" type="hidden" value="@review.ReviewId">
                     <input asp-for="@Model.Comment.Created" type="hidden" value="@DateTime.Now">
                     <textarea asp-for="@Model.Comment.Text" class="form-control" aria-label="With textarea"></textarea>
@@ -183,7 +184,7 @@
                         {
                             if (comment.ReviewId == review.ReviewId)
                             {
-                                <p style="font-weight:bold;">@comment.User.Userinfo.Firstname @comment.User.Userinfo.Lastname</p>
+                                <p style="font-weight:bold;">@comment.IdNavigation.UserName</p>
                                 <p>@comment.Text</p>
                                 <hr />
                             }

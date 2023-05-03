@@ -37,7 +37,7 @@ namespace Coolbooks.Pages.Reviews
 			Review.Status = "Public";
 
 			//TODO user
-			Review.UserId = 1;
+			//Review.UserId = 1;
 
 			Review.Created = DateTime.Now;
 			Review.BookId = id;

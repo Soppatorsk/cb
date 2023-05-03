@@ -11,7 +11,7 @@ public partial class Review
 
     public int? BookId { get; set; }
 
-    public int? UserId { get; set; }
+    public string Id { get; set; }
 
     public string Title { get; set; }
 
@@ -27,7 +27,7 @@ public partial class Review
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
 
-    public virtual ICollection<Like> Likes { get; } = new List<Like>();
+    public virtual AspNetUser IdNavigation { get; set; }
 
-    public virtual SiteUser User { get; set; }
+    public virtual ICollection<Like> Likes { get; } = new List<Like>();
 }

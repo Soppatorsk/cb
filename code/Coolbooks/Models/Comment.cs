@@ -15,11 +15,13 @@ public partial class Comment
 
     public string Text { get; set; }
 
-    public int? UserId { get; set; }
+    public string Id { get; set; }
 
     public string Status { get; set; }
 
     public DateTime? Created { get; set; }
+
+    public virtual AspNetUser IdNavigation { get; set; }
 
     public virtual ICollection<Comment> InverseParentComment { get; } = new List<Comment>();
 
@@ -28,6 +30,4 @@ public partial class Comment
     public virtual Comment ParentComment { get; set; }
 
     public virtual Review Review { get; set; }
-
-    public virtual SiteUser User { get; set; }
 }

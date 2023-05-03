@@ -11,7 +11,7 @@ namespace Coolbooks.Pages.Reviews
     {
         public Book? Book { get; set; }
         public Review? Review { get; set; }
-        public SiteUser? SiteUser { get; set; }
+        public AspNetUser? AspNetUser { get; set; }
         public Like NewLike = new Like();
 
         public Like ExistantUserLike { get; set; }
@@ -37,12 +37,12 @@ namespace Coolbooks.Pages.Reviews
                 .Include("Author")
                 .FirstOrDefault(b => b.BookId == Review.BookId);
 
-            SiteUser = _db.SiteUsers
-                .Include("Userinfo")
-                .FirstOrDefault(b => b.UserId == Review.UserId);
+            AspNetUser = _db.AspNetUsers
 
-            UserFullName = SiteUser.Userinfo.Firstname + " " + SiteUser.Userinfo.Lastname;
-            AuthorFullName = Review.Book.Author.Firstname + " " + Review.Book.Author.Lastname;
+              .FirstOrDefault(b => b.Id == Review.Id);
+
+            UserFullName = AspNetUser.UserName ;
+            AuthorFullName = Review.Book.Author.Firstname  ;
 
             //Likes
             Likes = _db.Likes.Where(x => x.ReviewId == id && x.Like1 == "Like")
@@ -51,7 +51,7 @@ namespace Coolbooks.Pages.Reviews
             Dislikes = _db.Likes.Where(x => x.ReviewId == id && x.Like1 == "Dislike")
                 .Count();
 
-            ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id && x.UserId == 1).FirstOrDefault();
+            ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id ).FirstOrDefault();
 
             //Comments
             Comments = _db.Comments.Include("User.Userinfo").Where(x => x.ReviewId == id).ToList();
@@ -102,7 +102,7 @@ namespace Coolbooks.Pages.Reviews
                 NewLike.Like1 = Request.Form["Vote"];
 
                 //TODO user
-                NewLike.UserId = 1;
+                //NewLike.UserId = 1; ---------------------------
 
                 if (ExistantUserLike == null) _db.Add(NewLike);
                 _db.SaveChanges();
@@ -126,7 +126,7 @@ namespace Coolbooks.Pages.Reviews
             }
 
             //TODO user
-            Comment.UserId = 1;
+            //Comment.UserId = 1; --------------------------------
 
             _db.Add(Comment);
             _db.SaveChanges();
