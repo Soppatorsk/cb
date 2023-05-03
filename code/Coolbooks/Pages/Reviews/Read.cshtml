@@ -44,7 +44,7 @@ else
 		<i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
 	}
 	<br />
-	A review by @Model.UserFullName on @Model.Review.Created
+	A review by @Model.Review.IdNavigation.UserName on @Model.Review.Created
 	<br />
 	<br />
 	<div style="">
@@ -103,7 +103,7 @@ else
 <form style="display:none" id="ReviewCommentForm" asp-page-handler="Comment" method="POST">
 	<p id="CommentFormIndicator">Commenting on review</p>
 	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
-	<input type="hidden" name="UserID" value="1" @*TODO user*@ />
+	<input type="hidden" name="UserID" value="@Model.tmpUser.Id" @*TODO user*@ />
 	<input type="hidden" name="CommentParentId" id="CommentParentId" value="" />
 	<textarea name="text"></textarea>
 	<br />

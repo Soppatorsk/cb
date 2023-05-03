@@ -12,6 +12,7 @@ namespace Coolbooks.Pages.Reviews
 		public Book Book { get; set; }
 		public Review Review = new Review();
 		public string AuthorFullName = string.Empty;
+		public AspNetUser tmpUser { get; set; }
 		public WriteModel(CoolbooksContext db) => _db = db;
 		public void OnGet(int id)
 		{
@@ -25,6 +26,9 @@ namespace Coolbooks.Pages.Reviews
 		}
 		public void OnPost(int id)
 		{
+			//get tmp user
+			tmpUser = _db.AspNetUsers.FirstOrDefault();
+
 			//TODO redirect instead?
 		Book = _db.Books
 	   .Include("Genre")
@@ -37,8 +41,7 @@ namespace Coolbooks.Pages.Reviews
 			Review.Status = "Public";
 
 			//TODO user
-			//Review.UserId = 1;
-
+			Review.Id = tmpUser.Id;
 			Review.Created = DateTime.Now;
 			Review.BookId = id;
 			_db.Add(Review);
