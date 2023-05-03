@@ -12,6 +12,7 @@ namespace Coolbooks.Pages.Reviews
         public Book? Book { get; set; }
         public Review? Review { get; set; }
         public AspNetUser? AspNetUser { get; set; }
+        public AspNetUser tmpUser { get; set; }
         public Like NewLike = new Like();
 
         public Like ExistantUserLike { get; set; }
@@ -28,6 +29,8 @@ namespace Coolbooks.Pages.Reviews
 
         public void LoadPage(int id)
         {
+            //TODO tmp
+            tmpUser = _db.AspNetUsers.FirstOrDefault();
 
             Review = _db.Reviews
            .Include("Book")
@@ -54,7 +57,10 @@ namespace Coolbooks.Pages.Reviews
             ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id ).FirstOrDefault();
 
             //Comments
-            Comments = _db.Comments.Include("User.Userinfo").Where(x => x.ReviewId == id).ToList();
+            //TODO
+            Comments = _db.Comments.Include("IdNavigation")
+                .Where(x => x.ReviewId == id)
+                .ToList();
         }
         public void OnGet(int id)
         {
@@ -102,7 +108,7 @@ namespace Coolbooks.Pages.Reviews
                 NewLike.Like1 = Request.Form["Vote"];
 
                 //TODO user
-                //NewLike.UserId = 1; ---------------------------
+                NewLike.Id = tmpUser.Id; 
 
                 if (ExistantUserLike == null) _db.Add(NewLike);
                 _db.SaveChanges();
@@ -126,7 +132,7 @@ namespace Coolbooks.Pages.Reviews
             }
 
             //TODO user
-            //Comment.UserId = 1; --------------------------------
+            Comment.Id = tmpUser.Id; 
 
             _db.Add(Comment);
             _db.SaveChanges();

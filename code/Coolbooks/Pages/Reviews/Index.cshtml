@@ -2,7 +2,6 @@
 @model Coolbooks.Pages.Reviews.IndexModel
 @{
 }
-
 <tbody>
 	@*
 	<a href="reviews/write?id=1">Review book 1</a>
@@ -34,7 +33,7 @@
 			<tr>
 				<td><a asp-route-id="@review.ReviewId" asp-page="/Reviews/Read">@review.Title</a></td>
 				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
-				<td>@review.IdNavigation.UserName</td>
+				<td>@review.IdNavigation.UserName</td> @*TODO User*@
 				<td>@review.Created</td>
 				@if (true @* TODO Admin session*@)
 				{
