@@ -77,3 +77,7 @@ Några har fortsatt med de nya kundkraven medan andra fortsatt med de redan exis
 Fredag 28:e april
 Idag har vi pratat lite om vilket betyg vi skall gå för. Det har ändrat sig lite från när vi började med arbetet.
 Därefter har vi arbetat på var sin kant.
+
+Tisdag 2:e maj
+Vi har gått igenom G-kraven för att säkerställe att vi gjort/har bra koll vad som behövs göra. 
+Vi har också  dsikuterat inloggningen och kommit fram till att få 

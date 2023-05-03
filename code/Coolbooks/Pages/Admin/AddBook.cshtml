@@ -30,6 +30,7 @@
             }
         </select>
         @*Add file to directory and add filepath as string to db*@
+        <br />
         <input type="file" name="postedFile" required />
 
         <br/>
@@ -46,11 +47,11 @@
         <input asp-for="Book.Created" type="hidden" value="@DateTime.Now" />
   
         <input asp-for="Book.IsDeleted" type="hidden" value="false"/>
-        <input asp-for="Book.Id" type="hidden" value=1/> @*AFTER LOGIN, THIS HAS TO BE MODIFIED*@
+        <input asp-for="Book.Id" type="hidden" value="d6dfecf2-3d7e-46f5-bac6-528e1de2c92b"/> @*AFTER LOGIN, THIS HAS TO BE MODIFIED*@
         
     </div>
     <br />
-    @*<button type="submit" class="btn btn-primary" asp-page-handler="Add" asp-page="AddBook">Add book</button>*@
+   
     <input type="submit" value="Add book" class="btn btn-primary" asp-page-handler="Update" asp-page="AddBook" />
 </form>
 <br />
