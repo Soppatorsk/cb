@@ -63,6 +63,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/ChoiceAwards/ChoiceAwardsPage">Choice Awards</a>
                         </li>
+                        <partial name="_LoginPartial" />
                         @*dropdown*@
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
@@ -86,9 +87,10 @@
                     </ul>
 
                 </div>
+
+@*
                 <div class=" align-content-end ">
-                    @*Visar användarnamn om inloggad*@
-                    @if (!User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated)
                     {
 
                         <p>@User.Identity.Name, you're looking good! </p>
@@ -99,6 +101,7 @@
                         <a asp-page="/Login/Login">Sign in</a>
                     }
 
+*@
                 </div>
             </div>
         </nav>
