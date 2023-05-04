@@ -4,7 +4,6 @@
 
 }
 @* TODO check if id in database, else 404*@
-<h1>You are @User.Identity.Name</h1>
 @*Remove a review*@
 @if (Model.Review.Status == "Removed")
 {
@@ -104,7 +103,7 @@ else
 <form style="display:none" id="ReviewCommentForm" asp-page-handler="Comment" method="POST">
 	<p id="CommentFormIndicator">Commenting on review</p>
 	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
-	<input type="hidden" name="UserID" value="@User.Identity.Name" @*TODO user*@ />
+	<input type="hidden" name="UserID" value="@Model.UserId" @*TODO user*@ />
 	<input type="hidden" name="CommentParentId" id="CommentParentId" value="" />
 	<textarea name="text"></textarea>
 	<br />
