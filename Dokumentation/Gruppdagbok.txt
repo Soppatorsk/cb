@@ -80,7 +80,8 @@ Därefter har vi arbetat på var sin kant.
 
 Tisdag 2:e maj
 Vi har gått igenom G-kraven för att säkerställe att vi gjort/har bra koll vad som behövs göra. 
-Vi har också  dsikuterat inloggningen och gemensamt debuggat Identity.
+Vi har också  diskuterat inloggningen och gemensamt debuggat Identity.
 
 Onsdag 3:e maj
+Försökt att gemensamt få till inloggningen med vår fungerande sida. Det vill sig inte.
 
