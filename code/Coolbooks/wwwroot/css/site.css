@@ -21,6 +21,12 @@ body {
   margin-bottom: 60px;
 }
 
+/* Review index */
+
+.imageThumbnail img {
+    width:30px;
+}
+
 /*Custom made derp form thead front page*/
 
 .home-main-container {

@@ -85,3 +85,7 @@ Vi har också  diskuterat inloggningen och gemensamt debuggat Identity.
 Onsdag 3:e maj
 Försökt att gemensamt få till inloggningen med vår fungerande sida. Det vill sig inte.
 
+Torsdag 4:e maj
+Idag har vi haft en stor breakthrough gällande inloggningen. Vi har arbetat primärt med inloggning och 
+Identity-funktionaliteten samt småpolerat på andra grejer.
+

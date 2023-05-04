@@ -27,7 +27,7 @@ namespace Coolbooks.Pages
             _db.Genres.Add(Genre);
             await _db.SaveChangesAsync();
 
-            return RedirectToPage("/Admin/Index");
+            return RedirectToPage("/Admin/AddGenre");
         }
 
         public class ListGenres

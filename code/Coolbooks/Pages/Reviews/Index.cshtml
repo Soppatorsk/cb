@@ -2,6 +2,10 @@
 @model Coolbooks.Pages.Reviews.IndexModel
 @{
 }
+<head>
+	<script src="~/js/site.js"></script>
+	<link type="text/css" src="~/css/site.css" />
+</head>
 <tbody>
 	@*
 	<a href="reviews/write?id=1">Review book 1</a>
@@ -19,6 +23,7 @@
 		<tr>
 			<th>Review Title</th>
 			<th>Book</th>
+			<th>Thumbnail</th>
 			<th>User</th>
 			<th>Date</th>
 			@if (true@*TODO Admin session*@)
@@ -33,6 +38,7 @@
 			<tr>
 				<td><a asp-route-id="@review.ReviewId" asp-page="/Reviews/Read">@review.Title</a></td>
 				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
+				<td id="@review.ReviewId" class="imageThumbnail"><script>getImage("@review.Book.Imagepath", "@review.ReviewId")</script></td>
 				<td>@review.IdNavigation.UserName</td> @*TODO User*@
 				<td>@review.Created</td>
 				@if (true @* TODO Admin session*@)
@@ -51,5 +57,4 @@
 		}
 	</table>
 </tbody>
-
 
