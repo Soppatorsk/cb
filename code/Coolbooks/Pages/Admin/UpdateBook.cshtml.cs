@@ -15,8 +15,9 @@ namespace Coolbooks.Pages.Admin
         public Book? Book { get; set; }
         public IEnumerable<Author>? AuthorList { get; set; }
         public IEnumerable<Genre>? GenreList { get; set; }
+		public bool Taken { get; set; }
 
-        private readonly IWebHostEnvironment _environment;
+		private readonly IWebHostEnvironment _environment;
 
         public List<string> FileList { get; set; }
 
@@ -80,7 +81,10 @@ namespace Coolbooks.Pages.Admin
             }
 
 
-            if (test)
+			var isbnTaken = await _db.Books.FirstOrDefaultAsync(x => x.Isbn == book.Isbn);
+
+
+			if (test)
             {
                 book.Imagepath = "/Images/" + filename;
             }
@@ -89,11 +93,26 @@ namespace Coolbooks.Pages.Admin
                 book.Imagepath = filename;
             }
 
+			if (isbnTaken != null)
+			{
+				ModelState.AddModelError("Book.Isbn", "There is already a book with this ISBN");
+				string errorMsg = "There is already a book with this ISBN";
+				//return Page();
+				return RedirectToPage("AddBook", new { isTaken = errorMsg });
+			}
+			else
+			{
+				//book.Imagepath = "/Images/" + filename;
+
+				_db.Books.Update(book);
+				await _db.SaveChangesAsync();
+				return RedirectToPage("UpdateBook", new { id = book.BookId });
+			}
 
 
-            _db.Books.Update(book);
-            await _db.SaveChangesAsync();
-            return RedirectToPage("UpdateBook", new { id = book.BookId });
+			//_db.Books.Update(book);
+   //         await _db.SaveChangesAsync();
+   //         return RedirectToPage("UpdateBook", new { id = book.BookId });
         }
     }
 }
