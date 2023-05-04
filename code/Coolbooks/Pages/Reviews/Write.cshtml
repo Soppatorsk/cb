@@ -2,6 +2,7 @@
 @model Coolbooks.Pages.Reviews.WriteModel
 @{
 }
+@Model.UserId
 
 @*TODO user logged in? redirect or warn*@
 @*TODO id check*@
@@ -25,13 +26,14 @@
 	</select>
 	<br />
 	<br />
+	Submit as @User.Identity.Name:
+	<br />
 	<button type="submit">Submit</button>
 </form>
 <br />
 <img style="width: 20vw" src="@Model.Book.Imagepath" />
 <p>
 	@Model.Book.Title by @Model.AuthorFullName <br />
-	Review by [USERNAME]
-	@*TODO user*@
+	Review by @User.Identity.Name
 </p>
 

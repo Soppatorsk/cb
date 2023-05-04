@@ -1,9 +1,12 @@
 using Azure.Identity;
 using Coolbooks.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace Coolbooks.Pages.Reviews
 {
@@ -13,6 +16,7 @@ namespace Coolbooks.Pages.Reviews
         public Review? Review { get; set; }
         public AspNetUser? AspNetUser { get; set; }
         public AspNetUser tmpUser { get; set; }
+		public string UserId { get; set; }
         public Like NewLike = new Like();
 
         public Like ExistantUserLike { get; set; }
@@ -29,8 +33,11 @@ namespace Coolbooks.Pages.Reviews
 
         public void LoadPage(int id)
         {
-            //TODO tmp
-            tmpUser = _db.AspNetUsers.FirstOrDefault();
+
+			UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			//TODO tmp
+			tmpUser = _db.AspNetUsers.FirstOrDefault();
 
             Review = _db.Reviews
            .Include("Book")
@@ -108,7 +115,7 @@ namespace Coolbooks.Pages.Reviews
                 NewLike.Like1 = Request.Form["Vote"];
 
                 //TODO user
-                NewLike.Id = tmpUser.Id; 
+                NewLike.Id = UserId; 
 
                 if (ExistantUserLike == null) _db.Add(NewLike);
                 _db.SaveChanges();
@@ -132,7 +139,7 @@ namespace Coolbooks.Pages.Reviews
             }
 
             //TODO user
-            Comment.Id = tmpUser.Id; 
+            Comment.Id = UserId; 
 
             _db.Add(Comment);
             _db.SaveChanges();
