@@ -26,7 +26,7 @@ namespace Coolbooks.Pages.Reviews
 		}
 		public void OnPost(int id)
 		{
-			//get tmp user
+			//TODO get tmp user
 			tmpUser = _db.AspNetUsers.FirstOrDefault();
 
 			//TODO redirect instead?

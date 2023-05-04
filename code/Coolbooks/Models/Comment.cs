@@ -23,9 +23,9 @@ public partial class Comment
 
     public virtual AspNetUser IdNavigation { get; set; }
 
-    public virtual ICollection<Comment> InverseParentComment { get; } = new List<Comment>();
+    public virtual ICollection<Comment> InverseParentComment { get; set; } = new List<Comment>();
 
-    public virtual ICollection<Like> Likes { get; } = new List<Like>();
+    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
 
     public virtual Comment ParentComment { get; set; }
 

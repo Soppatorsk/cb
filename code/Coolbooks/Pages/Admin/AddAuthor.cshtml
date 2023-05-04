@@ -3,6 +3,20 @@
 
 
 
+<br />
+<br />
+@*<form method="post" asp-page-handler="SelectAuthors">
+    <label for="currentAuthors"><h4>Current list of authors</h4></label>
+    <br />
+    <br />
+    <select id="currentAuhtorss" name="SelectAuthors" multiple size="10">
+        @foreach (var auth in Model.Authors.OrderBy(a => a.Lastname))
+        {
+            <option value="@auth.Lastname, @auth.Firstname">@auth.Lastname, @auth.Firstname</option>
+        }
+    </select>
+    <button type="submit">Submit</button>
+</form>*@
 
 <h4>Add new author</h4>
 <br>
@@ -20,7 +34,6 @@
     <button type="submit" class="btn btn-primary">Add author</button>
 </form>
 
-@*Current list of authors*@
 <table width="100%" class="table table-bordered table-striped">
     <thead>
         <tr>

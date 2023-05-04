@@ -25,9 +25,9 @@ public partial class Review
 
     public virtual Book Book { get; set; }
 
-    public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     public virtual AspNetUser IdNavigation { get; set; }
 
-    public virtual ICollection<Like> Likes { get; } = new List<Like>();
+    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
 }

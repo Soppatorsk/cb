@@ -5,11 +5,15 @@ using System.Collections.Generic;
 
 namespace Coolbooks.Models;
 
-public partial class Genre
+public partial class AspNetUserToken
 {
-    public int GenreId { get; set; }
+    public string UserId { get; set; }
+
+    public string LoginProvider { get; set; }
 
     public string Name { get; set; }
 
-    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+    public string Value { get; set; }
+
+    public virtual AspNetUser User { get; set; }
 }

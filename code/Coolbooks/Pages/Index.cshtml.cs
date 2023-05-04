@@ -1,27 +1,20 @@
-﻿using Coolbooks.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace Coolbooks.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly CoolbooksContext _db;
+        private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(CoolbooksContext db)
+        public IndexModel(ILogger<IndexModel> logger)
         {
-           
+            _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public void OnGet()
         {
-            if(User.Identity.IsAuthenticated)
-            {
-                _db.Userinfos.Include("SiteUser");
-                return Page();
-            }
-            return Challenge();
+
         }
     }
 }

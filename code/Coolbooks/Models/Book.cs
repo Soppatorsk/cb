@@ -31,7 +31,5 @@ public partial class Book
 
     public virtual Genre Genre { get; set; }
 
-    public virtual AspNetUser IdNavigation { get; set; }
-
-    public virtual ICollection<Review> Reviews { get; } = new List<Review>();
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

@@ -55,10 +55,10 @@ namespace Coolbooks.Pages
             //if (isbnTaken)
             if (isbnTaken != null)
             {
-                //ModelState.AddModelError("Book.Isbn", "There is already a book with this ISBN");
-                //string errorMsg = "There is already a book with this ISBN";
-                
-                return RedirectToPage("AddBook", new {isTaken = true } );
+                ModelState.AddModelError("Book.Isbn", "There is already a book with this ISBN");
+                string errorMsg = "There is already a book with this ISBN";
+                //return Page();
+                return RedirectToPage("AddBook", new {isTaken = errorMsg } );
             }
             else
             {
@@ -77,16 +77,28 @@ namespace Coolbooks.Pages
 
         }
 
-        public void OnGet(bool isTaken)
+        public void OnGet(string isTaken)
         {
             Books = _db.Books.Include("Author").Include("Genre").ToList();
-            Authors = _db.Authors.ToList();
+            Authors = _db.Authors.ToList(); //nytt
             Genres = _db.Genres.ToList();
 
-            if (isTaken == false)
+
+            if (isTaken == null)
             {
                 Taken = true;
             }
+
+
+            //var imageFolder = Path.Combine(_environment.WebRootPath, "Images");
+            //var imageFiles = Directory.GetFiles(imageFolder)
+            //    .Where(file => Path.GetExtension(file).ToLower() == ".jpg"
+            //                               || Path.GetExtension(file).ToLower() == ".png");
+
+            //foreach (var file in imageFiles)
+            //{
+            //    FileList.Add(Path.GetFileName(file));
+            //}
 
         }
     }

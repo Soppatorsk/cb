@@ -2,22 +2,28 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coolbooks.Models;
 
-public partial class CoolbooksContext : DbContext 
+public partial class CoolbooksContext : DbContext
 {
     public CoolbooksContext(DbContextOptions<CoolbooksContext> options)
         : base(options)
     {
     }
 
-    public virtual DbSet<IdentityUser> IdentityUser { get; set; }
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
+    public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
+
     public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+
+    public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+
+    public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+
+    public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
 
     public virtual DbSet<Author> Authors { get; set; }
 
@@ -31,34 +37,88 @@ public partial class CoolbooksContext : DbContext
 
     public virtual DbSet<Review> Reviews { get; set; }
 
-    public virtual DbSet<SiteUser> SiteUsers { get; set; }
-
-    public virtual DbSet<Userinfo> Userinfos { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AspNetRole>(entity =>
         {
+            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedName] IS NOT NULL)");
+
             entity.Property(e => e.Name).HasMaxLength(256);
             entity.Property(e => e.NormalizedName).HasMaxLength(256);
+        });
 
-            entity.HasOne(d => d.IdNavigation).WithOne(p => p.AspNetRole)
-                .HasForeignKey<AspNetRole>(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__AspNetRoles__Id__619B8048");
+        modelBuilder.Entity<AspNetRoleClaim>(entity =>
+        {
+            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+
+            entity.Property(e => e.RoleId).IsRequired();
+
+            entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
         });
 
         modelBuilder.Entity<AspNetUser>(entity =>
         {
+            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
             entity.Property(e => e.Email).HasMaxLength(256);
             entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
             entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
             entity.Property(e => e.UserName).HasMaxLength(256);
+
+            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AspNetUserRole",
+                    r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
+                    l => l.HasOne<AspNetUser>().WithMany().HasForeignKey("UserId"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "RoleId");
+                        j.ToTable("AspNetUserRoles");
+                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
+                    });
+        });
+
+        modelBuilder.Entity<AspNetUserClaim>(entity =>
+        {
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
+
+            entity.Property(e => e.UserId).IsRequired();
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserLogin>(entity =>
+        {
+            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
+
+            entity.Property(e => e.LoginProvider).HasMaxLength(128);
+            entity.Property(e => e.ProviderKey).HasMaxLength(128);
+            entity.Property(e => e.UserId).IsRequired();
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserToken>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+            entity.Property(e => e.LoginProvider).HasMaxLength(128);
+            entity.Property(e => e.Name).HasMaxLength(128);
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<Author>(entity =>
         {
-            entity.HasKey(e => e.AuthorId).HasName("PK__Author__70DAFC149ECBC155");
+            entity.HasKey(e => e.AuthorId).HasName("PK__Author__70DAFC14F3E8529D");
 
             entity.ToTable("Author");
 
@@ -70,7 +130,7 @@ public partial class CoolbooksContext : DbContext
 
         modelBuilder.Entity<Book>(entity =>
         {
-            entity.HasKey(e => e.BookId).HasName("PK__Book__3DE0C2279D36E751");
+            entity.HasKey(e => e.BookId).HasName("PK__Book__3DE0C2271136FEDB");
 
             entity.ToTable("Book");
 
@@ -87,20 +147,16 @@ public partial class CoolbooksContext : DbContext
 
             entity.HasOne(d => d.Author).WithMany(p => p.Books)
                 .HasForeignKey(d => d.AuthorId)
-                .HasConstraintName("FK__Book__AuthorID__44FF419A");
+                .HasConstraintName("FK__Book__AuthorID__4316F928");
 
             entity.HasOne(d => d.Genre).WithMany(p => p.Books)
                 .HasForeignKey(d => d.GenreId)
-                .HasConstraintName("FK__Book__GenreID__45F365D3");
-
-            entity.HasOne(d => d.IdNavigation).WithMany(p => p.Books)
-                .HasForeignKey(d => d.Id)
-                .HasConstraintName("FK__Book__Id__5629CD9C");
+                .HasConstraintName("FK__Book__GenreID__440B1D61");
         });
 
         modelBuilder.Entity<Comment>(entity =>
         {
-            entity.HasKey(e => e.CommentId).HasName("PK__Comment__C3B4DFAAEC7A3071");
+            entity.HasKey(e => e.CommentId).HasName("PK__Comment__C3B4DFAA50C69CB6");
 
             entity.ToTable("Comment");
 
@@ -114,7 +170,7 @@ public partial class CoolbooksContext : DbContext
 
             entity.HasOne(d => d.IdNavigation).WithMany(p => p.Comments)
                 .HasForeignKey(d => d.Id)
-                .HasConstraintName("FK__Comment__Id__5535A963");
+                .HasConstraintName("FK__Comment__Id__45F365D3");
 
             entity.HasOne(d => d.ParentComment).WithMany(p => p.InverseParentComment)
                 .HasForeignKey(d => d.ParentCommentId)
@@ -127,7 +183,7 @@ public partial class CoolbooksContext : DbContext
 
         modelBuilder.Entity<Genre>(entity =>
         {
-            entity.HasKey(e => e.GenreId).HasName("PK__Genre__0385055EF285F2D2");
+            entity.HasKey(e => e.GenreId).HasName("PK__Genre__0385055E74CEF407");
 
             entity.ToTable("Genre");
 
@@ -137,7 +193,7 @@ public partial class CoolbooksContext : DbContext
 
         modelBuilder.Entity<Like>(entity =>
         {
-            entity.HasKey(e => e.LikeId).HasName("PK__Like__A2922CF406398427");
+            entity.HasKey(e => e.LikeId).HasName("PK__Like__A2922CF442336974");
 
             entity.ToTable("Like");
 
@@ -155,16 +211,16 @@ public partial class CoolbooksContext : DbContext
 
             entity.HasOne(d => d.IdNavigation).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.Id)
-                .HasConstraintName("FK__Like__Id__5441852A");
+                .HasConstraintName("FK__Like__Id__49C3F6B7");
 
             entity.HasOne(d => d.Review).WithMany(p => p.Likes)
                 .HasForeignKey(d => d.ReviewId)
-                .HasConstraintName("FK__Like__ReviewID__49C3F6B7");
+                .HasConstraintName("FK__Like__ReviewID__4AB81AF0");
         });
 
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79AE000BFC9C");
+            entity.HasKey(e => e.ReviewId).HasName("PK__Review__74BC79AE92C7A1FA");
 
             entity.ToTable("Review");
 
@@ -177,42 +233,11 @@ public partial class CoolbooksContext : DbContext
 
             entity.HasOne(d => d.Book).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.BookId)
-                .HasConstraintName("FK__Review__BookID__4AB81AF0");
+                .HasConstraintName("FK__Review__BookID__4BAC3F29");
 
             entity.HasOne(d => d.IdNavigation).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.Id)
-                .HasConstraintName("FK__Review__Id__534D60F1");
-        });
-
-        modelBuilder.Entity<SiteUser>(entity =>
-        {
-            entity.HasKey(e => e.UserId).HasName("PK__SiteUser__1788CCAC7116D69A");
-
-            entity.ToTable("SiteUser");
-
-            entity.Property(e => e.UserId).HasColumnName("UserID");
-            entity.Property(e => e.Email).HasMaxLength(50);
-            entity.Property(e => e.PasswordHash).HasMaxLength(250);
-            entity.Property(e => e.UserinfoId).HasColumnName("UserinfoID");
-
-            entity.HasOne(d => d.Userinfo).WithMany(p => p.SiteUsers)
-                .HasForeignKey(d => d.UserinfoId)
-                .HasConstraintName("FK__SiteUser__Userin__4BAC3F29");
-        });
-
-        modelBuilder.Entity<Userinfo>(entity =>
-        {
-            entity.HasKey(e => e.UserInfoId).HasName("PK__Userinfo__D07EF2C4B6FEAD5C");
-
-            entity.ToTable("Userinfo");
-
-            entity.Property(e => e.UserInfoId).HasColumnName("UserInfoID");
-            entity.Property(e => e.Address).HasMaxLength(250);
-            entity.Property(e => e.Created).HasColumnType("date");
-            entity.Property(e => e.Firstname).HasMaxLength(50);
-            entity.Property(e => e.Lastname).HasMaxLength(50);
-            entity.Property(e => e.Phone).HasMaxLength(250);
-            entity.Property(e => e.Role).HasMaxLength(50);
+                .HasConstraintName("FK__Review__Id__4CA06362");
         });
 
         OnModelCreatingPartial(modelBuilder);

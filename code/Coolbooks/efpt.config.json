@@ -15,11 +15,31 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
+         "Name": "[dbo].[AspNetRoleClaims]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[AspNetRoles]",
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[AspNetUserClaims]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserLogins]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserRoles]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[AspNetUsers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AspNetUserTokens]",
          "ObjectType": 0
       },
       {
@@ -45,17 +65,9 @@
       {
          "Name": "[dbo].[Review]",
          "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[SiteUser]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Userinfo]",
-         "ObjectType": 0
       }
    ],
-   "UiHint": "DESKTOP-TRBSHSJ\\SQLEXPRESS.Coolbooks",
+   "UiHint": "desktop-59k5i4v\\sqlexpress.cb.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
