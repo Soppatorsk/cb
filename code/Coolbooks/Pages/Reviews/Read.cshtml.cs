@@ -1,9 +1,11 @@
 using Azure.Identity;
 using Coolbooks.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Drawing.Text;
+using System.Security.Principal;
 
 namespace Coolbooks.Pages.Reviews
 {
@@ -29,6 +31,7 @@ namespace Coolbooks.Pages.Reviews
 
         public void LoadPage(int id)
         {
+
             //TODO tmp
             tmpUser = _db.AspNetUsers.FirstOrDefault();
 
