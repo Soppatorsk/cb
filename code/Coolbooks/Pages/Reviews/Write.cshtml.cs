@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
+using System.Security.Claims;
 
 namespace Coolbooks.Pages.Reviews
 {
@@ -14,8 +15,11 @@ namespace Coolbooks.Pages.Reviews
 		public string AuthorFullName = string.Empty;
 		public AspNetUser tmpUser { get; set; }
 		public WriteModel(CoolbooksContext db) => _db = db;
+		public string UserId { get; set; }
 		public void OnGet(int id)
 		{
+			UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine(UserId);
 			//TODO check if valid BookID
 			Book = _db.Books
 	   .Include("Genre")
@@ -26,8 +30,13 @@ namespace Coolbooks.Pages.Reviews
 		}
 		public void OnPost(int id)
 		{
+			UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine(UserId);
+
 			//TODO get tmp user
 			tmpUser = _db.AspNetUsers.FirstOrDefault();
+			//TODO user
+			//Review.Id = tmpUser.Id;
 
 			//TODO redirect instead?
 		Book = _db.Books
@@ -40,9 +49,8 @@ namespace Coolbooks.Pages.Reviews
 			Review.Rating = int.Parse(Request.Form["rating"]);
 			Review.Status = "Public";
 
-			//TODO user
-			Review.Id = tmpUser.Id;
-			Review.Created = DateTime.Now;
+			Review.Id = UserId;
+            Review.Created = DateTime.Now;
 			Review.BookId = id;
 			_db.Add(Review);
 			_db.SaveChanges();
