@@ -108,11 +108,6 @@ namespace Coolbooks.Pages.Admin
 				await _db.SaveChangesAsync();
 				return RedirectToPage("UpdateBook", new { id = book.BookId });
 			}
-
-
-			//_db.Books.Update(book);
-   //         await _db.SaveChangesAsync();
-   //         return RedirectToPage("UpdateBook", new { id = book.BookId });
         }
     }
 }

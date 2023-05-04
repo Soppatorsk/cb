@@ -26,7 +26,7 @@ namespace Coolbooks.Pages
             _db.Authors.Add(Author);
             await _db.SaveChangesAsync();
 
-            return RedirectToPage("/Admin/Index");
+            return RedirectToPage("/Admin/AddAuthor");
         }
 
         public class ListAuthors
