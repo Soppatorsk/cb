@@ -1,0 +1,20 @@
+﻿@page
+@model Coolbooks.Pages.RolesManager.IndexModel
+@{
+	ViewData["Title"] = "Roles";
+}
+<a asp-page="/RolesManager/Create">New</a>
+@if (Model.Roles.Any())
+{
+	<table class="table">
+		@foreach (var role in Model.Roles)
+		{
+			<tr>
+				<td>@role.Name</td>
+			</tr>
+		}
+		<li class="nav-item">
+			<a class="nav-link text-dark" asp-area="" asp-page="/RolesManager/Create">Create</a>
+		</li>
+	</table>
+}
