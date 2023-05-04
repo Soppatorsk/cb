@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Coolbooks.Pages
 {
+    
     public class Index : PageModel
     {
         private readonly CoolbooksContext _db;
