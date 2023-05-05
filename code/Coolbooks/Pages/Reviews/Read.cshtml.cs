@@ -108,6 +108,23 @@ namespace Coolbooks.Pages.Reviews
         public void OnPostLike(int id)
         {
             LoadPage(id);
+            if (ExistantUserLike != null) //Voted already? remove or change
+            {
+                ExistantUserLike.Like1 = ExistantUserLike.Like1 == Request.Form["Vote"] ? "" : Request.Form["Vote"];
+            } else
+            {
+            Review = _db.Reviews.Where(r => r.ReviewId == id).FirstOrDefault();  
+                NewLike.ReviewId = id;
+                NewLike.Like1 = Request.Form["Vote"];
+                NewLike.Id = UserId;
+                _db.Add(NewLike);
+            }
+                _db.SaveChanges();
+        }
+
+        public void OnPostLikeBak(int id) //TODO REMOVE
+        {
+            LoadPage(id);
 
             Review = _db.Reviews.Where(r => r.ReviewId == id).FirstOrDefault();  
             

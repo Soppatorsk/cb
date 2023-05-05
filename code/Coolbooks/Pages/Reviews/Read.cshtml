@@ -55,27 +55,22 @@ else
 <div>
 <i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
 	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
-@*@if (Model.ExistantUserLike.Like1 != null)
-{
-	<p>You @Model.ExistantUserLike.Like1 this review</p>
-}
-else
-{
-	<form asp-page-handler="Like" method="POST">
-		<p>Did you like this review?</p>
-		<select name="Vote">
-			<option value="Like">Yes</option>
-			<option value="Dislike">No</option>
-		</select>
-		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
-		<button type="submit">Vote on this review</button>
-	</form>
-}*@
-
-
 </div>
 @* Comments *@
 
+<form asp-page-handler="Like" method="POST">
+		<p>Did you like this review?</p>
+		<input type="hidden" name="Vote" value="Like" id="Vote"/>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" /> 
+		<button type="submit">Like</button>
+		<button onclick="setVoteDislike()" type="submit">Dislike</button>
+	</form>
+<script type="text/javascript">
+	function setVoteDislike() {
+		var x = document.getElementById("Vote");
+		x.value = "Dislike";
+	}
+	</script>
 <br />
 <br />
 <br />
