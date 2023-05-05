@@ -1,0 +1,134 @@
+﻿@page
+@model Coolbooks.Pages.Reviews.ReadModel
+@{
+
+}
+@* TODO check if id in database, else 404*@
+@*Remove a review*@
+@if (Model.Review.Status == "Removed")
+{
+	@* TODO redirect to a error page*@
+	<p>This review has been removed</p>
+	<a asp-page="Reviews/Read">Go back to list of reviews</a>
+	@*TODO dont render rest of page*@
+}
+else if (true @*TODO if Mod+ session*@)
+{
+	<form asp-page-handler="Remove" method="POST">
+		<button class="btn btn-danger" type="submit">Remove this review</button>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	</form>
+}
+@* Flag a review if not already*@
+@if (Model.Review.Status == "Flagged")
+{
+	<p>This review has been flagged</p>
+}
+else
+{
+	<form asp-page-handler="Flag" method="POST">
+		<button type="submit">Flag this review</button>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	</form>
+}
+
+<div class="ReviewContainer">
+
+	<h1>@Model.Review.Title</h1>
+	<a asp-route-id="@Model.Review.BookId" asp-page="/Books/BookPage">@Model.Review.Book.Title</a>
+
+	by @Model.AuthorFullName
+	<br />
+	@for (int i = 1; i <= Model.Review.Rating; i++)
+	{
+		<i class="bi bi-star-fill" style="color:orange; font-size: 18px"></i>
+	}
+	<br />
+	A review by @Model.Review.IdNavigation.UserName on @Model.Review.Created
+	<br />
+	<br />
+	<div style="">
+		@Model.Review.Text
+	</div>
+</div>
+
+<div>
+<i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
+	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
+@*@if (Model.ExistantUserLike.Like1 != null)
+{
+	<p>You @Model.ExistantUserLike.Like1 this review</p>
+}
+else
+{
+	<form asp-page-handler="Like" method="POST">
+		<p>Did you like this review?</p>
+		<select name="Vote">
+			<option value="Like">Yes</option>
+			<option value="Dislike">No</option>
+		</select>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+		<button type="submit">Vote on this review</button>
+	</form>
+}*@
+
+
+</div>
+@* Comments *@
+
+<br />
+<br />
+<br />
+<div>
+	Comments on this review:
+	@foreach (var Comment in Model.Comments)
+	{
+		<div style="background-color: lightgreen" class="CommentBox">
+			<p>#@Comment.CommentId @Comment.IdNavigation.UserName @if (Comment.ParentCommentId != null) { <span> replied to >>>#@Comment.ParentCommentId</span> } on @Comment.Created:</p>
+			<p>@Comment.Text</p>
+			@if (Comment.Status == "Flagged") {	
+				<p style="color:red">This comment is flagged</p> 
+			}
+			<button class="btn btn-link" onclick="setCommentParentId(@Comment.CommentId)">Reply</button>
+			<form asp-page-handler="FlagComment" method="POST">
+			<button class="btn btn-link" type="submit"><i class="bi bi-flag-fill"></i></button>
+			<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+			<input type="hidden" name="CommentId" value="@Comment.CommentId" />
+			</form>
+		</div>
+	}
+</div>
+
+<button id="ToggleFormButton" onclick="toggleForm()">Comment on this review</button>
+<form style="display:none" id="ReviewCommentForm" asp-page-handler="Comment" method="POST">
+	<p id="CommentFormIndicator">Commenting on review</p>
+	<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	<input type="hidden" name="UserID" value="@Model.UserId" @*TODO user*@ />
+	<input type="hidden" name="CommentParentId" id="CommentParentId" value="" />
+	<textarea name="text"></textarea>
+	<br />
+	<button type="submit">Post comment</button>
+</form>
+<script>
+	function toggleForm() {
+		var x = document.getElementById("ReviewCommentForm");
+		var b = document.getElementById("ToggleFormButton");
+		if (x.style.display === "none") {
+			x.style.display = "block";
+			b.style.display = "none";
+		} else {
+			x.style.display = "none";
+			b.style.display = "block";
+		}
+	}
+
+	function setCommentParentId(id) {
+		var x = document.getElementById("CommentParentId");
+		x.setAttribute("value", id);
+		var i = document.getElementById("CommentFormIndicator");
+		i.innerText = "Replying to comment #" + id;
+		if (document.getElementById("ReviewCommentForm").style.display == "none") toggleForm();
+	}
+</script>
+
+

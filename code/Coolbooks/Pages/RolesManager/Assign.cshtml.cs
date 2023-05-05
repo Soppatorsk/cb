@@ -29,12 +29,12 @@ namespace Coolbooks.Pages.RolesManager
 	public string SelectedRole { get; set; }
 	[BindProperty, Required, Display(Name = "User")]
 	public string SelectedUser { get; set; }
-		[Authorize(Roles = "Admin")]
+
 		public async Task OnGet()
 	{
 		await GetOptions();
 	}
-		[Authorize(Roles = "Admin")]
+	
 		public async Task<IActionResult> OnPostAsync()
 	{
 		if (ModelState.IsValid)
