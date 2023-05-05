@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace Coolbooks.Pages
 {
@@ -29,6 +31,7 @@ namespace Coolbooks.Pages
 
         public async Task<IActionResult> OnPostAdd(Book book)
         {
+            
           
             await _db.Books.AddAsync(book);
             await _db.SaveChangesAsync();
@@ -79,11 +82,13 @@ namespace Coolbooks.Pages
 
         public void OnGet(string isTaken)
         {
-            Books = _db.Books.Include("Author").Include("Genre").ToList();
+   
+
+            Books = _db.Books.Include("Author").Include("Genre").ToList();        
             Authors = _db.Authors.ToList(); //nytt
             Genres = _db.Genres.ToList();
 
-
+         
             if (isTaken == null)
             {
                 Taken = true;

@@ -9,11 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Admin\Index.cshtml.cs" />
+    <Compile Remove="Pages\Admin\Upload.cshtml.cs" />
     <Compile Remove="Pages\Index.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Pages\Admin\Index.cshtml" />
+    <Content Remove="Pages\Admin\Upload.cshtml" />
     <Content Remove="Pages\Index.cshtml" />
   </ItemGroup>
 
