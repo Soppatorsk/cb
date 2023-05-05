@@ -7,6 +7,7 @@ using System.Net;
 
 namespace Coolbooks.Pages.Books
 {
+
     public class BookPageModel : PageModel
     {
         private readonly CoolbooksContext _db;

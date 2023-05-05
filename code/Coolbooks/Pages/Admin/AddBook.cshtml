@@ -15,14 +15,14 @@
         <input asp-for="Book.Title" class="form-control" required />
 
         <label asp-for="Book.Author"></label>
-        <select asp-for="@Model.Book.AuthorId" class="form-control multiple size="5" required>
+        <select asp-for="@Model.Book.AuthorId" class="form-control multiple size="5">
             <option value="" disabled selected>Choose Author</option>
             @foreach (var auth in Model.Authors)
             {<option value="@auth.AuthorId">@auth.Lastname, @auth.Firstname</option> }
         </select>
 
         <label asp-for="Book.Genre"></label>
-        <select asp-for="@Model.Book.GenreId" class="form-control multiple size="5" required>
+        <select asp-for="@Model.Book.GenreId" class="form-control multiple size="5">
             <option value="" disabled selected>Choose Genre</option>
             @foreach (var gen in Model.Genres)
             {

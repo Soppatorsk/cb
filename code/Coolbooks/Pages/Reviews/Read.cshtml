@@ -1,13 +1,8 @@
 ﻿@page
 @model Coolbooks.Pages.Reviews.ReadModel
 @{
-}
-@if (!User.Identity.IsAuthenticated)
-{
-	<p>no</p>
-	Model.LoginRedirect();
-}
 
+}
 @* TODO check if id in database, else 404*@
 @*Remove a review*@
 @if (Model.Review.Status == "Removed")
@@ -60,16 +55,12 @@ else
 <div>
 <i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
 	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
-
-@*
-
-@if (Model.ExistantUserLike.Like1 != null)
+@*@if (Model.ExistantUserLike.Like1 != null)
 {
 	<p>You @Model.ExistantUserLike.Like1 this review</p>
 }
 else
 {
-*@
 	<form asp-page-handler="Like" method="POST">
 		<p>Did you like this review?</p>
 		<select name="Vote">
@@ -79,24 +70,10 @@ else
 		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 		<button type="submit">Vote on this review</button>
 	</form>
-@*
-}
+}*@
 
-	<form asp-page-handler="Like" method="POST">
-		<p>Did you like this review?</p>
-		<input type="hidden" name="Vote" value="" id="Vote"/>
-		<button onclick="VoteOnReview()" "type="submit">Like</button>
-		<input type="hidden" name="id" value="@Model.Review.ReviewId" /> Necessary?
-	</form>
+
 </div>
-<script type="text/javascript">
-	function VoteOnReview(vote) {
-		var x = document.getElementById("Vote");
-		x.value = vote;
-	}
-</script>
-*@
-
 @* Comments *@
 
 <br />

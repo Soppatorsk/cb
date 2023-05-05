@@ -52,7 +52,7 @@ namespace Coolbooks.Pages.Reviews
               .FirstOrDefault(b => b.Id == Review.Id);
 
             UserFullName = AspNetUser.UserName ;
-            AuthorFullName = Review.Book.Author.Firstname + " " + Review.Book.Author.Lastname ;
+            AuthorFullName = Review.Book.Author.Firstname  ;
 
             //Likes
             Likes = _db.Likes.Where(x => x.ReviewId == id && x.Like1 == "Like")
@@ -144,12 +144,6 @@ namespace Coolbooks.Pages.Reviews
             _db.Add(Comment);
             _db.SaveChanges();
         }
-       public async Task<IActionResult> LoginRedirect()
-	{
-            Console.WriteLine("eeeeeeeeeeeeeeee");
-		return RedirectToPage("/Review/Index");
-	}
-
 
     }
 }
