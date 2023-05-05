@@ -12,7 +12,7 @@
 	<a asp-page="Reviews/Read">Go back to list of reviews</a>
 	@*TODO dont render rest of page*@
 }
-else if (User.IsInRole("Administrator"))
+else if (User.IsInRole("admin"))
 {
 	<form asp-page-handler="Remove" method="POST">
 		<button class="btn btn-danger" type="submit">Remove this review</button>

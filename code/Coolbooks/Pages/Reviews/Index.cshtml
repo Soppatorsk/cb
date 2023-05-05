@@ -26,7 +26,7 @@
 			<th>Thumbnail</th>
 			<th>User</th>
 			<th>Date</th>
-			@if (User.IsInRole("Administrator"))
+			@if (User.IsInRole("Admin"))
 			{
 			<th>Status</th>
 			<th>Remove</th>
@@ -41,7 +41,7 @@
 				<td id="@review.ReviewId" class="imageThumbnail"><script>getImage("@review.Book.Imagepath", "@review.ReviewId")</script></td>
 				<td>@review.IdNavigation.UserName</td> 
 				<td>@review.Created</td>
-				@if (User.IsInRole("Administrator"))
+				@if (User.IsInRole("Admin"))
 				{
 				<td>@review.Status</td>
 				<td>

@@ -110,7 +110,8 @@ namespace Coolbooks.Pages.Reviews
                 _db.Remove(ExistantUserLike);
                 if (ExistantUserLike.Like1 == Request.Form["Vote"])
                 {
-            return RedirectToPage("/Reviews/Index");
+
+            return Page();
                 }
             }
             Review = _db.Reviews.Where(r => r.ReviewId == id).FirstOrDefault();  
@@ -119,7 +120,7 @@ namespace Coolbooks.Pages.Reviews
                 NewLike.Id = UserId;
                 _db.Add(NewLike);
                 _db.SaveChanges();
-            return RedirectToPage("/Reviews/Index");
+            return Page();
         }
         public void OnPostLikeBak(int id)
         {
