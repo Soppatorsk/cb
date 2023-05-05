@@ -12,22 +12,10 @@
 	<a asp-page="Reviews/Read">Go back to list of reviews</a>
 	@*TODO dont render rest of page*@
 }
-else if (true @*TODO if Mod+ session*@)
+else if (User.IsInRole("Administrator"))
 {
 	<form asp-page-handler="Remove" method="POST">
 		<button class="btn btn-danger" type="submit">Remove this review</button>
-		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
-	</form>
-}
-@* Flag a review if not already*@
-@if (Model.Review.Status == "Flagged")
-{
-	<p>This review has been flagged</p>
-}
-else
-{
-	<form asp-page-handler="Flag" method="POST">
-		<button type="submit">Flag this review</button>
 		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
 	</form>
 }
@@ -56,8 +44,9 @@ else
 <i style="color: green" class="bi bi-hand-thumbs-up-fill"></i> @Model.Likes
 	<i style= "color: red" class="bi bi-hand-thumbs-down-fill"></i> @Model.Dislikes
 </div>
-@* Comments *@
-
+@if (User.Identity.IsAuthenticated)
+{
+	
 <form asp-page-handler="Like" method="POST">
 		<p>Did you like this review?</p>
 		<input type="hidden" name="Vote" value="Like" id="Vote"/>
@@ -65,12 +54,26 @@ else
 		<button type="submit">Like</button>
 		<button onclick="setVoteDislike()" type="submit">Dislike</button>
 	</form>
+}
 <script type="text/javascript">
 	function setVoteDislike() {
 		var x = document.getElementById("Vote");
 		x.value = "Dislike";
 	}
 	</script>
+@* Flag a review if not already*@
+@if (Model.Review.Status == "Flagged")
+{
+	<p>This review has been flagged</p>
+}
+else if (User.Identity.IsAuthenticated)
+{
+	<form asp-page-handler="Flag" method="POST">
+		<button type="submit">Flag this review</button>
+		<input type="hidden" name="id" value="@Model.Review.ReviewId" />
+	</form>
+}
+@* Comments *@
 <br />
 <br />
 <br />
@@ -94,6 +97,10 @@ else
 	}
 </div>
 
+
+@if (User.Identity.IsAuthenticated)
+{
+	
 <button id="ToggleFormButton" onclick="toggleForm()">Comment on this review</button>
 <form style="display:none" id="ReviewCommentForm" asp-page-handler="Comment" method="POST">
 	<p id="CommentFormIndicator">Commenting on review</p>
@@ -103,7 +110,11 @@ else
 	<textarea name="text"></textarea>
 	<br />
 	<button type="submit">Post comment</button>
-</form>
+	</form>
+} else
+{
+	<p>You need to be logged in to comment or vote on this review.</p>
+}
 <script>
 	function toggleForm() {
 		var x = document.getElementById("ReviewCommentForm");

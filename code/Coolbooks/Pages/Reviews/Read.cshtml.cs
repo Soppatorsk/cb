@@ -19,7 +19,7 @@ namespace Coolbooks.Pages.Reviews
 		public string UserId { get; set; }
         public Like NewLike = new Like();
 
-        public Like ExistantUserLike { get; set; }
+        public Like? ExistantUserLike { get; set; }
 
         public Comment Comment = new Comment();
         public string UserFullName { get; set; }
@@ -61,10 +61,8 @@ namespace Coolbooks.Pages.Reviews
             Dislikes = _db.Likes.Where(x => x.ReviewId == id && x.Like1 == "Dislike")
                 .Count();
 
-            ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id ).FirstOrDefault();
+            ExistantUserLike = _db.Likes.Where(x => x.ReviewId == id && x.Id == UserId ).FirstOrDefault();
 
-            //Comments
-            //TODO
             Comments = _db.Comments.Include("IdNavigation")
                 .Where(x => x.ReviewId == id)
                 .ToList();
@@ -102,10 +100,28 @@ namespace Coolbooks.Pages.Reviews
             .Where(r => r.ReviewId == id).FirstOrDefault();
             Review.Status = "Removed";
             _db.SaveChanges();
-
         }
 
-        public void OnPostLike(int id)
+        public IActionResult OnPostLike(int id)
+        {
+            LoadPage(id);
+            if (ExistantUserLike != null) //Voted already? remove or change
+            {
+                _db.Remove(ExistantUserLike);
+                if (ExistantUserLike.Like1 == Request.Form["Vote"])
+                {
+            return RedirectToPage("/Reviews/Index");
+                }
+            }
+            Review = _db.Reviews.Where(r => r.ReviewId == id).FirstOrDefault();  
+                NewLike.ReviewId = id;
+                NewLike.Like1 = Request.Form["Vote"];
+                NewLike.Id = UserId;
+                _db.Add(NewLike);
+                _db.SaveChanges();
+            return RedirectToPage("/Reviews/Index");
+        }
+        public void OnPostLikeBak(int id)
         {
             LoadPage(id);
             if (ExistantUserLike != null) //Voted already? remove or change
@@ -122,21 +138,6 @@ namespace Coolbooks.Pages.Reviews
                 _db.SaveChanges();
         }
 
-        public void OnPostLikeBak(int id) //TODO REMOVE
-        {
-            LoadPage(id);
-
-            Review = _db.Reviews.Where(r => r.ReviewId == id).FirstOrDefault();  
-            
-                NewLike.ReviewId = id;
-                NewLike.Like1 = Request.Form["Vote"];
-
-                //TODO user
-                NewLike.Id = UserId; 
-
-                if (ExistantUserLike == null) _db.Add(NewLike);
-                _db.SaveChanges();
-        }
 
         public void OnPostComment(int id)
         {
@@ -155,7 +156,6 @@ namespace Coolbooks.Pages.Reviews
                 Console.WriteLine("hehe");
             }
 
-            //TODO user
             Comment.Id = UserId; 
 
             _db.Add(Comment);

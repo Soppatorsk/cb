@@ -26,7 +26,7 @@
 			<th>Thumbnail</th>
 			<th>User</th>
 			<th>Date</th>
-			@if (true@*TODO Admin session*@)
+			@if (User.IsInRole("Administrator"))
 			{
 			<th>Status</th>
 			<th>Remove</th>
@@ -39,9 +39,9 @@
 				<td><a asp-route-id="@review.ReviewId" asp-page="/Reviews/Read">@review.Title</a></td>
 				<td><a asp-route-id="@review.BookId" asp-page="/Books/BookPage">@review.Book.Title</a></td>
 				<td id="@review.ReviewId" class="imageThumbnail"><script>getImage("@review.Book.Imagepath", "@review.ReviewId")</script></td>
-				<td>@review.IdNavigation.UserName</td> @*TODO User*@
+				<td>@review.IdNavigation.UserName</td> 
 				<td>@review.Created</td>
-				@if (true @* TODO Admin session*@)
+				@if (User.IsInRole("Administrator"))
 				{
 				<td>@review.Status</td>
 				<td>
