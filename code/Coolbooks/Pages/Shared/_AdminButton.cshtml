@@ -1,0 +1,18 @@
+﻿@*@if(User.Identity.IsAuthenticated)*@
+
+    @if (User.IsInRole("Admin"))
+{
+<div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+        Admin controls
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="/Admin/AddAuthor">Add/update author</a></li>
+        <li><a class="dropdown-item" href="/Admin/AddBook">Add/update book</a></li>
+        <li><a class="dropdown-item" href="/Admin/AddGenre">Add/update genre</a></li>
+
+        <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" asp-page="/RolesManager/Index">Manage users</a></li>
+
+    </ul>
+</div>}
