@@ -8,7 +8,7 @@ using System.Data;
 
 namespace Coolbooks.Pages.Reviews
 {
-	[Authorize(Roles = "Admin")]
+	//[Authorize(Roles = "Admin")]
 	public class IndexModel : PageModel
 	{
 		private readonly CoolbooksContext _db;
