@@ -13,6 +13,7 @@ namespace Coolbooks.Pages.RolesManager
 {
 	//[Authorize(Roles ="Admin")]
 	//[Authorize(Roles = "User,Admin,Moderator")]
+
 	public class AssignModel : PageModel
 	{
 		private readonly RoleManager<IdentityRole> _roleManager; 
@@ -37,14 +38,26 @@ namespace Coolbooks.Pages.RolesManager
 	
 		public async Task<IActionResult> OnPostAsync()
 	{
-		if (ModelState.IsValid)
-		{
-			var user = await _userManager.FindByNameAsync(SelectedUser);
-	await _userManager.AddToRoleAsync(user, SelectedRole); 
-	return RedirectToPage("/RolesManager/Index");
-		}
-		await GetOptions();
-		return Page();
+			if (!User.Identity.IsAuthenticated)
+			{
+				return RedirectToPage("/Home");
+			}
+			else if (!User.IsInRole("Admin"))
+			{
+				return RedirectToPage("/Home");
+			}
+			else
+			{
+				if (ModelState.IsValid)
+				{
+					var user = await _userManager.FindByNameAsync(SelectedUser);
+					await _userManager.AddToRoleAsync(user, SelectedRole);
+					return RedirectToPage("/RolesManager/Index");
+				}
+				await GetOptions();
+				return Page(); 
+			}
+
 	}
 	public async Task GetOptions() 
 	{
@@ -53,8 +66,31 @@ namespace Coolbooks.Pages.RolesManager
 	Roles = new SelectList(roles, nameof(IdentityRole.Name)); 
 	Users = new SelectList(users, nameof(IdentityUser.UserName));
 	}
+		public IActionResult RestrictionMethod(HttpContext Principal)
+		{
+			var Home = "/Home";
+			// Looks at IsAuthenticated and if not Authenticated return to home
+			if (!Principal.User.Identity.IsAuthenticated)
+			{
+				//If role is not Admin redirect Home
+				if (!Principal.User.IsInRole("Admin"))
+				{
+					return RedirectToPage(Home);
+				}
+				else
+				{
+					return Page();
+				}
+			}
+			else
+			{
+				return RedirectToPage("/Home");
+			}
+		}
+
 	}
-	}
+	
+}
 
 
 
