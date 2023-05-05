@@ -89,3 +89,6 @@ Torsdag 4:e maj
 Idag har vi haft en stor breakthrough gällande inloggningen. Vi har arbetat primärt med inloggning och 
 Identity-funktionaliteten samt småpolerat på andra grejer.
 
+Fredag 5:e maj
+Vi har haft presentation av vårt projekt. Därefter har vi fått till så att man kan sätta roller. Vi har också
+limiterat vad man kan se beroende på inloggad och vilken roll man har. Projektet är, enligt oss, klart.
